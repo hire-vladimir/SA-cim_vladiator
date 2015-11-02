@@ -1,0 +1,65 @@
+<form>
+  <label>CIM Dictionary</label>
+  <fieldset submitButton="true" autoRun="true">
+    <input type="text" token="field">
+      <label>Field name:</label>
+      <default>*</default>
+    </input>
+    <input type="dropdown" token="dm">
+      <label>Datamodel:</label>
+      <choice value="*">Any</choice>
+      <search>
+        <query>| inputlookup cim_dictionary.csv | stats count by datamodel</query>
+      </search>
+      <fieldForLabel>datamodel</fieldForLabel>
+      <fieldForValue>datamodel</fieldForValue>
+      <default>*</default>
+    </input>
+  </fieldset>
+  <row>
+    <panel>
+      <single>
+        <title>Field count</title>
+        <search base="cim_base">
+          <query>| stats count</query>
+        </search>
+        <option name="drilldown">none</option>
+      </single>
+    </panel>
+    <panel>
+      <single>
+        <title>Target CIM version</title>
+        <search base="cim_base">
+          <query>| stats first(cim_version)</query>
+        </search>
+        <option name="drilldown">none</option>
+      </single>
+    </panel>
+    <panel>
+      <single>
+        <title>Datamodel count</title>
+        <search base="cim_base">
+          <query>| stats dc(datamodel)</query>
+        </search>
+        <option name="drilldown">none</option>
+      </single>
+    </panel>
+  </row>
+  <row>
+    <panel>
+      <table>
+        <title>Dictionary</title>
+        <search id="cim_base">
+          <query>| inputlookup cim_dictionary.csv | search datamodel="$dm$" field="$field$"</query>
+          <earliest>0</earliest>
+          <latest></latest>
+        </search>
+        <option name="wrap">true</option>
+        <option name="rowNumbers">true</option>
+        <option name="drilldown">cell</option>
+        <option name="dataOverlayMode">none</option>
+        <option name="count">25</option>
+      </table>
+    </panel>
+  </row>
+</form>

@@ -1,0 +1,123 @@
+<form script="table_icons_rangemap_now_with_mv.js" stylesheet="table_decorations.css">
+  <label>CIM Validator</label>
+  <fieldset submitButton="true">
+    <input type="dropdown" token="search_type">
+      <label>Search type:</label>
+      <choice value="search">_raw</choice>
+      <choice value="">datamodel</choice>
+      <default>search</default>
+    </input>
+    <input type="text" token="cim_search">
+      <label>Search:</label>
+    </input>
+    <input type="dropdown" token="dm" searchWhenChanged="true">
+      <label>Target datamodel:</label>
+      <search>
+        <query>| datamodel            | spath modelName           | table modelName           | sort  modelName</query>
+      </search>
+      <fieldForLabel>modelName</fieldForLabel>
+      <fieldForValue>modelName</fieldForValue>
+      <change>
+        <unset token="form.initial"></unset>
+      </change>
+      <default>Network_Traffic</default>
+    </input>
+  </fieldset>
+  <row>
+    <panel>
+      <single>
+        <title>Total fields</title>
+        <search base="cim_base">
+          <query>| stats count</query>
+        </search>
+        <option name="drilldown">none</option>
+        <option name="colorBy">value</option>
+        <option name="colorMode">none</option>
+        <option name="numberPrecision">0</option>
+        <option name="showSparkline">1</option>
+        <option name="showTrendIndicator">1</option>
+        <option name="trendColorInterpretation">standard</option>
+        <option name="trendDisplayMode">absolute</option>
+        <option name="useColors">0</option>
+        <option name="useThousandSeparators">1</option>
+        <option name="linkView">search</option>
+      </single>
+    </panel>
+    <panel>
+      <single>
+        <title>Issue fields</title>
+        <search base="cim_base">
+          <query>| stats sum(eval(if(match(is_cim_valid, "^yes"), 0, 1))) AS bad</query>
+        </search>
+        <option name="drilldown">none</option>
+      </single>
+    </panel>
+    <panel>
+      <single>
+        <title>% CIM Compliance</title>
+        <search base="cim_base">
+          <query>| stats count sum(eval(if(match(is_cim_valid, "^low"), 0, 1))) AS bad | eval percent=round((1 -(bad/count))*100) | table percent</query>
+        </search>
+        <option name="drilldown">none</option>
+        <option name="colorBy">value</option>
+        <option name="colorMode">none</option>
+        <option name="numberPrecision">0</option>
+        <option name="showSparkline">1</option>
+        <option name="showTrendIndicator">1</option>
+        <option name="trendColorInterpretation">standard</option>
+        <option name="trendDisplayMode">absolute</option>
+        <option name="useColors">0</option>
+        <option name="useThousandSeparators">1</option>
+        <option name="linkView">search</option>
+        <option name="afterLabel">%</option>
+        <option name="rangeColors">["0x65a637","0x6db7c6","0xf7bc38","0xf58f39","0xd93f3c"]</option>
+        <option name="rangeValues">[0,30,70,100]</option>
+        <option name="trendInterval">auto</option>
+      </single>
+    </panel>
+  </row>
+  <row>
+    <panel>
+      <title>Welcome</title>
+      <html>
+        Please keep following things in mind:
+        <ul>
+          <li>Fields that are derived from asset and identity lookups are excluded, i.e. src_category, src_priority, etc.</li>
+          <li>Validator runs an "all-time" search, however is governed at first 10,000 events.</li>
+          <li>
+            <b>field_values</b> percentage calculation behavior differs from that of Splunk. Instead of percentage calculation occurring on values that only exist, calculation in this table also takes into the account values that are “null” or do not exist.</li>
+          <li>Use <i>Search type</i> picker to tell the validator if search type. i.e. <b>_raw</b> search will be <i>index=network sourcetype=firewall</i>, <b>datamodel</b> as <i>| datamodel Network_Traffic All_Traffic</i>. Searches on _raw are particularly helpful, as they allow to "test" data before it makes it into the accelerated datamodel; removing the need to need for constant rebuild during development/test cycle.</li>
+        </ul>
+      </html>
+    </panel>
+  </row>
+  <row>
+    <panel>
+      <table id="tmy_mv_table">
+        <title>Data Model $dm$ (and sub models) uses these fields:</title>
+        <search id="cim_base">
+          <query>| datamodel $dm$ | rex max_match=999 "fieldName\":\"(?&lt;field&gt;[^\"]+)" | stats values(field) as field | mvexpand field  | where NOT match(field, "_time|host|sourcetype|source|[A-Z]+|_bunit|_category|_priority")    | join type=outer field [$search_type$ $cim_search$ | head 10000 | fieldsummary maxvals=15 | eventstats max(count) AS total | eval percent_coverage=round(count/total*100, 2) | table field, percent_coverage, distinct_count, total, values]  | spath input=values | rename {}.value AS sample_values {}.count AS sample_count distinct_count AS distinct_value_count total AS total_events  | fillnull value=0 percent_coverage, distinct_value_count, total_events   | mvmath field=sample_count field2=total_events | eval field_values=mvzip(mvmath_result, sample_values, " ")  | lookup cim_validation_regex field | mvrex showcount=t showunmatched=t field=sample_values validation_regex  | eval is_cim_valid=case(total_events==0, "severe!!!no extracted values found", percent_coverage &lt; 90, "elevated!!!event coverage less then 90%", mvrex_unmatched_count &gt; 0, "elevated!!!found ".mvrex_unmatched_count." unexpected values (".mvjoin(mvrex_unmatched, ", ").")", isnull(validation_regex) OR validation_regex=="", "check!!!no validation regex was found to evaluate", 1==1, "low!!!looking good!")  | table field, total_events, distinct_value_count, percent_coverage, field_values, is_cim_valid</query>
+          <earliest>0</earliest>
+        </search>
+        <option name="drilldown">none</option>
+        <option name="count">25</option>
+        <option name="drilldown">none</option>
+        <option name="wrap">true</option>
+        <option name="rowNumbers">true</option>
+        <option name="dataOverlayMode">none</option>
+      </table>
+    </panel>
+  </row>
+  <row>
+    <panel>
+      <event>
+        <title>Events</title>
+        <search>
+          <query>$cim_search$ | head 10000</query>
+          <earliest>-24h@h</earliest>
+          <latest>now</latest>
+        </search>
+      </event>
+    </panel>
+  </row>
+</form>

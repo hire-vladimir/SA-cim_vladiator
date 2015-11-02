@@ -1,0 +1,11 @@
+<nav search_view="search" color="#65A637">
+  <view name="cim_validator" default="true" />
+  <view name="cim_dictionary" />
+  <collection label="Search">
+    <view name="search" />
+    <view name="pivot" />
+    <view name="reports" />
+    <view name="alerts" />
+    <view name="dashboards" />
+  </collection>
+</nav>
