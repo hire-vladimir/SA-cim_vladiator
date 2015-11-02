@@ -114,8 +114,7 @@
         <title>Events</title>
         <search>
           <query>$cim_search$ | head 10000</query>
-          <earliest>-24h@h</earliest>
-          <latest>now</latest>
+          <earliest>0</earliest>
         </search>
       </event>
     </panel>
