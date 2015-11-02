@@ -47,7 +47,7 @@
       <single>
         <title>Issue fields</title>
         <search base="cim_base">
-          <query>| stats sum(eval(if(match(is_cim_valid, "^yes"), 0, 1))) AS bad</query>
+          <query>| stats sum(eval(if(match(is_cim_valid, "^low"), 0, 1))) AS bad</query>
         </search>
         <option name="drilldown">none</option>
       </single>
