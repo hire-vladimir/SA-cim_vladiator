@@ -68,15 +68,6 @@ def validate_args(keywords, argvals):
         die("The argument(s) '%s' is invalid. Supported arguments are: %s" % (illegal_args, ALLOWED_OPTIONS))
 
 
-def get_count(d):
-    ret = 1
-    if (d is "") or (d == ['']) or (d == []):
-        ret = 0
-    elif isinstance(row[argvals['field']], list):
-        ret = len(d)
-    return ret
-
-
 def arg_on_and_enabled(argvals, arg, rex=None, is_bool=False):
     result = False
     if is_bool:
@@ -100,11 +91,6 @@ if __name__ == '__main__':
             logger.setLevel(logging.DEBUG)
             logger.debug("detecting debug argument passed, setting command log_level=DEBUG")
 
-
-
-        # regex = keywords[0]
-        # logger.debug('will be applying regex="%s", to field="%s"' % (regex, argvals['field']))
-
         output_column_name = "mvmath"
         if arg_on_and_enabled(argvals, "labelfield"):
             output_column_name = argvals['labelfield']
@@ -113,36 +99,17 @@ if __name__ == '__main__':
             output_column_name = argvals['prefix'] + output_column_name
 
         for row in results:
-            tally = float(row[argvals['field2']])
-            vdata = row[argvals['field']]
-            logger.debug('---> fdata="%s", tally="%s"' % (vdata, tally))
-            row[output_column_name + "_result"] = map(lambda x: str(round(float(x) / tally * 100, 2)) + "%", vdata)
+            if argvals['field'] in row and argvals['field2'] in row:
+                tally = float(row[argvals['field2']])
+                vdata = row[argvals['field']]
+                res = map(lambda x: str(round(float(x) / tally * 100, 2)) + "%", vdata)
+                if isinstance(vdata, str) and vdata is not "":
+                    res = str(round(float(vdata) / tally * 100, 2)) + "%"
 
-            # regex = keywords[0]
-            # if regex in row:
-            #     regex = row[regex]
-            #     logger.debug('found substitution oppty, will be applying regex="%s", to field="%s"' % (regex, argvals['field']))
-            #
-            # # perform match
-            # if isinstance(row[argvals['field']], list):
-            #     logger.debug("dealing wiht mv field, will match per mv value")
-            #     row[output_column_name + "_matches"] = filter(lambda x: re.findall(regex, x), row[argvals['field']])
-            #
-            #     if arg_on_and_enabled(argvals, "showunmatched", is_bool=True):
-            #         row[output_column_name + "_unmatched"] = filter(lambda x: x not in row[output_column_name + "_matches"], row[argvals['field']])
-            # else:
-            #     logger.debug("dealing with string, will match string")
-            #     row[output_column_name + "_matches"] = re.findall(regex, row[argvals['field']])
-            #
-            #     if arg_on_and_enabled(argvals, "showunmatched", is_bool=True) and get_count(row[output_column_name + "_matches"]) == 0:
-            #         row[output_column_name + "_unmatched"] = row[argvals['field']]
-            # logger.debug('applying regex="%s" to dataset="%s", matches="%d"' % (regex, row[argvals['field']], len(row[output_column_name + "_matches"])))
-            #
-            # if arg_on_and_enabled(argvals, "showcount", is_bool=True):
-            #     row[output_column_name + "_count"] = get_count(row[output_column_name + "_matches"])
-            #     row[output_column_name + "_input_count"] = get_count(row[argvals['field']])
+                row[output_column_name + "_result"] = res
+                logger.debug('---> %s = vdata="%s", tally="%s", out="%s"' % (row['field'], vdata, tally, res))
 
-        logger.debug('results="%s"' % results)
+        # logger.debug('results="%s"' % results)
         logger.info('sending events to splunk count="%s"' % len(results))
         si.outputResults(results)
     except Exception, e:

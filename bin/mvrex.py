@@ -116,24 +116,28 @@ if __name__ == '__main__':
                 regex = row[regex]
                 logger.debug('found substitution oppty, will be applying regex="%s", to field="%s"' % (regex, argvals['field']))
 
+            input_data = ""
+            if argvals['field'] in row:
+                input_data = row[argvals['field']]
+
             # perform match
-            if isinstance(row[argvals['field']], list):
+            if isinstance(input_data, list):
                 logger.debug("dealing wiht mv field, will match per mv value")
-                row[output_column_name + "_matches"] = filter(lambda x: re.findall(regex, x), row[argvals['field']])
+                row[output_column_name + "_matches"] = filter(lambda x: re.findall(regex, x), input_data)
 
                 if arg_on_and_enabled(argvals, "showunmatched", is_bool=True):
-                    row[output_column_name + "_unmatched"] = filter(lambda x: x not in row[output_column_name + "_matches"], row[argvals['field']])
+                    row[output_column_name + "_unmatched"] = filter(lambda x: x not in row[output_column_name + "_matches"], input_data)
             else:
                 logger.debug("dealing with string, will match string")
-                row[output_column_name + "_matches"] = re.findall(regex, row[argvals['field']])
+                row[output_column_name + "_matches"] = re.findall(regex, input_data)
 
                 if arg_on_and_enabled(argvals, "showunmatched", is_bool=True) and get_count(row[output_column_name + "_matches"]) == 0:
-                    row[output_column_name + "_unmatched"] = row[argvals['field']]
-            logger.debug('applying regex="%s" to dataset="%s", matches="%d"' % (regex, row[argvals['field']], len(row[output_column_name + "_matches"])))
+                    row[output_column_name + "_unmatched"] = input_data
+            logger.debug('applying regex="%s" to dataset="%s", matches="%d"' % (regex, input_data, len(row[output_column_name + "_matches"])))
 
             if arg_on_and_enabled(argvals, "showcount", is_bool=True):
                 row[output_column_name + "_matched_count"] = get_count(row[output_column_name + "_matches"])
-                row[output_column_name + "_input_count"] = get_count(row[argvals['field']])
+                row[output_column_name + "_input_count"] = get_count(input_data)
                 if arg_on_and_enabled(argvals, "showunmatched", is_bool=True):
                     row[output_column_name + "_unmatched_count"] = int(row[output_column_name + "_input_count"]) - int(row[output_column_name + "_matched_count"])
 
