@@ -1,4 +1,5 @@
 field,validation_regex
+tag,".*"
 severity,"^(critical|high|medium|low|informational)$"
 action,"^(success|failure|allowed|blocked|deferred)$"
 dest,"^[\w\.-]+$"
@@ -18,3 +19,7 @@ ids_type,"^(network|host|application)$"
 category,"^.{4,20}$"
 signature,"^.{4,50}$"
 *user,"^[\w\/\\\-\.$]{1,20}$"
+app,"^[\w:\-]+$"
+*_nt_domain,"^[\w\/\\\-\.$]{1,20}$"
+file_hash,"^[0-9a-fA-F]{32,512}$"
+file_name,"^.{1,255}$"
