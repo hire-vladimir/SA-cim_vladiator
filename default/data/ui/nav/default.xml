@@ -1,4 +1,4 @@
-<nav search_view="search" color="#65A637">
+<nav search_view="search" color="#5379AF">
   <view name="cim_validator" default="true" />
   <view name="cim_dictionary" />
   <collection label="Search">
