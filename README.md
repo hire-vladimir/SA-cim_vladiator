@@ -1,5 +1,3 @@
-[![PayPal donate button](https://img.shields.io/badge/paypal-donate-yellow.svg)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=LQAF9WMNRAFQC "Donate once-off to this project using Paypal")
-
 # Welcome
 This Splunk app was developed with one goal in mind, reduce amount of time spent validating Splunk Common Information Model (CIM) compliance of technology add-ons (TA's). Use of this app simplifies validation process in several ways:
 * Identifies fields that are required, but missing
