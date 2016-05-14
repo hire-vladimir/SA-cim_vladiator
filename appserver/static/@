@@ -1,0 +1,17 @@
+/* Custom size input fields */
+
+#vsearch_bar {
+   width: 840px;
+}
+
+#vsearch_bar input {
+   width: 830px;
+}
+
+#vevent_limit {
+    width: 140px;
+}
+
+#vevent_limit input {
+    width: 110px;
+}

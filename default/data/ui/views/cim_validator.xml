@@ -1,4 +1,4 @@
-<form script="table_icons_rangemap_now_with_mv.js" stylesheet="table_decorations.css">
+<form script="table_icons_rangemap_now_with_mv.js" stylesheet="table_decorations.css, resize_inputs.css">
   <label>CIM Validator</label>
   <fieldset submitButton="true">
     <input type="dropdown" token="search_type">
@@ -6,9 +6,6 @@
       <choice value="search">_raw</choice>
       <choice value="">datamodel</choice>
       <default>search</default>
-    </input>
-    <input type="text" token="cim_search">
-      <label>Search:</label>
     </input>
     <input type="dropdown" token="dm" searchWhenChanged="true">
       <label>Target datamodel:</label>
@@ -22,7 +19,7 @@
       </change>
       <default>Network_Traffic</default>
     </input>
-    <input type="text" token="event_limit">
+    <input id="vevent_limit" type="text" token="event_limit">
       <label>Event limit (number):</label>
       <default>10000</default>
       <initialValue>10000</initialValue>
@@ -33,6 +30,9 @@
         <earliest>-15m</earliest>
         <latest>now</latest>
       </default>
+    </input>
+    <input id="vsearch_bar" type="text" token="cim_search">
+      <label>Search:</label>
     </input>
   </fieldset>
   <row>
