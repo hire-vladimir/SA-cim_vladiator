@@ -4,7 +4,7 @@ This Splunk app was developed with one goal in mind, reduce amount of time spent
 * Validates data confirms to expected CIM values
 * Rapid prototyping and validation
 
-This project is hosted on GitHub, https://github.com/hire-vladimir/SA-cim_validator
+This project is hosted on GitHub, https://github.com/hire-vladimir/SA-cim_vladiator
 
 # Install
 App installation is simple, and only needs to be present on the search head. Documentation around app installation can be found at http://docs.splunk.com/Documentation/AddOns/released/Overview/Singleserverinstall
@@ -13,7 +13,7 @@ App installation is simple, and only needs to be present on the search head. Doc
 to fill
 
 ## Screenshot
-![CIM validator](https://raw.githubusercontent.com/hire-vladimir/SA-cim_validator/master/static/screenshot1.png)
+![CIM validator](https://raw.githubusercontent.com/hire-vladimir/SA-cim_vladiator/master/static/screenshot1.png)
 
 ## System requirements
 App was developed for use with Splunk 6.2+
