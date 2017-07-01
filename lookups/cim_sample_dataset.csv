@@ -1,8 +1,0 @@
-field,sample_values
-action,unknown;blocked;success
-src_ip,10.1.1.1;10.20.1.1;10.200.222.1
-dest_ip,10.1.1.1.hello;10.30.1.1;whaaa
-dest,10.10.10.10:800
-src,hello.world.local
-src_port,800,unknown,800000
-category,
