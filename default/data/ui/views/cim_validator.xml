@@ -52,7 +52,6 @@
         <option name="trendDisplayMode">absolute</option>
         <option name="useColors">0</option>
         <option name="useThousandSeparators">1</option>
-        <option name="linkView">search</option>
       </single>
     </panel>
     <panel>
@@ -80,7 +79,6 @@
         <option name="trendDisplayMode">absolute</option>
         <option name="useColors">0</option>
         <option name="useThousandSeparators">1</option>
-        <option name="linkView">search</option>
         <option name="afterLabel">%</option>
         <option name="rangeColors">["0x65a637","0x6db7c6","0xf7bc38","0xf58f39","0xd93f3c"]</option>
         <option name="rangeValues">[0,30,70,100]</option>
