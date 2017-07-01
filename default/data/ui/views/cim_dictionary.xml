@@ -41,7 +41,7 @@
       <table>
         <title>Dictionary</title>
         <search id="cim_base">
-          <query>| inputlookup cim_validation_dictionary | search datamodel="$dm$" field="$field$"</query>
+          <query>| inputlookup cim_validation_dictionary | search datamodel="$dm$" field="$field$" | fields - cim_version</query>
           <earliest>0</earliest>
           <latest></latest>
         </search>
