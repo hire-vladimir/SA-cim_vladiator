@@ -35,6 +35,30 @@
       <label>Search:</label>
     </input>
   </fieldset>
+  <search id="event_search">
+    <query>$cim_search$ | fields * | head $event_limit$</query>
+    <earliest>$timerange.earliest$</earliest>
+    <latest>$timerange.latest$</latest>
+  </search>
+  <row>
+    <panel>
+      <table depends="$debug$">
+        <search>
+          <query>| datamodel $dm$ | spath output=object path="objects{0}.displayName" | spath output=dm_search path="objects{0}.constraints{0}.search" | table object, dm_search</query>
+          <!-- finalized may be dropped in 6.4 or 6.5?  -->
+          <finalized>
+            <set token="dm_search">$result.dm_search$</set>
+            <set token="dm_object">$result.object$</set>
+          </finalized>
+        </search>
+        <option name="wrap">false</option>
+        <option name="rowNumbers">false</option>
+        <option name="dataOverlayMode">none</option>
+        <option name="drilldown">none</option>
+        <option name="count">1</option>
+      </table>
+    </panel>
+  </row>
   <row>
     <panel>
       <single>
@@ -97,6 +121,10 @@
             <b>field_values</b> percentage calculation behavior differs from that of Splunk. Instead of percentage calculation occurring on values that only exist, calculation in this table also takes into the account values that are “null” or do not exist.</li>
           <li>Use <i>Search type</i> picker to tell the validator if search type. i.e. <b>_raw</b> search will be <i>index=network sourcetype=firewall</i>, <b>datamodel</b> as <i>| datamodel Network_Traffic All_Traffic</i>. Searches on _raw are particularly helpful, as they allow to "test" data before it makes it into the accelerated datamodel; removing the need to need for constant rebuild during development/test cycle.</li>
         </ul>
+        <br/>
+        Data model:  $dm_object$ <br/>
+        Search filter: <tt>$dm_search|h$</tt>
+        <br/>
       </html>
     </panel>
   </row>
@@ -120,12 +148,85 @@
   </row>
   <row>
     <panel>
-      <event>
+      <input type="dropdown" token="event_mode" searchWhenChanged="true">
+        <label>Show</label>
+        <choice value="raw">All</choice>
+        <choice value="cluster">Cluster</choice>
+        <default>raw</default>
+        <change>
+          <condition value="raw">
+            <set token="show_raw">True</set>
+            <unset token="show_cluster"></unset>
+          </condition>
+          <condition value="cluster">
+            <set token="show_cluster">True</set>
+            <unset token="show_raw"></unset>
+          </condition>
+        </change>
+      </input>
+      <input type="dropdown" token="viz_form" searchWhenChanged="true">
+        <label>Vizualize</label>
+        <choice value="events">Events</choice>
+        <choice value="table">Table</choice>
+        <default>raw</default>
+        <change>
+          <condition value="events">
+            <set token="viz_events">True</set>
+            <unset token="viz_table"></unset>
+          </condition>
+          <condition value="table">
+            <set token="viz_table">True</set>
+            <unset token="viz_events"></unset>
+          </condition>
+        </change>
+      </input>
+      <input type="text" token="filter" searchWhenChanged="true">
+        <label>Filter results</label>
+        <default>*</default>
+      </input>
+      <table depends="$show_raw$,$viz_table$">
+         <search base="event_search">
+           <query><![CDATA[
+            | search $filter$
+            | table [ 
+             datamodel $dm$
+             | rex max_match=999 "fieldName\":\"(?<field>[^\"]+)" 
+             | mvexpand field
+             | where NOT match(field, "_time|host|sourcetype|source|[A-Z]+|_bunit|_category|_priority|_requires_av|_should_update|tag") OR match(field, "object_category")
+             | stats values(field) as field
+             | eval field=mvappend("_time", field, "sourcetype", "host", "tag", "eventtype") 
+             | eval field=mvjoin(field, ", ") 
+             | return $$field ] 
+            | eval tag=mvjoin(tag, "|")
+             ]]>
+          </query>
+         </search>
+       </table>
+      <table depends="$show_cluster$,$viz_table$">
+         <search base="event_search">
+           <query><![CDATA[
+            | search $filter$
+            | cluster showcount=true
+            | sort - cluster_count
+            | table [ 
+             datamodel $dm$
+             | rex max_match=999 "fieldName\":\"(?<field>[^\"]+)" 
+             | mvexpand field
+             | where NOT match(field, "_time|host|sourcetype|source|[A-Z]+|_bunit|_category|_priority|_requires_av|_should_update|tag") OR match(field, "object_category")
+             | stats values(field) as field
+             | eval field=mvappend("cluster_count", field, "_time", "sourcetype", "host", "tag", "eventtype") 
+             | eval field=mvjoin(field, ", ") 
+             | return $$field ]
+            | eval tag=mvjoin(tag, "|")
+             ]]>
+          </query>
+         </search>
+       </table>
+       
+      <event depends="$show_raw$,$viz_events$">
         <title>Events</title>
-        <search>
-          <query>$cim_search$ | head $event_limit$</query>
-          <earliest>$timerange.earliest$</earliest>
-          <latest>$timerange.latest$</latest>
+        <search base="event_search">
+          <query>search $filter$</query>
         </search>
         <option name="count">10</option>
         <option name="list.drilldown">full</option>
@@ -136,8 +237,48 @@
         <option name="table.drilldown">all</option>
         <option name="table.wrap">1</option>
         <option name="type">list</option>
-        <fields>[]</fields>
+        <fields>host,sourcetype,eventtype,tag</fields>
       </event>
+      <event depends="$show_cluster$,$viz_events$">
+        <title>Event clusters</title>
+        <search base="event_search">
+          <query>search $filter$ | cluster showcount=true | sort - cluster_count</query>
+        </search>
+        <option name="count">10</option>
+        <option name="list.drilldown">full</option>
+        <option name="list.wrap">1</option>
+        <option name="maxLines">5</option>
+        <option name="raw.drilldown">full</option>
+        <option name="rowNumbers">1</option>
+        <option name="table.drilldown">all</option>
+        <option name="table.wrap">1</option>
+        <option name="type">list</option>
+        <fields>cluster_count, sourcetype ,eventtype, tag</fields>
+      </event>
+    </panel>
+  </row>
+  <row>
+    <panel>
+      <table>
+        <title>Breakdown by eventtype</title>
+        <search base="event_search">
+          <query>mvexpand eventtype | stats count as events, values(sourcetype) as sourcetype, values(index) as index, dc(host) as hosts by eventtype | join type=outer eventtype [ | rest servicesNS/-/Splunk_SA_CIM/saved/eventtypes splunk_server=local | rename eai:appName AS eventtype_app, title AS eventtype, search as eventtype_search, tags as eventtype_tags | table eventtype, eventtype_search, eventtype_tags, eventtype_app ] | sort - events</query>
+        </search>
+      </table>
+      <table depends="$show_st_id_breakdown$">
+        <title>Breakdown by sourcetype and index</title>
+        <search base="event_search">
+          <query>stats count as events, values(eventtype) as eventtype, values(app) as app, dc(host) as hosts by sourcetype, index | sort - events</query>
+          <progress>
+            <condition match="'job.resultCount' &gt; 1">
+              <set token="show_st_id_breakdown">True</set>
+            </condition>
+            <condition>
+              <unset token="show_st_id_breakdown"></unset>
+            </condition>
+          </progress>
+        </search>
+      </table>
     </panel>
   </row>
 </form>
