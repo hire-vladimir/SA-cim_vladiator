@@ -168,7 +168,7 @@
         <label>Vizualize</label>
         <choice value="events">Events</choice>
         <choice value="table">Table</choice>
-        <default>raw</default>
+        <default>events</default>
         <change>
           <condition value="events">
             <set token="viz_events">True</set>
@@ -260,6 +260,7 @@
   <row>
     <panel>
       <table>
+        <!-- Not that all CIM tags are added based on eventtype, but enough that it's worth including here -->
         <title>Breakdown by eventtype</title>
         <search base="event_search">
           <query>mvexpand eventtype | stats count as events, values(sourcetype) as sourcetype, values(index) as index, dc(host) as hosts by eventtype | join type=outer eventtype [ | rest servicesNS/-/Splunk_SA_CIM/saved/eventtypes splunk_server=local | rename eai:appName AS eventtype_app, title AS eventtype, search as eventtype_search, tags as eventtype_tags | table eventtype, eventtype_search, eventtype_tags, eventtype_app ] | sort - events</query>
