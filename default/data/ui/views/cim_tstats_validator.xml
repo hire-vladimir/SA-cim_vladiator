@@ -1,0 +1,108 @@
+<form>
+  <label>Data Model TSTATS Magic</label>
+  <search id="magic">
+    <query>
+    <![CDATA[
+| rest /servicesNS/-/-/datamodel/model | search NOT disabled=1 
+| spath output=accel input=acceleration path=enabled  | search accel!=false
+| eval description=mvfilter(match(description, "^\{"))
+| spath input=description output=outputFields path=objects{}.fields{}
+| rename displayName AS dm_model, eai:acl.app as app
+| table dm_model, displayName, title, app, outputFields
+| streamstats count as groupid
+| mvexpand outputFields
+| spath input=outputFields
+| where type!="objectCount"
+| where !match(owner, "^Untagged_.*")
+| where fieldName!="_time"
+| eval short_name=fieldName
+| eval dm_name=case(owner="BaseEvent" or owner="root", fieldName, 0==0, owner.".".fieldName)
+| table app, dm_model, title, dm_name, short_name, groupid, owner
+| eval stats_expr="values(". dm_name .") as ". short_name
+| stats values(title) as title, values(app) as app, values(dm_model) as dm_model values(stats_expr) as stats_expr, by groupid, owner
+| eval name=dm_model . " (".owner.")"
+| eval tstats_fields=mvjoin(stats_expr, ", ")
+| eval da_search="| tstats summariesonly=t count as events, " . tstats_fields . " from datamodel=" . title . " where nodename=" . owner
+    ]]>
+    </query>
+  </search>
+  <!--$tstat_cmd_options$ -->
+  <fieldset submitButton="false">
+    <input type="dropdown" token="dm">
+      <label>Data model</label>
+      <fieldForLabel>dm_model</fieldForLabel>
+      <fieldForValue>title</fieldForValue>
+      <search base="magic">
+        <query>| dedup title</query>
+      </search>
+    </input>
+    <input type="dropdown" token="object_filter">
+      <label>DM Object</label>
+      <fieldForLabel>owner</fieldForLabel>
+      <fieldForValue>owner</fieldForValue>
+      <search base="magic">
+        <query>search title=$dm$ | dedup owner</query>
+      </search>
+      <prefix>owner="</prefix>
+      <suffix>"</suffix>
+      <choice value="*">All</choice>
+      <initialValue>*</initialValue>
+    </input>
+    <!--
+    <input type="checkbox" token="tstat_cmd_options">
+      <label>Options</label>
+      <choice value="summariesonly=t">Summaries only</choice>
+      <default>summariesonly=t</default>
+    </input>
+    -->
+    <input type="text" token="max_mv_values">
+      <label>Max Multifield values</label>
+      <initialValue>250</initialValue>
+    </input>
+  </fieldset>
+        <search base="magic" id="magic_settoken">
+          <query>| search title=$dm$ $object_filter$</query>
+          <finalized>
+            <set token="da_search">$row.da_search$</set>
+            <set token="name">$row.name</set>
+          </finalized>
+        </search>
+  <row>
+    <panel>
+      <table>
+      <search base="magic_settoken"></search>
+        <option name="count">10</option>
+        <option name="drilldown">row</option>
+        <drilldown>
+          <set token="da_search">$row.da_search$</set>
+          <set token="name">$row.name</set>
+        </drilldown>
+      </table>
+    </panel>
+  </row>
+  <row>
+    <panel>
+      <title>$name$</title>
+      <input type="time" token="tstats_timerange">
+        <label></label>
+        <default>
+          <earliest>-7d@h</earliest>
+          <latest>now</latest>
+        </default>
+      </input>
+      <table>
+        <search>
+          <query>
+            <![CDATA[ 
+            $da_search$ | foreach * [ eval <<FIELD>>=if(mvcount(<<FIELD>>)>$max_mv_values$, mvappend(mvindex(<<FIELD>>,0, $max_mv_values$), "... ($max_mv_values$+)"), <<FIELD>>) ]
+            ]]>
+          </query>
+          <earliest>$tstats_timerange.earliest$</earliest>
+          <latest>$tstats_timerange.latest$</latest>
+        </search>
+        <option name="count">10</option>
+        <option name="refresh.display">progressbar</option>
+      </table>
+    </panel>
+  </row>
+</form>
