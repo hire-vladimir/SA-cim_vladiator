@@ -1,18 +1,33 @@
 <form script="table_icons_rangemap_now_with_mv.js" stylesheet="table_decorations.css, resize_inputs.css">
   <label>CIM Validator</label>
+  <search id="event_search">
+    <query>$search_type_actual$ $cim_search$ | fields * | head $event_limit$</query>
+    <earliest>$timerange.earliest$</earliest>
+    <latest>$timerange.latest$</latest>
+  </search>
   <fieldset submitButton="true">
     <input type="dropdown" token="search_type">
       <label>Search type:</label>
       <choice value="search">_raw</choice>
-      <choice value="">datamodel</choice>
+      <choice value="datamodel">datamodel</choice>
       <default>search</default>
+      <change>
+        <condition label="datamodel">
+          <set token="search_type_actual">| datamodel $dm$ search | rename $dm$.* as * | search</set>
+          <set token="hide_eventtype">true</set>
+        </condition>
+        <condition>
+          <set token="search_type_actual">| search</set>
+          <unset token="hide_eventtype"></unset>
+        </condition>
+      </change>
     </input>
     <input type="dropdown" token="dm" searchWhenChanged="true">
       <label>Target datamodel:</label>
       <search>
-        <query>| datamodel            | spath modelName           | table modelName           | sort  modelName</query>
+        <query>| datamodel | spath modelName | spath model | spath displayName | table modelName displayName | sort modelName</query>
       </search>
-      <fieldForLabel>modelName</fieldForLabel>
+      <fieldForLabel>displayName</fieldForLabel>
       <fieldForValue>modelName</fieldForValue>
       <change>
         <unset token="form.initial"></unset>
@@ -33,13 +48,9 @@
     </input>
     <input id="vsearch_bar" type="text" token="cim_search">
       <label>Search:</label>
+      <default>*</default>
     </input>
   </fieldset>
-  <search id="event_search">
-    <query>$cim_search$ | fields * | head $event_limit$</query>
-    <earliest>$timerange.earliest$</earliest>
-    <latest>$timerange.latest$</latest>
-  </search>
   <row>
     <panel>
       <table depends="$debug$">
@@ -133,7 +144,7 @@
       <table id="tmy_mv_table">
         <title>Data Model $dm$ (and sub models) uses these fields:</title>
         <search id="cim_base">
-          <query>| datamodel $dm$ | rex max_match=999 "fieldName\":\"(?&lt;field&gt;[^\"]+)" | stats values(field) as field | mvexpand field  | where NOT match(field, "_time|host|sourcetype|source|[A-Z]+|_bunit|_category|_priority|_requires_av|_should_update") OR match(field, "object_category")   | join type=outer field [$search_type$ $cim_search$ | head $event_limit$ | fieldsummary maxvals=15 | eventstats max(count) AS total | eval percent_coverage=round(count/total*100, 2) | table field, percent_coverage, distinct_count, total, values]  | spath input=values | rename {}.value AS sample_values {}.count AS sample_count distinct_count AS distinct_value_count total AS total_events  | fillnull value=0 percent_coverage, distinct_value_count, total_events   | mvmath field=sample_count field2=total_events | eval field_values=mvzip(mvmath_result, sample_values, " ")  | lookup cim_validation_regex field | mvrex showcount=t showunmatched=t field=sample_values validation_regex  | eval is_cim_valid=case(total_events==0, "severe!!!no extracted values found", percent_coverage &lt; 90, "elevated!!!event coverage less than 90%", mvrex_unmatched_count &gt; 0, "elevated!!!found ".mvrex_unmatched_count." unexpected values (".mvjoin(mvrex_unmatched, ", ").")", isnull(validation_regex) OR validation_regex=="", "check!!!no validation regex was found to evaluate", 1==1, "low!!!looking good!")  | table field, total_events, distinct_value_count, percent_coverage, field_values, is_cim_valid</query>
+          <query>| datamodel $dm$ | rex max_match=999 "fieldName\":\"(?&lt;field&gt;[^\"]+)" | stats values(field) as field | mvexpand field  | where NOT match(field, "_time|host|sourcetype|source|[A-Z]+|_bunit|_category|_priority|_requires_av|_should_update") OR match(field, "object_category")   | join type=outer field [$search_type_actual$ $cim_search$ | head $event_limit$ | fieldsummary maxvals=15 | eventstats max(count) AS total | eval percent_coverage=round(count/total*100, 2) | table field, percent_coverage, distinct_count, total, values]  | spath input=values | rename {}.value AS sample_values {}.count AS sample_count distinct_count AS distinct_value_count total AS total_events  | fillnull value=0 percent_coverage, distinct_value_count, total_events   | mvmath field=sample_count field2=total_events | eval field_values=mvzip(mvmath_result, sample_values, " ")  | lookup cim_validation_regex field | mvrex showcount=t showunmatched=t field=sample_values validation_regex  | eval is_cim_valid=case(total_events==0, "severe!!!no extracted values found", percent_coverage &lt; 90, "elevated!!!event coverage less than 90%", mvrex_unmatched_count &gt; 0, "elevated!!!found ".mvrex_unmatched_count." unexpected values (".mvjoin(mvrex_unmatched, ", ").")", isnull(validation_regex) OR validation_regex=="", "check!!!no validation regex was found to evaluate", 1==1, "low!!!looking good!")  | table field, total_events, distinct_value_count, percent_coverage, field_values, is_cim_valid</query>
           <earliest>$timerange.earliest$</earliest>
           <latest>$timerange.latest$</latest>
         </search>
@@ -185,8 +196,9 @@
         <default>*</default>
       </input>
       <table depends="$show_raw$,$viz_table$">
-         <search base="event_search">
-           <query><![CDATA[
+        <search base="event_search">
+          <query>
+            <![CDATA[
             | search $filter$
             | table [ 
              datamodel $dm$
@@ -200,11 +212,12 @@
             | eval tag=mvjoin(tag, "|")
              ]]>
           </query>
-         </search>
-       </table>
+        </search>
+      </table>
       <table depends="$show_cluster$,$viz_table$">
-         <search base="event_search">
-           <query><![CDATA[
+        <search base="event_search">
+          <query>
+            <![CDATA[
             | search $filter$
             | cluster showcount=true
             | sort - cluster_count
@@ -220,9 +233,8 @@
             | eval tag=mvjoin(tag, "|")
              ]]>
           </query>
-         </search>
-       </table>
-       
+        </search>
+      </table>
       <event depends="$show_raw$,$viz_events$">
         <title>Events</title>
         <search base="event_search">
@@ -258,7 +270,7 @@
     </panel>
   </row>
   <row>
-    <panel>
+    <panel rejects="$hide_eventtype$">
       <table>
         <!-- Not that all CIM tags are added based on eventtype, but enough that it's worth including here -->
         <title>Breakdown by eventtype</title>
