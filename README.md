@@ -4,6 +4,8 @@ This Splunk app was developed with one goal in mind, reduce amount of time spent
 * Validates data confirms to expected CIM values
 * Rapid prototyping and validation
 
+Validation of non CIM-data models works too.  However, you will likely see *no validation regex was found* for fields that exist outside of the typical CIM field names.
+
 This project is hosted on GitHub, https://github.com/hire-vladimir/SA-cim_vladiator
 
 # Install
@@ -58,6 +60,11 @@ When debug level logging is required, pass in *debug=true* or *debug=1* argument
 ```
 ... | mvrex debug=1 field=mydata "^\d{1,5}$"
 ```
+
+# Contributors
+
+* Lowell Alleman (Kintyre)
+* araman-m
 
 # Legal
 * *Splunk* is a registered trademark of Splunk, Inc.
