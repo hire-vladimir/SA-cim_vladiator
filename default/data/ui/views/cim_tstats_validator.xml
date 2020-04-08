@@ -1,5 +1,7 @@
 <form>
-  <label>Data Model TSTATS Magic</label>
+  <label>Data Model TSTATS Review</label>
+  <!-- This isn't ready for prime-time, hence it hasn't been added to the navigation -->
+  <description>Proof-of-concept base searches for an accelerated (tstats) CIM validation approach.  For now this is more of a data browser, but could be useful as-is for just browsing accelerated models.</description>
   <search id="magic">
     <query>
     <![CDATA[
