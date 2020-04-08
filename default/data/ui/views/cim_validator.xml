@@ -6,7 +6,36 @@
     <latest>$timerange.latest$</latest>
   </search>
   <search id="cim_base">
-    <query>| datamodel $dm$ | rex max_match=999 "fieldName\":\"(?&lt;field&gt;[^\"]+)" | stats values(field) as field | mvexpand field  | where NOT match(field, "_time|host|sourcetype|source|[A-Z]+|_bunit|_category|_priority|_requires_av|_should_update") OR match(field, "object_category")   | join type=outer field [$search_type_actual$ $cim_search$ | head $event_limit$ | fieldsummary maxvals=15 | eventstats max(count) AS total | eval percent_coverage=round(count/total*100, 2) | table field, percent_coverage, distinct_count, total, values]  | spath input=values | rename {}.value AS sample_values {}.count AS sample_count distinct_count AS distinct_value_count total AS total_events  | fillnull value=0 percent_coverage, distinct_value_count, total_events   | mvmath field=sample_count field2=total_events | eval field_values=mvzip(mvmath_result, sample_values, " ")  | lookup cim_validation_regex field | mvrex showcount=t showunmatched=t field=sample_values validation_regex  | eval is_cim_valid=case(total_events==0, "severe!!!no extracted values found", percent_coverage &lt; 90, "elevated!!!event coverage less than 90%", mvrex_unmatched_count &gt; 0, "elevated!!!found ".mvrex_unmatched_count." unexpected values (".mvjoin(mvrex_unmatched, ", ").")", isnull(validation_regex) OR validation_regex=="", "check!!!no validation regex was found to evaluate", 1==1, "low!!!looking good!")  | lookup cim_validator_recommended_fields field OUTPUT is_recommended | eval ir=if(is_recommended=="true", "star", null()) | table ir, field, total_events, distinct_value_count, percent_coverage, field_values, is_cim_valid</query>
+    <query><![CDATA[
+| datamodel $dm$
+| rex max_match=999 "fieldName\":\"(?<field>[^\"]+)"
+| stats values(field) as field
+| mvexpand field
+| where NOT match(field, "_time|host|sourcetype|source|[A-Z]+|_bunit|_category|_priority|_requires_av|_should_update") OR match(field, "object_category")
+| join type=outer field [
+    $search_type_actual$ $cim_search$
+  | head $event_limit$
+  | fieldsummary maxvals=15
+  | eventstats max(count) AS total
+  | eval percent_coverage=round(count/total*100, 2)
+  | table field, percent_coverage, distinct_count, total, values]
+| spath input=values
+| rename {}.value AS sample_values {}.count AS sample_count distinct_count AS distinct_value_count total AS total_events
+| fillnull value=0 percent_coverage, distinct_value_count, total_events
+| mvmath field=sample_count field2=total_events
+| eval field_values=mvzip(mvmath_result, sample_values, " ")
+| lookup cim_validation_regex field
+| mvrex showcount=t showunmatched=t field=sample_values validation_regex
+| eval is_cim_valid=case(
+    total_events==0, "severe!!!no extracted values found",
+    percent_coverage < 90, "elevated!!!event coverage less than 90%",
+    mvrex_unmatched_count > 0, "elevated!!!found ".mvrex_unmatched_count." unexpected values (".mvjoin(mvrex_unmatched, ", ").")",
+    isnull(validation_regex) OR validation_regex=="", "check!!!no validation regex was found to evaluate",
+    1==1, "low!!!looking good!")
+| lookup cim_validator_recommended_fields field OUTPUT is_recommended
+| eval ir=if(is_recommended=="true", "star", null())
+| table ir, field, total_events, distinct_value_count, percent_coverage, field_values, is_cim_valid
+]]></query>
     <earliest>$timerange.earliest$</earliest>
     <latest>$timerange.latest$</latest>
   </search>
@@ -23,7 +52,7 @@
         </condition>
         <condition>
           <set token="search_type_actual">| search</set>
-          <unset token="hide_eventtype"></unset>
+          <unset token="hide_eventtype"/>
         </condition>
       </change>
     </input>
@@ -35,7 +64,7 @@
       <fieldForLabel>displayName</fieldForLabel>
       <fieldForValue>modelName</fieldForValue>
       <change>
-        <unset token="form.initial"></unset>
+        <unset token="form.initial"/>
       </change>
       <default>Network_Traffic</default>
     </input>
@@ -60,8 +89,12 @@
     <panel>
       <table depends="$debug$">
         <search>
-          <query>| datamodel $dm$ | spath output=object path="objects{0}.displayName" | spath output=dm_search path="objects{0}.constraints{0}.search" | table object, dm_search</query>
-          <!-- finalized may be dropped in 6.4 or 6.5?  -->
+          <query>
+| datamodel $dm$
+| spath output=object path="objects{0}.displayName"
+| spath output=dm_search path="objects{0}.constraints{0}.search"
+| table object, dm_search
+          </query>
           <finalized>
             <set token="dm_search">$result.dm_search$</set>
             <set token="dm_object">$result.object$</set>
@@ -164,7 +197,8 @@
         If your running a <tt>_raw</tt> search and you are sure what <i>Search</i> to start with, use the base search listed below.  (This is not needed for the "datamodel" search type.)
         <p/>
         Data model: $dm_object$ <br/>
-        Data model base search: <tt>$dm_search|h$</tt><br/>
+        Data model base search: <tt>$dm_search|h$</tt>
+        <br/>
       </html>
     </panel>
   </row>
@@ -177,7 +211,8 @@
         <default>1==1</default>
       </input>
       <html>
-        <div><i class="icon-star star" title="star"></i> denotes recommended fields based on use within ES and UBA products.</div>
+        <div>
+          <i class="icon-star star" title="star"/> denotes recommended fields based on use within ES and UBA products.</div>
       </html>
       <table id="tmy_mv_table">
         <title>Data Model $dm$ (and sub models) uses these fields:</title>
@@ -203,11 +238,11 @@
         <change>
           <condition value="raw">
             <set token="show_raw">True</set>
-            <unset token="show_cluster"></unset>
+            <unset token="show_cluster"/>
           </condition>
           <condition value="cluster">
             <set token="show_cluster">True</set>
-            <unset token="show_raw"></unset>
+            <unset token="show_raw"/>
           </condition>
         </change>
       </input>
@@ -219,11 +254,11 @@
         <change>
           <condition value="events">
             <set token="viz_events">True</set>
-            <unset token="viz_table"></unset>
+            <unset token="viz_table"/>
           </condition>
           <condition value="table">
             <set token="viz_table">True</set>
-            <unset token="viz_events"></unset>
+            <unset token="viz_events"/>
           </condition>
         </change>
       </input>
@@ -234,46 +269,44 @@
       <table depends="$show_raw$,$viz_table$">
         <title>Event table (all)</title>
         <search base="event_search">
-          <query>
-            <![CDATA[
-            | search $filter$
-            | table [ 
-             datamodel $dm$
-             | rex max_match=999 "fieldName\":\"(?<field>[^\"]+)" 
-             | mvexpand field
-             | lookup cim_validator_recommended_fields field OUTPUT is_recommended
-             | eval ir=if(is_recommended=="true", "star", null())
-             | where $is_only$ and !match(field, "_time|host|sourcetype|source|[A-Z]+|_bunit|_category|_priority|_requires_av|_should_update|tag") or match(field, "object_category")
-             | stats values(field) as field
-             | eval field=mvappend("_time", field, "sourcetype", "host", "tag", "eventtype") 
-             | eval field=mvjoin(field, ", ") 
-             | return $$field ] 
-            | eval tag=mvjoin(tag, "|")
-             ]]>
+          <query><![CDATA[
+| search $filter$
+| table [
+   datamodel $dm$
+ | rex max_match=999 "fieldName\":\"(?<field>[^\"]+)"
+ | mvexpand field
+ | lookup cim_validator_recommended_fields field OUTPUT is_recommended
+ | eval ir=if(is_recommended=="true", "star", null())
+ | where $is_only$ and !match(field, "_time|host|sourcetype|source|[A-Z]+|_bunit|_category|_priority|_requires_av|_should_update|tag") or match(field, "object_category")
+ | stats values(field) as field
+ | eval field=mvappend("_time", field, "sourcetype", "host", "tag", "eventtype")
+ | eval field=mvjoin(field, ", ")
+ | return $$field ]
+| eval tag=mvjoin(tag, "|")
+]]>
           </query>
         </search>
       </table>
       <table depends="$show_cluster$,$viz_table$">
         <title>Event table (clusters)</title>
         <search base="event_search">
-          <query>
-            <![CDATA[
-            | search $filter$
-            | cluster showcount=true
-            | sort - cluster_count
-            | table [ 
-             datamodel $dm$
-             | rex max_match=999 "fieldName\":\"(?<field>[^\"]+)" 
-             | mvexpand field
-             | lookup cim_validator_recommended_fields field OUTPUT is_recommended
-             | eval ir=if(is_recommended=="true", "star", null())
-             | where $is_only$ and !match(field, "_time|host|sourcetype|source|[A-Z]+|_bunit|_category|_priority|_requires_av|_should_update|tag") or match(field, "object_category")
-             | stats values(field) as field
-             | eval field=mvappend("cluster_count", field, "_time", "sourcetype", "host", "tag", "eventtype") 
-             | eval field=mvjoin(field, ", ") 
-             | return $$field ]
-            | eval tag=mvjoin(tag, "|")
-             ]]>
+          <query><![CDATA[
+| search $filter$
+| cluster showcount=true
+| sort - cluster_count
+| table [
+   datamodel $dm$
+ | rex max_match=999 "fieldName\":\"(?<field>[^\"]+)"
+ | mvexpand field
+ | lookup cim_validator_recommended_fields field OUTPUT is_recommended
+ | eval ir=if(is_recommended=="true", "star", null())
+ | where $is_only$ and !match(field, "_time|host|sourcetype|source|[A-Z]+|_bunit|_category|_priority|_requires_av|_should_update|tag") or match(field, "object_category")
+ | stats values(field) as field
+ | eval field=mvappend("cluster_count", field, "_time", "sourcetype", "host", "tag", "eventtype")
+ | eval field=mvjoin(field, ", ")
+ | return $$field ]
+| eval tag=mvjoin(tag, "|")
+]]>
           </query>
         </search>
       </table>
@@ -324,13 +357,13 @@
         <!-- The rationale here is that if you are browsing all data within a datamodel this is helpful information to see, but if you are reviewing all events from a single sourcetype or eventtype, then this breakdown isn't useful. -->
         <ul>
           <li>
-              <tt>eventtype</tt> -
+            <tt>eventtype</tt> -
               Since tags on eventtypes are often used to include particular data in a data model, it's helpful to see which exact eventypes match the given data.
               Use this to confirm where eventypes are working correctly.
               This also highlights overly inclusive eventtypes like <i>nix-all-logs</i> that may need to be tweaked or disabled.
           </li>
           <li>
-              <tt>index</tt> and <tt>souretype</tt> - This information is helpful because these fields are foundational to data organization in Splunk.
+            <tt>index</tt> and <tt>souretype</tt> - This information is helpful because these fields are foundational to data organization in Splunk.
           </li>
         </ul>
       </html>
@@ -348,16 +381,17 @@
       <table depends="$show_st_id_breakdown$">
         <title>Breakdown by sourcetype and index</title>
         <search base="event_search">
-          <query>stats count as events, values(eventtype) as eventtype, values(app) as app, dc(host) as hosts by sourcetype, index
-                 | eval app=if(mvcount(app)>10, mvappend(mvindex(app, 0, 10), "truncated..."), app)
-                 | sort - events
-          </query>
+          <query><![CDATA[
+stats count as events, values(eventtype) as eventtype, values(app) as app, dc(host) as hosts by sourcetype, index
+| eval app=if(mvcount(app)>10, mvappend(mvindex(app, 0, 10), "truncated..."), app)
+| sort - events
+          ]]></query>
           <progress>
             <condition match="'job.resultCount' &gt; 1">
               <set token="show_st_id_breakdown">True</set>
             </condition>
             <condition>
-              <unset token="show_st_id_breakdown"></unset>
+              <unset token="show_st_id_breakdown"/>
             </condition>
           </progress>
         </search>
