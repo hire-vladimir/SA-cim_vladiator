@@ -63,8 +63,9 @@
         <search base="magic" id="magic_settoken">
           <query>| search title=$dm$ $object_filter$</query>
           <finalized>
+            <!-- I think this should only be done if 1 result was found? -->
             <set token="da_search">$row.da_search$</set>
-            <set token="name">$row.name</set>
+            <set token="name">$row.name$</set>
           </finalized>
         </search>
   <row>
@@ -75,9 +76,11 @@
         <option name="drilldown">row</option>
         <drilldown>
           <set token="da_search">$row.da_search$</set>
-          <set token="name">$row.name</set>
+          <set token="name">$row.name$</set>
         </drilldown>
+      <fields>dm_model, owner, title, groupid</fields>
       </table>
+      <html>Click a datamodel objet in the row(s) above to see sample values in the table below.</html>
     </panel>
   </row>
   <row>
