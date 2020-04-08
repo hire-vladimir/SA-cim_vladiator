@@ -241,7 +241,9 @@
              datamodel $dm$
              | rex max_match=999 "fieldName\":\"(?<field>[^\"]+)" 
              | mvexpand field
-             | where NOT match(field, "_time|host|sourcetype|source|[A-Z]+|_bunit|_category|_priority|_requires_av|_should_update|tag") OR match(field, "object_category")
+             | lookup cim_validator_recommended_fields field OUTPUT is_recommended
+             | eval ir=if(is_recommended=="true", "star", null())
+             | where $is_only$ and !match(field, "_time|host|sourcetype|source|[A-Z]+|_bunit|_category|_priority|_requires_av|_should_update|tag") or match(field, "object_category")
              | stats values(field) as field
              | eval field=mvappend("_time", field, "sourcetype", "host", "tag", "eventtype") 
              | eval field=mvjoin(field, ", ") 
@@ -263,7 +265,9 @@
              datamodel $dm$
              | rex max_match=999 "fieldName\":\"(?<field>[^\"]+)" 
              | mvexpand field
-             | where NOT match(field, "_time|host|sourcetype|source|[A-Z]+|_bunit|_category|_priority|_requires_av|_should_update|tag") OR match(field, "object_category")
+             | lookup cim_validator_recommended_fields field OUTPUT is_recommended
+             | eval ir=if(is_recommended=="true", "star", null())
+             | where $is_only$ and !match(field, "_time|host|sourcetype|source|[A-Z]+|_bunit|_category|_priority|_requires_av|_should_update|tag") or match(field, "object_category")
              | stats values(field) as field
              | eval field=mvappend("cluster_count", field, "_time", "sourcetype", "host", "tag", "eventtype") 
              | eval field=mvjoin(field, ", ") 
@@ -344,7 +348,10 @@
       <table depends="$show_st_id_breakdown$">
         <title>Breakdown by sourcetype and index</title>
         <search base="event_search">
-          <query>stats count as events, values(eventtype) as eventtype, values(app) as app, dc(host) as hosts by sourcetype, index | sort - events</query>
+          <query>stats count as events, values(eventtype) as eventtype, values(app) as app, dc(host) as hosts by sourcetype, index
+                 | eval app=if(mvcount(app)>10, mvappend(mvindex(app, 0, 10), "truncated..."), app)
+                 | sort - events
+          </query>
           <progress>
             <condition match="'job.resultCount' &gt; 1">
               <set token="show_st_id_breakdown">True</set>
