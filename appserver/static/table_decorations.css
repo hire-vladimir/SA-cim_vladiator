@@ -63,3 +63,7 @@ td.icon .low {
 .icon-inline i.icon-check {
     color: #5fff5e;
 }
+
+#tmy_mv_table th[data-sort-key=ir] {
+    width: 10px;
+}

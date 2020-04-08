@@ -6,7 +6,7 @@
     <latest>$timerange.latest$</latest>
   </search>
   <search id="cim_base">
-    <query>| datamodel $dm$ | rex max_match=999 "fieldName\":\"(?&lt;field&gt;[^\"]+)" | stats values(field) as field | mvexpand field  | where NOT match(field, "_time|host|sourcetype|source|[A-Z]+|_bunit|_category|_priority|_requires_av|_should_update") OR match(field, "object_category")   | join type=outer field [$search_type_actual$ $cim_search$ | head $event_limit$ | fieldsummary maxvals=15 | eventstats max(count) AS total | eval percent_coverage=round(count/total*100, 2) | table field, percent_coverage, distinct_count, total, values]  | spath input=values | rename {}.value AS sample_values {}.count AS sample_count distinct_count AS distinct_value_count total AS total_events  | fillnull value=0 percent_coverage, distinct_value_count, total_events   | mvmath field=sample_count field2=total_events | eval field_values=mvzip(mvmath_result, sample_values, " ")  | lookup cim_validation_regex field | mvrex showcount=t showunmatched=t field=sample_values validation_regex  | eval is_cim_valid=case(total_events==0, "severe!!!no extracted values found", percent_coverage &lt; 90, "elevated!!!event coverage less than 90%", mvrex_unmatched_count &gt; 0, "elevated!!!found ".mvrex_unmatched_count." unexpected values (".mvjoin(mvrex_unmatched, ", ").")", isnull(validation_regex) OR validation_regex=="", "check!!!no validation regex was found to evaluate", 1==1, "low!!!looking good!")</query>
+    <query>| datamodel $dm$ | rex max_match=999 "fieldName\":\"(?&lt;field&gt;[^\"]+)" | stats values(field) as field | mvexpand field  | where NOT match(field, "_time|host|sourcetype|source|[A-Z]+|_bunit|_category|_priority|_requires_av|_should_update") OR match(field, "object_category")   | join type=outer field [$search_type_actual$ $cim_search$ | head $event_limit$ | fieldsummary maxvals=15 | eventstats max(count) AS total | eval percent_coverage=round(count/total*100, 2) | table field, percent_coverage, distinct_count, total, values]  | spath input=values | rename {}.value AS sample_values {}.count AS sample_count distinct_count AS distinct_value_count total AS total_events  | fillnull value=0 percent_coverage, distinct_value_count, total_events   | mvmath field=sample_count field2=total_events | eval field_values=mvzip(mvmath_result, sample_values, " ")  | lookup cim_validation_regex field | mvrex showcount=t showunmatched=t field=sample_values validation_regex  | eval is_cim_valid=case(total_events==0, "severe!!!no extracted values found", percent_coverage &lt; 90, "elevated!!!event coverage less than 90%", mvrex_unmatched_count &gt; 0, "elevated!!!found ".mvrex_unmatched_count." unexpected values (".mvjoin(mvrex_unmatched, ", ").")", isnull(validation_regex) OR validation_regex=="", "check!!!no validation regex was found to evaluate", 1==1, "low!!!looking good!")  | lookup cim_validator_recommended_fields field OUTPUT is_recommended | eval ir=if(is_recommended=="true", "star", null()) | table ir, field, total_events, distinct_value_count, percent_coverage, field_values, is_cim_valid</query>
     <earliest>$timerange.earliest$</earliest>
     <latest>$timerange.latest$</latest>
   </search>
@@ -47,7 +47,7 @@
     <input type="time" token="timerange">
       <label>Time range:</label>
       <default>
-        <earliest>-15m</earliest>
+        <earliest>-60m@m</earliest>
         <latest>now</latest>
       </default>
     </input>
@@ -105,7 +105,7 @@
     </panel>
     <panel>
       <single>
-        <title>% CIM Compliance</title>
+        <title>% CIM Compliance (all DM fields)</title>
         <search base="cim_base">
           <query>| stats count sum(eval(if(match(is_cim_valid, "^low"), 0, 1))) AS bad | eval percent=round((1 -(bad/count))*100) | table percent</query>
         </search>
@@ -123,6 +123,29 @@
         <option name="rangeColors">["0x65a637","0x6db7c6","0xf7bc38","0xf58f39","0xd93f3c"]</option>
         <option name="rangeValues">[0,30,70,100]</option>
         <option name="trendInterval">auto</option>
+      </single>
+    </panel>
+    <panel>
+      <single>
+        <title>% CIM Compliance (recommended fields)</title>
+        <search base="cim_base">
+          <query>| where isnotnull(ir) | stats count sum(eval(if(match(is_cim_valid, "^low"), 0, 1))) AS bad | eval percent=round((1 -(bad/count))*100) | table percent</query>
+        </search>
+        <option name="afterLabel">%</option>
+        <option name="colorBy">value</option>
+        <option name="colorMode">none</option>
+        <option name="drilldown">none</option>
+        <option name="numberPrecision">0</option>
+        <option name="rangeColors">["0x65a637","0x6db7c6","0xf7bc38","0xf58f39","0xd93f3c"]</option>
+        <option name="rangeValues">[0,30,70,100]</option>
+        <option name="refresh.display">progressbar</option>
+        <option name="showSparkline">1</option>
+        <option name="showTrendIndicator">1</option>
+        <option name="trendColorInterpretation">standard</option>
+        <option name="trendDisplayMode">absolute</option>
+        <option name="trendInterval">auto</option>
+        <option name="useColors">0</option>
+        <option name="useThousandSeparators">1</option>
       </single>
     </panel>
   </row>
@@ -146,17 +169,26 @@
   </row>
   <row>
     <panel>
+      <input type="dropdown" token="is_only" searchWhenChanged="true">
+        <label>Show only recommended fields:</label>
+        <choice value="isnotnull(ir)">yes</choice>
+        <choice value="1==1">no</choice>
+        <default>1==1</default>
+      </input>
+      <html>
+        <div><i class="icon-star star" title="star"></i> denotes recommended fields based on use within ES and UBA products.</div>
+      </html>
       <table id="tmy_mv_table">
         <title>Data Model $dm$ (and sub models) uses these fields:</title>
         <search base="cim_base">
-          <query>| table field, total_events, distinct_value_count, percent_coverage, field_values, is_cim_valid</query>
+          <query>| table ir, field, total_events, distinct_value_count, percent_coverage, field_values, is_cim_valid | where $is_only$</query>
         </search>
-        <option name="drilldown">none</option>
-        <option name="count">25</option>
-        <option name="drilldown">none</option>
-        <option name="wrap">true</option>
-        <option name="rowNumbers">true</option>
+        <option name="count">50</option>
         <option name="dataOverlayMode">none</option>
+        <option name="drilldown">none</option>
+        <option name="refresh.display">progressbar</option>
+        <option name="rowNumbers">true</option>
+        <option name="wrap">true</option>
       </table>
     </panel>
   </row>
