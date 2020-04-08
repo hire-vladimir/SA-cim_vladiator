@@ -160,10 +160,11 @@
             <b>field_values</b> percentage calculation behavior differs from that of Splunk. Instead of percentage calculation occurring on values that only exist, calculation in this table also takes into the account values that are “null” or do not exist.</li>
           <li>Use <i>Search type</i> picker to tell the validator if search type. i.e. <b>_raw</b> search will be <i>index=network sourcetype=firewall</i>, <b>datamodel</b> as <i>| datamodel Network_Traffic All_Traffic</i>. Searches on _raw are particularly helpful, as they allow to "test" data before it makes it into the accelerated datamodel; removing the need to need for constant rebuild during development/test cycle.</li>
         </ul>
-        <br/>
-        Data model:  $dm_object$ <br/>
-        Search filter: <tt>$dm_search|h$</tt>
-        <br/>
+        <p/>
+        If your running a <tt>_raw</tt> search and you are sure what <i>Search</i> to start with, use the base search listed below.  (This is not needed for the "datamodel" search type.)
+        <p/>
+        Data model: $dm_object$ <br/>
+        Data model base search: <tt>$dm_search|h$</tt><br/>
       </html>
     </panel>
   </row>
@@ -231,6 +232,7 @@
         <default>*</default>
       </input>
       <table depends="$show_raw$,$viz_table$">
+        <title>Event table (all)</title>
         <search base="event_search">
           <query>
             <![CDATA[
@@ -250,6 +252,7 @@
         </search>
       </table>
       <table depends="$show_cluster$,$viz_table$">
+        <title>Event table (clusters)</title>
         <search base="event_search">
           <query>
             <![CDATA[
@@ -271,7 +274,7 @@
         </search>
       </table>
       <event depends="$show_raw$,$viz_events$">
-        <title>Events</title>
+        <title>Events (all)</title>
         <search base="event_search">
           <query>search $filter$</query>
         </search>
@@ -287,7 +290,7 @@
         <fields>host,sourcetype,eventtype,tag</fields>
       </event>
       <event depends="$show_cluster$,$viz_events$">
-        <title>Event clusters</title>
+        <title>Event (clusters)</title>
         <search base="event_search">
           <query>search $filter$ | cluster showcount=true | sort - cluster_count</query>
         </search>
@@ -300,18 +303,43 @@
         <option name="table.drilldown">all</option>
         <option name="table.wrap">1</option>
         <option name="type">list</option>
-        <fields>cluster_count, sourcetype ,eventtype, tag</fields>
+        <fields>cluster_count, sourcetype, eventtype, tag</fields>
       </event>
+    </panel>
+  </row>
+  <row>
+    <panel>
+      <html>
+        <h2>Data feeds review</h2>
+        <p/>
+        The remainder of this dashboard shows possibly helpful information regarding which events are included in a datamodel and why they were selected.
+        The following panels are only shown when they results appear to be interesting.
+        Specifically that means that if only a single row is returned, then the output is omitted.
+        <p/>
+        <b>Notes:</b>
+        <!-- The rationale here is that if you are browsing all data within a datamodel this is helpful information to see, but if you are reviewing all events from a single sourcetype or eventtype, then this breakdown isn't useful. -->
+        <ul>
+          <li>
+              <tt>eventtype</tt> -
+              Since tags on eventtypes are often used to include particular data in a data model, it's helpful to see which exact eventypes match the given data.
+              Use this to confirm where eventypes are working correctly.
+              This also highlights overly inclusive eventtypes like <i>nix-all-logs</i> that may need to be tweaked or disabled.
+          </li>
+          <li>
+              <tt>index</tt> and <tt>souretype</tt> - This information is helpful because these fields are foundational to data organization in Splunk.
+          </li>
+        </ul>
+      </html>
     </panel>
   </row>
   <row>
     <panel rejects="$hide_eventtype$">
       <table>
-        <!-- Not that all CIM tags are added based on eventtype, but enough that it's worth including here -->
         <title>Breakdown by eventtype</title>
         <search base="event_search">
           <query>mvexpand eventtype | stats count as events, values(sourcetype) as sourcetype, values(index) as index, dc(host) as hosts by eventtype | join type=outer eventtype [ | rest servicesNS/-/Splunk_SA_CIM/saved/eventtypes splunk_server=local | rename eai:appName AS eventtype_app, title AS eventtype, search as eventtype_search, tags as eventtype_tags | table eventtype, eventtype_search, eventtype_tags, eventtype_app ] | sort - events</query>
         </search>
+        <option name="drilldown">none</option>
       </table>
       <table depends="$show_st_id_breakdown$">
         <title>Breakdown by sourcetype and index</title>
@@ -326,6 +354,7 @@
             </condition>
           </progress>
         </search>
+        <option name="drilldown">none</option>
       </table>
     </panel>
   </row>
