@@ -10,7 +10,7 @@ echo "Building $APP ${VER}"
 echo
 
 # Clean existing build directory
-[[ -d "$BUILD" ]] || rm -rf "$BUILD"
+[[ -d "$BUILD" ]] && rm -rf "$BUILD"
 mkdir -p "$BUILD"
 
 echo "Creating build into $BUILD"
