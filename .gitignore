@@ -3,4 +3,7 @@
 local/
 metadata/local.meta
 
-
+# Build stuff
+build/
+dist/
+.latest_release

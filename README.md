@@ -9,6 +9,18 @@ This project is hosted on GitHub, https://github.com/hire-vladimir/SA-cim_vladia
 # Install
 App installation is simple, and only needs to be present on the search head. Documentation around app installation can be found at http://docs.splunk.com/Documentation/AddOns/released/Overview/Singleserverinstall
 
+You can also build a local package like so:
+
+    # Download from git
+    git clone https://github.com/hire-vladimir/SA-cim_vladiator
+    cd SA-cim_vladiator
+
+    # Launch the build process
+    ./build.sh
+
+    # Install into a local Splunk instance
+    $SPLUNK_HOME/bin/splunk install app $(<.latest_release)
+
 # Getting Started
 to fill
 
