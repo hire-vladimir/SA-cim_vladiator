@@ -60,10 +60,10 @@ def validate_args(keywords, argvals):
     ALLOWED_OPTIONS = ['debug', 'field', 'showunmatched', 'prefix', 'showcount', 'labelfield']
     MANDATORY_OPTIONS = ['field']
 
-    if len(filter(lambda x: x in MANDATORY_OPTIONS, argvals)) < len(MANDATORY_OPTIONS):
+    if len([x for x in argvals if x in MANDATORY_OPTIONS]) < len(MANDATORY_OPTIONS):
         die("Insuffucient number of mandatory arguments found. Mandatory argumets are: %s" % MANDATORY_OPTIONS)
 
-    illegal_args = filter(lambda x: x not in ALLOWED_OPTIONS, argvals)
+    illegal_args = [x for x in argvals if x not in ALLOWED_OPTIONS]
     if len(illegal_args) != 0:
         die("The argument(s) '%s' is invalid. Supported arguments are: %s" % (illegal_args, ALLOWED_OPTIONS))
 
@@ -123,10 +123,10 @@ if __name__ == '__main__':
             # perform match
             if isinstance(input_data, list):
                 logger.debug("dealing wiht mv field, will match per mv value")
-                row[output_column_name + "_matches"] = filter(lambda x: re.findall(regex, x), input_data)
+                row[output_column_name + "_matches"] = [x for x in input_data if re.findall(regex, x)]
 
                 if arg_on_and_enabled(argvals, "showunmatched", is_bool=True):
-                    row[output_column_name + "_unmatched"] = filter(lambda x: x not in row[output_column_name + "_matches"], input_data)
+                    row[output_column_name + "_unmatched"] = [x for x in input_data if x not in row[output_column_name + "_matches"]]
             else:
                 logger.debug("dealing with string, will match string")
                 row[output_column_name + "_matches"] = re.findall(regex, input_data)
@@ -144,7 +144,7 @@ if __name__ == '__main__':
         # logger.debug('results="%s"' % results)
         logger.info('sending events to splunk count="%s"' % len(results))
         si.outputResults(results)
-    except Exception, e:
+    except Exception as e:
         logger.error('error while processing events, exception="%s"' % e)
         si.generateErrorResults(e)
         raise Exception(e)

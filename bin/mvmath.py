@@ -60,10 +60,10 @@ def validate_args(keywords, argvals):
     ALLOWED_OPTIONS = ['debug', 'field', 'field2', 'labelfield', 'prefix']
     MANDATORY_OPTIONS = []
 
-    if len(filter(lambda x: x in MANDATORY_OPTIONS, argvals)) < len(MANDATORY_OPTIONS):
+    if len([x for x in argvals if x in MANDATORY_OPTIONS]) < len(MANDATORY_OPTIONS):
         die("Insuffucient number of mandatory arguments found. Mandatory argumets are: %s" % MANDATORY_OPTIONS)
 
-    illegal_args = filter(lambda x: x not in ALLOWED_OPTIONS, argvals)
+    illegal_args = [x for x in argvals if x not in ALLOWED_OPTIONS]
     if len(illegal_args) != 0:
         die("The argument(s) '%s' is invalid. Supported arguments are: %s" % (illegal_args, ALLOWED_OPTIONS))
 
@@ -102,7 +102,7 @@ if __name__ == '__main__':
             if argvals['field'] in row and argvals['field2'] in row:
                 tally = float(row[argvals['field2']])
                 vdata = row[argvals['field']]
-                res = map(lambda x: str(round(float(x) / tally * 100, 2)) + "%", vdata)
+                res = [str(round(float(x) / tally * 100, 2)) + "%" for x in vdata]
                 if isinstance(vdata, str) and vdata is not "":
                     res = str(round(float(vdata) / tally * 100, 2)) + "%"
 
@@ -112,7 +112,7 @@ if __name__ == '__main__':
         # logger.debug('results="%s"' % results)
         logger.info('sending events to splunk count="%s"' % len(results))
         si.outputResults(results)
-    except Exception, e:
+    except Exception as e:
         logger.error('error while processing events, exception="%s"' % e)
         si.generateErrorResults(e)
         raise Exception(e)
