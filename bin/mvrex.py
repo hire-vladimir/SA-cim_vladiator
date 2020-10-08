@@ -69,11 +69,13 @@ def validate_args(keywords, argvals):
 
 
 def get_count(d):
-    ret = 1  # this will take care of cases when no mv is involved
-    if (d is "") or (d == ['']) or (d == []):
-        ret = 0
-    elif isinstance(d, list):
+    # this will take care of cases when no mv is involved
+    if isinstance(d, list):
         ret = len(d)
+        if ret == 1 and not d[0]:
+            ret = 0
+    else:
+        ret = 1
     return ret
 
 
