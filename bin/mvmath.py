@@ -54,7 +54,7 @@ def setup_logging():  # setup logging
 
 def die(msg):
     logger.error(msg)
-    exit("mvmath: %s" % msg)
+    exit("mvmath: %s" % (msg,))
 
 
 def validate_args(keywords, argvals):
@@ -69,7 +69,7 @@ def validate_args(keywords, argvals):
     MANDATORY_OPTIONS = []
 
     if len([x for x in argvals if x in MANDATORY_OPTIONS]) < len(MANDATORY_OPTIONS):
-        die("Insuffucient number of mandatory arguments found. Mandatory argumets are: %s" % MANDATORY_OPTIONS)
+        die("Insuffucient number of mandatory arguments found. Mandatory argumets are: %s" % (MANDATORY_OPTIONS,))
 
     illegal_args = [x for x in argvals if x not in ALLOWED_OPTIONS]
     if len(illegal_args) != 0:
@@ -115,14 +115,14 @@ if __name__ == '__main__':
                     res = "{:.2%}".format(float(vdata) / tally)
 
                 row[output_column_name + "_result"] = res
-                logger.debug('---> %s = vdata="%s", tally="%s", out="%s"' % (row['field'], vdata, tally, res))
+                logger.debug('---> %s = vdata="%s", tally="%s", out="%s"', row['field'], vdata, tally, res)
 
         # logger.debug('results="%s"' % results)
-        logger.info('sending events to splunk count="%s"' % len(results))
+        logger.info('sending events to splunk count="%d"', len(results))
         si.outputResults(results)
     except Exception as e:
-        logger.error('error while processing events, exception="%s"' % e)
+        logger.exception('error while processing events, exception="%s"', e)
         si.generateErrorResults(e)
-        raise Exception(e)
+        raise
     finally:
-        logger.info('exiting, execution duration=%s seconds' % (time.time() - eStart))
+        logger.info('exiting, execution duration=%s seconds', time.time() - eStart)
