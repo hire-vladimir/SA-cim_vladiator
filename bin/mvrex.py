@@ -50,7 +50,7 @@ def die(msg):
 
 
 def validate_args(keywords, argvals):
-    logger.info('function="validate_args" calling getKeywordsAndOptions keywords="%s" args="%s"' % (str(keywords), str(argvals)))
+    logger.info('function="validate_args" calling getKeywordsAndOptions keywords="%s" args="%s"', keywords, argvals)
 
     # validate keywords
     if len(keywords) != 1:

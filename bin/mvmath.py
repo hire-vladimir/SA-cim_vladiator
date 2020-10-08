@@ -12,6 +12,14 @@ import time, os, re
 import logging, logging.handlers
 import splunk.Intersplunk as si
 
+# Mini 'six'-like compat layer
+import sys
+if sys.version_info[0] == 2:
+    string_types = (basestring,)
+else:
+    string_types = (str,)
+
+
 #######################################
 # SCRIPT CONFIG
 #######################################
@@ -50,7 +58,7 @@ def die(msg):
 
 
 def validate_args(keywords, argvals):
-    logger.info('function="validate_args" calling getKeywordsAndOptions keywords="%s" args="%s"' % (str(keywords), str(argvals)))
+    logger.info('function="validate_args" calling getKeywordsAndOptions keywords="%s" args="%s"', keywords, argvals)
 
     # validate keywords
     # if len(keywords) != 1:
@@ -102,9 +110,9 @@ if __name__ == '__main__':
             if argvals['field'] in row and argvals['field2'] in row:
                 tally = float(row[argvals['field2']])
                 vdata = row[argvals['field']]
-                res = [str(round(float(x) / tally * 100, 2)) + "%" for x in vdata]
-                if isinstance(vdata, str) and vdata is not "":
-                    res = str(round(float(vdata) / tally * 100, 2)) + "%"
+                res = ["{:.2%}".format(float(x) / tally) for x in vdata]
+                if isinstance(vdata, string_types) and vdata:
+                    res = "{:.2%}".format(float(vdata) / tally)
 
                 row[output_column_name + "_result"] = res
                 logger.debug('---> %s = vdata="%s", tally="%s", out="%s"' % (row['field'], vdata, tally, res))
