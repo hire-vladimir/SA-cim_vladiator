@@ -84,7 +84,7 @@
         <option name="trendDisplayMode">absolute</option>
         <option name="useColors">0</option>
         <option name="useThousandSeparators">1</option>
-        <option name="afterLabel">%</option>
+        <option name="unit">%</option>
         <option name="rangeColors">["0x65a637","0x6db7c6","0xf7bc38","0xf58f39","0xd93f3c"]</option>
         <option name="rangeValues">[0,30,70,100]</option>
         <option name="trendInterval">auto</option>
@@ -96,7 +96,7 @@
         <search base="cim_base">
           <query>| where isnotnull(ir) | stats count sum(eval(if(match(is_cim_valid, "^low"), 0, 1))) AS bad | eval percent=round((1 -(bad/count))*100) | table percent</query>
         </search>
-        <option name="afterLabel">%</option>
+        <option name="unit">%</option>
         <option name="colorBy">value</option>
         <option name="colorMode">none</option>
         <option name="drilldown">none</option>
