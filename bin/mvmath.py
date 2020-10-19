@@ -12,6 +12,14 @@ import time, os, re
 import logging, logging.handlers
 import splunk.Intersplunk as si
 
+# Mini 'six'-like compat layer
+import sys
+if sys.version_info[0] == 2:
+    string_types = (basestring,)
+else:
+    string_types = (str,)
+
+
 #######################################
 # SCRIPT CONFIG
 #######################################
@@ -46,11 +54,11 @@ def setup_logging():  # setup logging
 
 def die(msg):
     logger.error(msg)
-    exit("mvmath: %s" % msg)
+    exit("mvmath: %s" % (msg,))
 
 
 def validate_args(keywords, argvals):
-    logger.info('function="validate_args" calling getKeywordsAndOptions keywords="%s" args="%s"' % (str(keywords), str(argvals)))
+    logger.info('function="validate_args" calling getKeywordsAndOptions keywords="%s" args="%s"', keywords, argvals)
 
     # validate keywords
     # if len(keywords) != 1:
@@ -60,10 +68,10 @@ def validate_args(keywords, argvals):
     ALLOWED_OPTIONS = ['debug', 'field', 'field2', 'labelfield', 'prefix']
     MANDATORY_OPTIONS = []
 
-    if len(filter(lambda x: x in MANDATORY_OPTIONS, argvals)) < len(MANDATORY_OPTIONS):
-        die("Insuffucient number of mandatory arguments found. Mandatory argumets are: %s" % MANDATORY_OPTIONS)
+    if len([x for x in argvals if x in MANDATORY_OPTIONS]) < len(MANDATORY_OPTIONS):
+        die("Insuffucient number of mandatory arguments found. Mandatory argumets are: %s" % (MANDATORY_OPTIONS,))
 
-    illegal_args = filter(lambda x: x not in ALLOWED_OPTIONS, argvals)
+    illegal_args = [x for x in argvals if x not in ALLOWED_OPTIONS]
     if len(illegal_args) != 0:
         die("The argument(s) '%s' is invalid. Supported arguments are: %s" % (illegal_args, ALLOWED_OPTIONS))
 
@@ -102,19 +110,19 @@ if __name__ == '__main__':
             if argvals['field'] in row and argvals['field2'] in row:
                 tally = float(row[argvals['field2']])
                 vdata = row[argvals['field']]
-                res = map(lambda x: str(round(float(x) / tally * 100, 2)) + "%", vdata)
-                if isinstance(vdata, str) and vdata is not "":
-                    res = str(round(float(vdata) / tally * 100, 2)) + "%"
+                res = ["{:.2%}".format(float(x) / tally) for x in vdata]
+                if isinstance(vdata, string_types) and vdata:
+                    res = "{:.2%}".format(float(vdata) / tally)
 
                 row[output_column_name + "_result"] = res
-                logger.debug('---> %s = vdata="%s", tally="%s", out="%s"' % (row['field'], vdata, tally, res))
+                logger.debug('---> %s = vdata="%s", tally="%s", out="%s"', row['field'], vdata, tally, res)
 
         # logger.debug('results="%s"' % results)
-        logger.info('sending events to splunk count="%s"' % len(results))
+        logger.info('sending events to splunk count="%d"', len(results))
         si.outputResults(results)
-    except Exception, e:
-        logger.error('error while processing events, exception="%s"' % e)
+    except Exception as e:
+        logger.exception('error while processing events, exception="%s"', e)
         si.generateErrorResults(e)
-        raise Exception(e)
+        raise
     finally:
-        logger.info('exiting, execution duration=%s seconds' % (time.time() - eStart))
+        logger.info('exiting, execution duration=%s seconds', time.time() - eStart)

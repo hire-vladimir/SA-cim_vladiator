@@ -46,11 +46,11 @@ def setup_logging():  # setup logging
 
 def die(msg):
     logger.error(msg)
-    exit("mvrex: %s" % msg)
+    exit("mvrex: %s" % (msg,))
 
 
 def validate_args(keywords, argvals):
-    logger.info('function="validate_args" calling getKeywordsAndOptions keywords="%s" args="%s"' % (str(keywords), str(argvals)))
+    logger.info('function="validate_args" calling getKeywordsAndOptions keywords="%s" args="%s"', keywords, argvals)
 
     # validate keywords
     if len(keywords) != 1:
@@ -60,20 +60,22 @@ def validate_args(keywords, argvals):
     ALLOWED_OPTIONS = ['debug', 'field', 'showunmatched', 'prefix', 'showcount', 'labelfield']
     MANDATORY_OPTIONS = ['field']
 
-    if len(filter(lambda x: x in MANDATORY_OPTIONS, argvals)) < len(MANDATORY_OPTIONS):
-        die("Insuffucient number of mandatory arguments found. Mandatory argumets are: %s" % MANDATORY_OPTIONS)
+    if len([x for x in argvals if x in MANDATORY_OPTIONS]) < len(MANDATORY_OPTIONS):
+        die("Insuffucient number of mandatory arguments found. Mandatory argumets are: %s" % (MANDATORY_OPTIONS,))
 
-    illegal_args = filter(lambda x: x not in ALLOWED_OPTIONS, argvals)
+    illegal_args = [x for x in argvals if x not in ALLOWED_OPTIONS]
     if len(illegal_args) != 0:
         die("The argument(s) '%s' is invalid. Supported arguments are: %s" % (illegal_args, ALLOWED_OPTIONS))
 
 
 def get_count(d):
-    ret = 1  # this will take care of cases when no mv is involved
-    if (d is "") or (d == ['']) or (d == []):
-        ret = 0
-    elif isinstance(d, list):
+    # this will take care of cases when no mv is involved
+    if isinstance(d, list):
         ret = len(d)
+        if ret == 1 and not d[0]:
+            ret = 0
+    else:
+        ret = 1
     return ret
 
 
@@ -101,7 +103,7 @@ if __name__ == '__main__':
             logger.debug("detecting debug argument passed, setting command log_level=DEBUG")
 
         regex = keywords[0]
-        logger.debug('will be applying regex="%s", to field="%s"' % (regex, argvals['field']))
+        logger.debug('will be applying regex="%s", to field="%s"', regex, argvals['field'])
 
         output_column_name = "mvrex"
         if arg_on_and_enabled(argvals, "labelfield"):
@@ -114,7 +116,7 @@ if __name__ == '__main__':
             regex = keywords[0]
             if regex in row:
                 regex = row[regex]
-                logger.debug('found substitution oppty, will be applying regex="%s", to field="%s"' % (regex, argvals['field']))
+                logger.debug('found substitution oppty, will be applying regex="%s", to field="%s"', regex, argvals['field'])
 
             input_data = ""
             if argvals['field'] in row:
@@ -123,17 +125,17 @@ if __name__ == '__main__':
             # perform match
             if isinstance(input_data, list):
                 logger.debug("dealing wiht mv field, will match per mv value")
-                row[output_column_name + "_matches"] = filter(lambda x: re.findall(regex, x), input_data)
+                row[output_column_name + "_matches"] = [x for x in input_data if re.findall(regex, x)]
 
                 if arg_on_and_enabled(argvals, "showunmatched", is_bool=True):
-                    row[output_column_name + "_unmatched"] = filter(lambda x: x not in row[output_column_name + "_matches"], input_data)
+                    row[output_column_name + "_unmatched"] = [x for x in input_data if x not in row[output_column_name + "_matches"]]
             else:
                 logger.debug("dealing with string, will match string")
                 row[output_column_name + "_matches"] = re.findall(regex, input_data)
 
                 if arg_on_and_enabled(argvals, "showunmatched", is_bool=True) and get_count(row[output_column_name + "_matches"]) == 0:
                     row[output_column_name + "_unmatched"] = input_data
-            logger.debug('applying regex="%s" to dataset="%s", matches="%d"' % (regex, input_data, len(row[output_column_name + "_matches"])))
+            logger.debug('applying regex="%s" to dataset="%s", matches="%d"', regex, input_data, len(row[output_column_name + "_matches"]))
 
             if arg_on_and_enabled(argvals, "showcount", is_bool=True):
                 row[output_column_name + "_matched_count"] = get_count(row[output_column_name + "_matches"])
@@ -142,11 +144,11 @@ if __name__ == '__main__':
                     row[output_column_name + "_unmatched_count"] = int(row[output_column_name + "_input_count"]) - int(row[output_column_name + "_matched_count"])
 
         # logger.debug('results="%s"' % results)
-        logger.info('sending events to splunk count="%s"' % len(results))
+        logger.info('sending events to splunk count="%d"', len(results))
         si.outputResults(results)
-    except Exception, e:
-        logger.error('error while processing events, exception="%s"' % e)
+    except Exception as e:
+        logger.exception('error while processing events, exception="%s"', e)
         si.generateErrorResults(e)
-        raise Exception(e)
+        raise
     finally:
-        logger.info('exiting, execution duration=%s seconds' % (time.time() - eStart))
+        logger.info('exiting, execution duration=%s seconds', time.time() - eStart)
