@@ -17,27 +17,26 @@ import splunk.Intersplunk as si
 #######################################
 # set log level valid options are: (NOTSET will disable logging)
 # CRITICAL, ERROR, WARNING, INFO, DEBUG, NOTSET
-SPLUNK_HOME = "."
+SPLUNK_HOME = "../../../../"
 LOG_LEVEL = logging.INFO
 LOG_FILE_NAME = "mvrex.log"
 
 
 def setup_logging():  # setup logging
     global SPLUNK_HOME, LOG_LEVEL, LOG_FILE_NAME
-    if 'SPLUNK_HOME' in os.environ:
-        SPLUNK_HOME = os.environ['SPLUNK_HOME']
 
     log_format = "%(asctime)s %(levelname)-s\t%(module)s[%(process)d]:%(lineno)d - %(message)s"
     logger = logging.getLogger('v')
     logger.setLevel(LOG_LEVEL)
+    logger.addHandler(logging.NullHandler())
 
-    l = logging.handlers.RotatingFileHandler(os.path.join(SPLUNK_HOME, 'var', 'log', 'splunk', LOG_FILE_NAME), mode='a', maxBytes=1000000, backupCount=2)
-    l.setFormatter(logging.Formatter(log_format))
-    logger.addHandler(l)
+    # l = logging.handlers.RotatingFileHandler(os.path.join(SPLUNK_HOME, 'var', 'log', 'splunk', LOG_FILE_NAME), mode='a', maxBytes=1000000, backupCount=2)
+    # l.setFormatter(logging.Formatter(log_format))
+    # logger.addHandler(l)
 
     # ..and (optionally) output to console
-    logH = logging.StreamHandler()
-    logH.setFormatter(logging.Formatter(fmt=log_format))
+    # logH = logging.StreamHandler()
+    # logH.setFormatter(logging.Formatter(fmt=log_format))
     # logger.addHandler(logH)
 
     logger.propagate = False
@@ -61,7 +60,7 @@ def validate_args(keywords, argvals):
     MANDATORY_OPTIONS = ['field']
 
     if len([x for x in argvals if x in MANDATORY_OPTIONS]) < len(MANDATORY_OPTIONS):
-        die("Insuffucient number of mandatory arguments found. Mandatory argumets are: %s" % (MANDATORY_OPTIONS,))
+        die("Insufficient number of mandatory arguments found. Mandatory argumets are: %s" % (MANDATORY_OPTIONS,))
 
     illegal_args = [x for x in argvals if x not in ALLOWED_OPTIONS]
     if len(illegal_args) != 0:
