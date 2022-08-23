@@ -1,7 +1,43 @@
-<form script="table_icons_rangemap_now_with_mv.js" stylesheet="table_decorations.css, resize_inputs.css">
+<form script="table_icons_rangemap_now_with_mv.js" stylesheet="table_decorations.css, resize_inputs.css" version="1.1">
   <label>CIM Validator</label>
+  <search id="event_search">
+    <query>$search_type_actual$ $cim_search$ | fields * | head $event_limit$</query>
+    <earliest>$timerange.earliest$</earliest>
+    <latest>$timerange.latest$</latest>
+  </search>
   <search id="cim_base">
-    <query>| datamodel $dm$ | rex max_match=999 "fieldName\":\"(?&lt;field&gt;[^\"]+)" | stats values(field) as field | mvexpand field  | where NOT match(field, "_time|host|sourcetype|source|[A-Z]+|_bunit|_category|_priority|_requires_av|_should_update") OR match(field, "object_category")   | join type=outer field [$search_type$ $cim_search$ | head $event_limit$ | fieldsummary maxvals=15 | eventstats max(count) AS total | eval percent_coverage=round(count/total*100, 2) | table field, percent_coverage, distinct_count, total, values]  | spath input=values | rename {}.value AS sample_values {}.count AS sample_count distinct_count AS distinct_value_count total AS total_events  | fillnull value=0 percent_coverage, distinct_value_count, total_events   | mvmath field=sample_count field2=total_events | eval field_values=mvzip(mvmath_result, sample_values, " ")  | lookup cim_validation_regex field | mvrex showcount=t showunmatched=t field=sample_values validation_regex  | eval is_cim_valid=case(total_events==0, "severe!!!no extracted values found", percent_coverage &lt; 90, "elevated!!!event coverage less than 90%", mvrex_unmatched_count &gt; 0, "elevated!!!found ".mvrex_unmatched_count." unexpected values (".mvjoin(mvrex_unmatched, ", ").")", isnull(validation_regex) OR validation_regex=="", "check!!!no validation regex was found to evaluate", 1==1, "low!!!looking good!")  | lookup cim_validator_recommended_fields field OUTPUT is_recommended | eval ir=if(is_recommended=="true", "star", null()) | table ir, field, total_events, distinct_value_count, percent_coverage, field_values, is_cim_valid</query>
+    <query>
+      <![CDATA[
+| datamodel $dm$
+| rex max_match=999 "fieldName\":\"(?<field>[^\"]+)"
+| stats values(field) as field
+| mvexpand field
+| where NOT match(field, "_time|host|sourcetype|source|[A-Z]+|_bunit|_category|_priority|_requires_av|_should_update") OR match(field, "object_category")
+| join type=outer field [
+    $search_type_actual$ $cim_search$
+  | head $event_limit$
+  | fieldsummary maxvals=15
+  | eventstats max(count) AS total
+  | eval percent_coverage=round(count/total*100, 2)
+  | table field, percent_coverage, distinct_count, total, values]
+| spath input=values
+| rename {}.value AS sample_values {}.count AS sample_count distinct_count AS distinct_value_count total AS total_events
+| fillnull value=0 percent_coverage, distinct_value_count, total_events
+| mvmath field=sample_count field2=total_events
+| eval field_values=mvzip(mvmath_result, sample_values, " ")
+| lookup cim_validation_regex field
+| mvrex showcount=t showunmatched=t field=sample_values validation_regex
+| eval is_cim_valid=case(
+    total_events==0, "severe!!!no extracted values found",
+    percent_coverage < 90, "elevated!!!event coverage less than 90%",
+    mvrex_unmatched_count > 0, "elevated!!!found ".mvrex_unmatched_count." unexpected values (".mvjoin(mvrex_unmatched, ", ").")",
+    isnull(validation_regex) OR validation_regex=="", "check!!!no validation regex was found to evaluate",
+    1==1, "low!!!looking good!")
+| lookup cim_validator_recommended_fields field OUTPUT is_recommended
+| eval ir=if(is_recommended=="true", "star", null())
+| table ir, field, total_events, distinct_value_count, percent_coverage, field_values, is_cim_valid
+]]>
+    </query>
     <earliest>$timerange.earliest$</earliest>
     <latest>$timerange.latest$</latest>
   </search>
@@ -9,15 +45,25 @@
     <input type="dropdown" token="search_type">
       <label>Search type:</label>
       <choice value="search">_raw</choice>
-      <choice value="">datamodel</choice>
+      <choice value="datamodel">datamodel</choice>
       <default>search</default>
+      <change>
+        <condition label="datamodel">
+          <set token="search_type_actual">| datamodel $dm$ search | rename $dm$.* as * | search</set>
+          <set token="hide_eventtype">true</set>
+        </condition>
+        <condition>
+          <set token="search_type_actual">| search</set>
+          <unset token="hide_eventtype"></unset>
+        </condition>
+      </change>
     </input>
     <input type="dropdown" token="dm" searchWhenChanged="true">
       <label>Target datamodel:</label>
       <search>
-        <query>| datamodel            | spath modelName           | table modelName           | sort  modelName</query>
+        <query>| datamodel | spath modelName | spath model | spath displayName | table modelName displayName | sort modelName</query>
       </search>
-      <fieldForLabel>modelName</fieldForLabel>
+      <fieldForLabel>displayName</fieldForLabel>
       <fieldForValue>modelName</fieldForValue>
       <change>
         <unset token="form.initial"></unset>
@@ -38,8 +84,32 @@
     </input>
     <input id="vsearch_bar" type="text" token="cim_search">
       <label>Search:</label>
+      <default>*</default>
     </input>
   </fieldset>
+  <row>
+    <panel>
+      <table depends="$debug$">
+        <search>
+          <query>
+| datamodel $dm$
+| spath output=object path="objects{0}.displayName"
+| spath output=dm_search path="objects{0}.constraints{0}.search"
+| table object, dm_search
+          </query>
+          <finalized>
+            <set token="dm_search">$result.dm_search$</set>
+            <set token="dm_object">$result.object$</set>
+          </finalized>
+        </search>
+        <option name="wrap">false</option>
+        <option name="rowNumbers">false</option>
+        <option name="dataOverlayMode">none</option>
+        <option name="drilldown">none</option>
+        <option name="count">1</option>
+      </table>
+    </panel>
+  </row>
   <row>
     <panel>
       <single>
@@ -85,6 +155,7 @@
         <option name="useColors">0</option>
         <option name="useThousandSeparators">1</option>
         <option name="unit">%</option>
+        <option name="unitPosition">after</option>
         <option name="rangeColors">["0x65a637","0x6db7c6","0xf7bc38","0xf58f39","0xd93f3c"]</option>
         <option name="rangeValues">[0,30,70,100]</option>
         <option name="trendInterval">auto</option>
@@ -97,6 +168,7 @@
           <query>| where isnotnull(ir) | stats count sum(eval(if(match(is_cim_valid, "^low"), 0, 1))) AS bad | eval percent=round((1 -(bad/count))*100) | table percent</query>
         </search>
         <option name="unit">%</option>
+        <option name="unitPosition">after</option>
         <option name="colorBy">value</option>
         <option name="colorMode">none</option>
         <option name="drilldown">none</option>
@@ -109,6 +181,7 @@
         <option name="trendColorInterpretation">standard</option>
         <option name="trendDisplayMode">absolute</option>
         <option name="trendInterval">auto</option>
+        <option name="unit">%</option>
         <option name="useColors">0</option>
         <option name="useThousandSeparators">1</option>
       </single>
@@ -125,6 +198,12 @@
             <b>field_values</b> percentage calculation behavior differs from that of Splunk. Instead of percentage calculation occurring on values that only exist, calculation in this table also takes into the account values that are “null” or do not exist.</li>
           <li>Use <i>Search type</i> picker to tell the validator if search type. i.e. <b>_raw</b> search will be <i>index=network sourcetype=firewall</i>, <b>datamodel</b> as <i>| datamodel Network_Traffic All_Traffic</i>. Searches on _raw are particularly helpful, as they allow to "test" data before it makes it into the accelerated datamodel; removing the need to need for constant rebuild during development/test cycle.</li>
         </ul>
+        <p/>
+        If your running a <tt>_raw</tt> search and you are sure what <i>Search</i> to start with, use the base search listed below.  (This is not needed for the "datamodel" search type.)
+        <p/>
+        Data model: $dm_object$ <br/>
+        Data model base search: <tt>$dm_search|h$</tt>
+        <br/>
       </html>
     </panel>
   </row>
@@ -137,7 +216,8 @@
         <default>1==1</default>
       </input>
       <html>
-        <div><i class="icon-star star" title="star"></i> denotes recommended fields based on use within ES and UBA products.</div>
+        <div>
+          <i class="icon-star star" title="star"/> denotes recommended fields based on use within ES and UBA products.</div>
       </html>
       <table id="tmy_mv_table">
         <title>Data Model $dm$ (and sub models) uses these fields:</title>
@@ -155,12 +235,92 @@
   </row>
   <row>
     <panel>
-      <event>
-        <title>Events</title>
-        <search>
-          <query>$cim_search$ | head $event_limit$</query>
-          <earliest>$timerange.earliest$</earliest>
-          <latest>$timerange.latest$</latest>
+      <input type="dropdown" token="event_mode" searchWhenChanged="true">
+        <label>Show</label>
+        <choice value="raw">All</choice>
+        <choice value="cluster">Cluster</choice>
+        <default>raw</default>
+        <change>
+          <condition value="raw">
+            <set token="show_raw">True</set>
+            <unset token="show_cluster"></unset>
+          </condition>
+          <condition value="cluster">
+            <set token="show_cluster">True</set>
+            <unset token="show_raw"></unset>
+          </condition>
+        </change>
+      </input>
+      <input type="dropdown" token="viz_form" searchWhenChanged="true">
+        <label>Vizualize</label>
+        <choice value="events">Events</choice>
+        <choice value="table">Table</choice>
+        <default>events</default>
+        <change>
+          <condition value="events">
+            <set token="viz_events">True</set>
+            <unset token="viz_table"></unset>
+          </condition>
+          <condition value="table">
+            <set token="viz_table">True</set>
+            <unset token="viz_events"></unset>
+          </condition>
+        </change>
+      </input>
+      <input type="text" token="filter" searchWhenChanged="true">
+        <label>Filter results</label>
+        <default>*</default>
+      </input>
+      <table depends="$show_raw$,$viz_table$">
+        <title>Event table (all)</title>
+        <search base="event_search">
+          <query>
+            <![CDATA[
+| search $filter$
+| table [
+   datamodel $dm$
+ | rex max_match=999 "fieldName\":\"(?<field>[^\"]+)"
+ | mvexpand field
+ | lookup cim_validator_recommended_fields field OUTPUT is_recommended
+ | eval ir=if(is_recommended=="true", "star", null())
+ | where $is_only$ and !match(field, "_time|host|sourcetype|source|[A-Z]+|_bunit|_category|_priority|_requires_av|_should_update|tag") or match(field, "object_category")
+ | stats values(field) as field
+ | eval field=mvappend("_time", field, "sourcetype", "host", "tag", "eventtype")
+ | eval field=mvjoin(field, ", ")
+ | return $$field ]
+| eval tag=mvjoin(tag, "|")
+]]>
+          </query>
+        </search>
+      </table>
+      <table depends="$show_cluster$,$viz_table$">
+        <title>Event table (clusters)</title>
+        <search base="event_search">
+          <query>
+            <![CDATA[
+| search $filter$
+| cluster showcount=true
+| sort - cluster_count
+| table [
+   datamodel $dm$
+ | rex max_match=999 "fieldName\":\"(?<field>[^\"]+)"
+ | mvexpand field
+ | lookup cim_validator_recommended_fields field OUTPUT is_recommended
+ | eval ir=if(is_recommended=="true", "star", null())
+ | where $is_only$ and !match(field, "_time|host|sourcetype|source|[A-Z]+|_bunit|_category|_priority|_requires_av|_should_update|tag") or match(field, "object_category")
+ | stats values(field) as field
+ | eval field=mvappend("cluster_count", field, "_time", "sourcetype", "host", "tag", "eventtype")
+ | eval field=mvjoin(field, ", ")
+ | return $$field ]
+| eval tag=mvjoin(tag, "|")
+]]>
+          </query>
+        </search>
+      </table>
+      <event depends="$show_raw$,$viz_events$">
+        <title>Events (all)</title>
+        <search base="event_search">
+          <query>search $filter$</query>
         </search>
         <option name="count">10</option>
         <option name="list.drilldown">full</option>
@@ -171,8 +331,81 @@
         <option name="table.drilldown">all</option>
         <option name="table.wrap">1</option>
         <option name="type">list</option>
-        <fields>[]</fields>
+        <fields>host,sourcetype,eventtype,tag</fields>
       </event>
+      <event depends="$show_cluster$,$viz_events$">
+        <title>Event (clusters)</title>
+        <search base="event_search">
+          <query>search $filter$ | cluster showcount=true | sort - cluster_count</query>
+        </search>
+        <option name="count">10</option>
+        <option name="list.drilldown">full</option>
+        <option name="list.wrap">1</option>
+        <option name="maxLines">5</option>
+        <option name="raw.drilldown">full</option>
+        <option name="rowNumbers">1</option>
+        <option name="table.drilldown">all</option>
+        <option name="table.wrap">1</option>
+        <option name="type">list</option>
+        <fields>cluster_count, sourcetype, eventtype, tag</fields>
+      </event>
+    </panel>
+  </row>
+  <row>
+    <panel>
+      <html>
+        <h2>Data feeds review</h2>
+        <p/>
+        The remainder of this dashboard shows possibly helpful information regarding which events are included in a datamodel and why they were selected.
+        The following panels are only shown when they results appear to be interesting.
+        Specifically that means that if only a single row is returned, then the output is omitted.
+        <p/>
+        <b>Notes:</b>
+        <!-- The rationale here is that if you are browsing all data within a datamodel this is helpful information to see, but if you are reviewing all events from a single sourcetype or eventtype, then this breakdown isn't useful. -->
+        <ul>
+          <li>
+            <tt>eventtype</tt> -
+              Since tags on eventtypes are often used to include particular data in a data model, it's helpful to see which exact eventypes match the given data.
+              Use this to confirm where eventypes are working correctly.
+              This also highlights overly inclusive eventtypes like <i>nix-all-logs</i> that may need to be tweaked or disabled.
+          </li>
+          <li>
+            <tt>index</tt> and <tt>souretype</tt> - This information is helpful because these fields are foundational to data organization in Splunk.
+          </li>
+        </ul>
+      </html>
+    </panel>
+  </row>
+  <row>
+    <panel rejects="$hide_eventtype$">
+      <table>
+        <title>Breakdown by eventtype</title>
+        <search base="event_search">
+          <query>mvexpand eventtype | stats count as events, values(sourcetype) as sourcetype, values(index) as index, dc(host) as hosts by eventtype | join type=outer eventtype [ | rest servicesNS/-/Splunk_SA_CIM/saved/eventtypes splunk_server=local | rename eai:appName AS eventtype_app, title AS eventtype, search as eventtype_search, tags as eventtype_tags | table eventtype, eventtype_search, eventtype_tags, eventtype_app ] | sort - events</query>
+        </search>
+        <option name="drilldown">none</option>
+      </table>
+      <table depends="$show_st_id_breakdown$">
+        <title>Breakdown by sourcetype and index</title>
+        <search base="event_search">
+          <query>
+            <![CDATA[
+stats count as events, values(eventtype) as eventtype, values(app) as app, dc(host) as hosts by sourcetype, index
+| eval app=if(mvcount(app)>10, mvappend(mvindex(app, 0, 10), "truncated..."), app)
+| sort - events
+          ]]>
+          </query>
+          <progress>
+            <condition match="'job.resultCount' &gt; 1">
+              <set token="show_st_id_breakdown">True</set>
+            </condition>
+            <condition>
+              <unset token="show_st_id_breakdown"></unset>
+            </condition>
+          </progress>
+        </search>
+        <option name="drilldown">none</option>
+      </table>
     </panel>
   </row>
 </form>
