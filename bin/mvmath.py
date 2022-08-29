@@ -13,9 +13,9 @@ import logging, logging.handlers
 import splunk.Intersplunk as si
 
 # Mini 'six'-like compat layer
-import sys
+import six
 if sys.version_info[0] == 2:
-    string_types = (basestring,)
+    string_types = (six.string_types,)
 else:
     string_types = (str,)
 
