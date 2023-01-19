@@ -19,7 +19,7 @@ App installation can be completed using the self-service capabilities. Documenta
 ![CIM validator](https://raw.githubusercontent.com/hire-vladimir/SA-cim_vladiator/master/static/screenshot1.png)
 
 ## System requirements
-App was developed for use with Splunk 7.x+, 8.x+
+App was developed for use with Splunk 8.x+, 9.x+
 
 # Legal
 * *Splunk* is a registered trademark of Splunk, Inc.
