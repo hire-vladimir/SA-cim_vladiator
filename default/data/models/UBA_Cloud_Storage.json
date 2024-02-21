@@ -1,0 +1,283 @@
+{
+    "modelName": "UBA_Cloud_Storage",
+    "displayName": "UBA Cloud Storage",
+    "description": "Splunk UBA Cloud Storage Data Model for CIM Validator App",
+    "objectSummary": {
+        "Event-Based": 1,
+        "Transaction-Based": 0,
+        "Search-Based": 0
+    },
+    "objects": [
+        {
+            "objectName": "UBA_Cloud_Storage",
+            "displayName": "UBA Cloud Storage",
+            "parentName": "BaseEvent",
+            "comment": "",
+            "fields": [
+                {
+                    "fieldName": "_time",
+                    "owner": "BaseEvent",
+                    "type": "timestamp",
+                    "fieldSearch": "",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "_time",
+                    "comment": ""
+                },
+                {
+                    "comment": {
+                        "data_type": "string",
+                        "description": "The application that is generating this event.",
+                        "recommended": true,
+                        "possible_values": "Box, Office365, Google Drive."
+                    },
+                    "fieldName": "app",
+                    "owner": "UBA_Cloud_Storage",
+                    "type": "string",
+                    "fieldSearch": "app=*",
+                    "required": true,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "app"
+                },
+                {
+                    "comment": {
+                        "data_type": "string",
+                        "description": "The type of access.",
+                        "recommended": true,
+                        "possible_values": "Download, Preview, Delete, Create, Edit."
+                    },
+                    "fieldName": "change_type",
+                    "owner": "UBA_Cloud_Storage",
+                    "type": "string",
+                    "fieldSearch": "change_type=*",
+                    "required": true,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "change_type"
+                },
+                {
+                    "comment": {
+                        "data_type": "string",
+                        "description": "The user targeted by this action. Usually this is linked to permission changes made by another user, such as when an admin change the privileges of a user in a file.",
+                        "recommended": false,
+                        "possible_values": "cronaldo"
+                    },
+                    "fieldName": "dest_user",
+                    "owner": "UBA_Cloud_Storage",
+                    "type": "string",
+                    "fieldSearch": "dest_user=*",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "dest_user"
+                },
+                {
+                    "comment": {
+                        "data_type": "integer",
+                        "description": "The unique identifier of the resource. This should be assigned by the product, such as Box, Sharepoint, or Google Drive.",
+                        "recommended": true,
+                        "possible_values": "17283982137"
+                    },
+                    "fieldName": "file_hash",
+                    "owner": "UBA_Cloud_Storage",
+                    "type": "number",
+                    "fieldSearch": "file_hash=*",
+                    "required": true,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "file_hash"
+                },
+                {
+                    "comment": {
+                        "data_type": "integer",
+                        "description": "The size in bytes of the resource associated to this event.",
+                        "recommended": false,
+                        "possible_values": "10280"
+                    },
+                    "fieldName": "file_size",
+                    "owner": "UBA_Cloud_Storage",
+                    "type": "number",
+                    "fieldSearch": "file_size=*",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "file_size"
+                },
+                {
+                    "fieldName": "host",
+                    "owner": "BaseEvent",
+                    "type": "string",
+                    "fieldSearch": "",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "host",
+                    "comment": ""
+                },
+                {
+                    "comment": {
+                        "data_type": "string",
+                        "description": "The name of the file.",
+                        "recommended": true,
+                        "possible_values": "this_picture.png"
+                    },
+                    "fieldName": "object",
+                    "owner": "UBA_Cloud_Storage",
+                    "type": "string",
+                    "fieldSearch": "object=*",
+                    "required": true,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "object"
+                },
+                {
+                    "comment": {
+                        "data_type": "string",
+                        "description": "The absolute or relative location of the resource.",
+                        "recommended": true,
+                        "possible_values": "/bpatinho/photos"
+                    },
+                    "fieldName": "object_path",
+                    "owner": "UBA_Cloud_Storage",
+                    "type": "string",
+                    "fieldSearch": "object_path=*",
+                    "required": true,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "object_path"
+                },
+                {
+                    "comment": {
+                        "data_type": "string",
+                        "description": "The type of the file.",
+                        "recommended": true,
+                        "possible_values": "File, Folder, Document, Image, etc."
+                    },
+                    "fieldName": "object_type",
+                    "owner": "UBA_Cloud_Storage",
+                    "type": "string",
+                    "fieldSearch": "object_type=*",
+                    "required": true,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "object_type"
+                },
+                {
+                    "comment": {
+                        "data_type": "string",
+                        "description": "The type of the parent resource.",
+                        "recommended": false,
+                        "possible_values": "Folder, Link, etc."
+                    },
+                    "fieldName": "parent_category",
+                    "owner": "UBA_Cloud_Storage",
+                    "type": "string",
+                    "fieldSearch": "parent_category=*",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "parent_category"
+                },
+                {
+                    "comment": {
+                        "data_type": "integer",
+                        "description": "The unique identifier of the parent resource. This should be assigned by the product, such as Box, Sharepoint, or Google Drive.",
+                        "recommended": true,
+                        "possible_values": "9864239674"
+                    },
+                    "fieldName": "parent_hash",
+                    "owner": "UBA_Cloud_Storage",
+                    "type": "number",
+                    "fieldSearch": "parent_hash=*",
+                    "required": true,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "parent_hash"
+                },
+                {
+                    "fieldName": "source",
+                    "owner": "BaseEvent",
+                    "type": "string",
+                    "fieldSearch": "",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "source",
+                    "comment": ""
+                },
+                {
+                    "fieldName": "sourcetype",
+                    "owner": "BaseEvent",
+                    "type": "string",
+                    "fieldSearch": "",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "sourcetype",
+                    "comment": ""
+                },
+                {
+                    "comment": {
+                        "data_type": "string",
+                        "description": "The user creating this event.",
+                        "recommended": true,
+                        "possible_values": "user1"
+                    },
+                    "fieldName": "src_user",
+                    "owner": "UBA_Cloud_Storage",
+                    "type": "string",
+                    "fieldSearch": "src_user=*",
+                    "required": true,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "src_user"
+                },
+                {
+                    "comment": {
+                        "data_type": "string",
+                        "description": "Splunk UBA categories rely on the tags from CIM-compliant events to correctly parse data from the Splunk platform. Review this table to determine which category in Splunk UBA corresponds to the CIM data model that the events in the Splunk platform are mapped to. Click the name of the Splunk UBA category to review the field mappings between Splunk UBA and the CIM data models.",
+                        "recommended": true,
+                        "possible_values": "cloud"
+                    },
+                    "fieldName": "tag",
+                    "owner": "UBA_Cloud_Storage Storage",
+                    "type": "string",
+                    "fieldSearch": "*",
+                    "required": true,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "tag"
+                }
+            ],
+            "calculations": [],
+            "constraints": [
+                {
+                    "search": "`uba_cim_cloud_indexes` cloud",
+                    "owner": "UBA_Cloud_Storage"
+                }
+            ],
+            "lineage": "UBA_Cloud_Storage"
+        }
+    ],
+    "objectNameList": [
+        "UBA_Cloud_Storage"
+    ]
+}

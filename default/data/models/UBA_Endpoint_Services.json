@@ -1,0 +1,640 @@
+{
+    "modelName": "UBA_Endpoint_Services",
+    "displayName": "UBA Endpoint Services",
+    "description": "Splunk UBA Endpoint Services Data Model for CIM Validator App. \n- An entity is required in order to generate anomalies mapped to Lateral Movement threats.\n- Splunk UBA requires the following tag combinations to process endpoint category events:\nTo properly parse port data, Splunk UBA requires listening, port.\nTo properly parse process data, Splunk UBA requires process, report.\nTo properly parse service data, Splunk UBA requires tag=service, tag=report.\nTo properly parse filesystem data, Splunk UBA requires tag=endpoint, tag=filesystem.\nTo properly parse registry data, Splunk UBA requires tag=endpoint, tag=registry.\n- The Endpoint category contains multiple datasets. Some fields have the same names across multiple datasets.",
+    "objectSummary": {
+        "Event-Based": 1,
+        "Transaction-Based": 0,
+        "Search-Based": 0
+    },
+    "objects": [
+        {
+            "objectName": "UBA_Endpoint_Services",
+            "displayName": "UBA Endpoint Services",
+            "parentName": "BaseEvent",
+            "comment": "",
+            "fields": [
+                {
+                    "fieldName": "_time",
+                    "owner": "BaseEvent",
+                    "type": "timestamp",
+                    "fieldSearch": "",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "_time",
+                    "comment": ""
+                },
+                {
+                    "comment": {
+                        "data_type": "string",
+                        "description": "The action taken by the endpoint.",
+                        "recommended": true,
+                        "possible_values": "allowed, blocked"
+                    },
+                    "fieldName": "action",
+                    "owner": "UBA_Endpoint_Services",
+                    "type": "string",
+                    "fieldSearch": "action=*",
+                    "required": true,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "action"
+                },
+                {
+                    "comment": {
+                        "data_type": "string",
+                        "description": "The categories that this external alarm belongs to. Multiple categories can be separated by comma. The values must be one or more of the categories in\u00a0Filter the anomaly table.",
+                        "recommended": false,
+                        "possible_values": "Exfiltration"
+                    },
+                    "fieldName": "alarmCategories",
+                    "owner": "UBA_Endpoint_Services",
+                    "type": "string",
+                    "fieldSearch": "alarmCategories=*",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "alarmCategories"
+                },
+                {
+                    "comment": {
+                        "data_type": "string",
+                        "description": "The event category, if applicable.",
+                        "recommended": false,
+                        "possible_values": "malware, watchlist.hit.ingress.process"
+                    },
+                    "fieldName": "category",
+                    "owner": "UBA_Endpoint_Services",
+                    "type": "string",
+                    "fieldSearch": "category=*",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "category"
+                },
+                {
+                    "comment": {
+                        "data_type": "string",
+                        "description": "The description of the service.",
+                        "recommended": false,
+                        "possible_values": "Example description"
+                    },
+                    "fieldName": "description",
+                    "owner": "UBA_Endpoint_Services",
+                    "type": "string",
+                    "fieldSearch": "description=*",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "description"
+                },
+                {
+                    "comment": {
+                        "data_type": "string",
+                        "description": "The host name of the endpoint.",
+                        "recommended": true,
+                        "possible_values": "winhost1"
+                    },
+                    "fieldName": "dest_host",
+                    "owner": "UBA_Endpoint_Services",
+                    "type": "string",
+                    "fieldSearch": "dest_host=*",
+                    "required": true,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "dest_host"
+                },
+                {
+                    "comment": {
+                        "data_type": "string",
+                        "description": "IP address of the endpoint where the activity happened.",
+                        "recommended": false,
+                        "possible_values": "1.1.1.1"
+                    },
+                    "fieldName": "dest_ip",
+                    "owner": "UBA_Endpoint_Services",
+                    "type": "string",
+                    "fieldSearch": "dest_ip=*",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "dest_ip"
+                },
+                {
+                    "comment": {
+                        "data_type": "string",
+                        "description": "The NT domain of the endpoint, if applicable.",
+                        "recommended": false,
+                        "possible_values": "acme"
+                    },
+                    "fieldName": "dest_nt_domain",
+                    "owner": "UBA_Endpoint_Services",
+                    "type": "string",
+                    "fieldSearch": "dest_nt_domain=*",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "dest_nt_domain"
+                },
+                {
+                    "comment": {
+                        "data_type": "string",
+                        "description": "The host name of the endpoint.",
+                        "recommended": true,
+                        "possible_values": "winhost1"
+                    },
+                    "fieldName": "endpoint_dns",
+                    "owner": "UBA_Endpoint_Services",
+                    "type": "string",
+                    "fieldSearch": "endpoint_dns=*",
+                    "required": true,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "endpoint_dns"
+                },
+                {
+                    "comment": {
+                        "data_type": "string",
+                        "description": "IP address of the endpoint where the activity happened.",
+                        "recommended": false,
+                        "possible_values": "1.1.1.1"
+                    },
+                    "fieldName": "endpoint_ip",
+                    "owner": "UBA_Endpoint_Services",
+                    "type": "string",
+                    "fieldSearch": "endpoint_ip=*",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "endpoint_ip"
+                },
+                {
+                    "comment": {
+                        "data_type": "string",
+                        "description": "The NT domain of the endpoint, if applicable.",
+                        "recommended": false,
+                        "possible_values": "acme"
+                    },
+                    "fieldName": "endpoint_nt_domain",
+                    "owner": "UBA_Endpoint_Services",
+                    "type": "string",
+                    "fieldSearch": "endpoint_nt_domain=*",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "endpoint_nt_domain"
+                },
+                {
+                    "comment": {
+                        "data_type": "integer",
+                        "description": "Network port listening on the endpoint.",
+                        "recommended": false,
+                        "possible_values": "53"
+                    },
+                    "fieldName": "endpoint_port",
+                    "owner": "UBA_Endpoint_Services",
+                    "type": "number",
+                    "fieldSearch": "endpoint_port=*",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "endpoint_port"
+                },
+                {
+                    "comment": {
+                        "data_type": "integer",
+                        "description": "The event ID or code for the activity.",
+                        "recommended": false,
+                        "possible_values": "7045"
+                    },
+                    "fieldName": "event_id",
+                    "owner": "UBA_Endpoint_Services",
+                    "type": "number",
+                    "fieldSearch": "event_id=*",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "event_id"
+                },
+                {
+                    "comment": {
+                        "data_type": "string",
+                        "description": "The type of the event.",
+                        "recommended": true,
+                        "possible_values": "symantec_ep_risk_alert_virus, A service was installed in the system"
+                    },
+                    "fieldName": "eventtype",
+                    "owner": "UBA_Endpoint_Services",
+                    "type": "string",
+                    "fieldSearch": "eventtype=*",
+                    "required": true,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "eventtype"
+                },
+                {
+                    "fieldName": "host",
+                    "owner": "BaseEvent",
+                    "type": "string",
+                    "fieldSearch": "",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "host",
+                    "comment": ""
+                },
+                {
+                    "comment": {
+                        "data_type": "string",
+                        "description": "The dynamic link library associated with the service.",
+                        "recommended": false,
+                        "possible_values": "Svc.exe"
+                    },
+                    "fieldName": "service_dll",
+                    "owner": "UBA_Endpoint_Services",
+                    "type": "string",
+                    "fieldSearch": "service_dll=*",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "service_dll"
+                },
+                {
+                    "comment": {
+                        "data_type": "string",
+                        "description": "The digests of the dynamic link library associated with the service.",
+                        "recommended": false,
+                        "possible_values": "<md5>, <sha1>"
+                    },
+                    "fieldName": "service_dll_hash",
+                    "owner": "UBA_Endpoint_Services",
+                    "type": "string",
+                    "fieldSearch": "service_dll_hash=*",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "service_dll_hash"
+                },
+                {
+                    "comment": {
+                        "data_type": "string",
+                        "description": "The file path to the dynamic link library associated with the service.",
+                        "recommended": false,
+                        "possible_values": "C:\\Windows\\System32\\comdlg32.dll"
+                    },
+                    "fieldName": "service_dll_path",
+                    "owner": "UBA_Endpoint_Services",
+                    "type": "string",
+                    "fieldSearch": "service_dll_path=*",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "service_dll_path"
+                },
+                {
+                    "comment": {
+                        "data_type": "string",
+                        "description": "Whether or not the dynamic link library associated with the service has a digitally signed signature.",
+                        "recommended": false,
+                        "possible_values": "TRUE"
+                    },
+                    "fieldName": "service_dll_signature_exists",
+                    "owner": "UBA_Endpoint_Services",
+                    "type": "string",
+                    "fieldSearch": "service_dll_signature_exists=*",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "service_dll_signature_exists"
+                },
+                {
+                    "comment": {
+                        "data_type": "string",
+                        "description": "Whether or not the dynamic link library associated with the service has had its digitally signed signature verified.",
+                        "recommended": false,
+                        "possible_values": "TRUE"
+                    },
+                    "fieldName": "service_dll_signature_verified",
+                    "owner": "UBA_Endpoint_Services",
+                    "type": "string",
+                    "fieldSearch": "service_dll_signature_verified=*",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "service_dll_signature_verified"
+                },
+                {
+                    "comment": {
+                        "data_type": "string",
+                        "description": "The executable name of the service.",
+                        "recommended": false,
+                        "possible_values": "svchost.exe"
+                    },
+                    "fieldName": "service_exec",
+                    "owner": "UBA_Endpoint_Services",
+                    "type": "string",
+                    "fieldSearch": "service_exec=*",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "service_exec"
+                },
+                {
+                    "comment": {
+                        "data_type": "string",
+                        "description": "The digests of the service.",
+                        "recommended": true,
+                        "possible_values": "<md5>, <sha1>"
+                    },
+                    "fieldName": "service_hash",
+                    "owner": "UBA_Endpoint_Services",
+                    "type": "string",
+                    "fieldSearch": "service_hash=*",
+                    "required": true,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "service_hash"
+                },
+                {
+                    "comment": {
+                        "data_type": "integer",
+                        "description": "The unique identifier of the service assigned by the operating system.",
+                        "recommended": true,
+                        "possible_values": "12345"
+                    },
+                    "fieldName": "service_id",
+                    "owner": "UBA_Endpoint_Services",
+                    "type": "number",
+                    "fieldSearch": "service_id=*",
+                    "required": true,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "service_id"
+                },
+                {
+                    "comment": {
+                        "data_type": "string",
+                        "description": "The friendly service name.",
+                        "recommended": false,
+                        "possible_values": "example_name"
+                    },
+                    "fieldName": "service_name",
+                    "owner": "UBA_Endpoint_Services",
+                    "type": "string",
+                    "fieldSearch": "service_name=*",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "service_name"
+                },
+                {
+                    "comment": {
+                        "data_type": "string",
+                        "description": "The file path of the service.",
+                        "recommended": false,
+                        "possible_values": "C:\\WINDOWS\\system32\\svchost.exe"
+                    },
+                    "fieldName": "service_path",
+                    "owner": "UBA_Endpoint_Services",
+                    "type": "string",
+                    "fieldSearch": "service_path=*",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "service_path"
+                },
+                {
+                    "comment": {
+                        "data_type": "string",
+                        "description": "The severity of the endpoint event.",
+                        "recommended": false,
+                        "possible_values": "informational, unknown, low, medium, high, critical"
+                    },
+                    "fieldName": "severity",
+                    "owner": "UBA_Endpoint_Services",
+                    "type": "string",
+                    "fieldSearch": "severity=*",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "severity"
+                },
+                {
+                    "comment": {
+                        "data_type": "string",
+                        "description": "The sub-category or signature of the event, if applicable.",
+                        "recommended": false,
+                        "possible_values": "process_blocking"
+                    },
+                    "fieldName": "signature",
+                    "owner": "UBA_Endpoint_Services",
+                    "type": "string",
+                    "fieldSearch": "signature=*",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "signature"
+                },
+                {
+                    "fieldName": "source",
+                    "owner": "BaseEvent",
+                    "type": "string",
+                    "fieldSearch": "",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "source",
+                    "comment": ""
+                },
+                {
+                    "fieldName": "sourcetype",
+                    "owner": "BaseEvent",
+                    "type": "string",
+                    "fieldSearch": "",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "sourcetype",
+                    "comment": ""
+                },
+                {
+                    "comment": {
+                        "data_type": "string",
+                        "description": "The hostname of the \"remote\" system connected to the listening port (if applicable)",
+                        "recommended": false,
+                        "possible_values": "acmehost1"
+                    },
+                    "fieldName": "src_dns",
+                    "owner": "UBA_Endpoint_Services",
+                    "type": "string",
+                    "fieldSearch": "src_dns=*",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "src_dns"
+                },
+                {
+                    "comment": {
+                        "data_type": "string",
+                        "description": "The hostname of the \"remote\" system connected to the listening port (if applicable)",
+                        "recommended": false,
+                        "possible_values": "acmehost1"
+                    },
+                    "fieldName": "src_host",
+                    "owner": "UBA_Endpoint_Services",
+                    "type": "string",
+                    "fieldSearch": "src_host=*",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "src_host"
+                },
+                {
+                    "comment": {
+                        "data_type": "string",
+                        "description": "The IP address of the \"remote\" system connected to the listening port (if applicable).",
+                        "recommended": false,
+                        "possible_values": "2.2.2.2"
+                    },
+                    "fieldName": "src_ip",
+                    "owner": "UBA_Endpoint_Services",
+                    "type": "string",
+                    "fieldSearch": "src_ip=*",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "src_ip"
+                },
+                {
+                    "comment": {
+                        "data_type": "integer",
+                        "description": "The \"remote\" port connected to the listening port (if applicable).",
+                        "recommended": false,
+                        "possible_values": "53"
+                    },
+                    "fieldName": "src_port",
+                    "owner": "UBA_Endpoint_Services",
+                    "type": "number",
+                    "fieldSearch": "src_port=*",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "src_port"
+                },
+                {
+                    "comment": {
+                        "data_type": "string",
+                        "description": "The start mode for the service.",
+                        "recommended": false,
+                        "possible_values": "example_mode"
+                    },
+                    "fieldName": "start_mode",
+                    "owner": "UBA_Endpoint_Services",
+                    "type": "string",
+                    "fieldSearch": "start_mode=*",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "start_mode"
+                },
+                {
+                    "comment": {
+                        "data_type": "string",
+                        "description": "The status of the service or registry.",
+                        "recommended": true,
+                        "possible_values": "critical, started, stopped, warning, failure, success"
+                    },
+                    "fieldName": "status",
+                    "owner": "UBA_Endpoint_Services",
+                    "type": "string",
+                    "fieldSearch": "status=*",
+                    "required": true,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "status"
+                },
+                {
+                    "comment": {
+                        "data_type": "string",
+                        "description": "Splunk UBA categories rely on the tags from CIM-compliant events to correctly parse data from the Splunk platform. Review this table to determine which category in Splunk UBA corresponds to the CIM data model that the events in the Splunk platform are mapped to. Click the name of the Splunk UBA category to review the field mappings between Splunk UBA and the CIM data models.",
+                        "recommended": true,
+                        "possible_values": "service,report"
+                    },
+                    "fieldName": "tag",
+                    "owner": "UBA_Endpoint_Services",
+                    "type": "string",
+                    "fieldSearch": "*",
+                    "required": true,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "tag"
+                },
+                {
+                    "comment": {
+                        "data_type": "string",
+                        "description": "The user account associated with the service or the filesystem access, or the registry access.",
+                        "recommended": true,
+                        "possible_values": "cronaldo"
+                    },
+                    "fieldName": "user",
+                    "owner": "UBA_Endpoint_Services",
+                    "type": "string",
+                    "fieldSearch": "user=*",
+                    "required": true,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "user"
+                }
+            ],
+            "calculations": [],
+            "constraints": [
+                {
+                    "search": "`uba_cim_endpoint_indexes` service report",
+                    "owner": "UBA_Endpoint_Services"
+                }
+            ],
+            "lineage": "UBA_Endpoint_Services"
+        }
+    ],
+    "objectNameList": [
+        "UBA_Endpoint_Services"
+    ]
+}

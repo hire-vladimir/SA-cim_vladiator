@@ -1,0 +1,219 @@
+{
+    "modelName": "UBA_Authentication",
+    "displayName": "UBA Authentication",
+    "description": "Splunk UBA Authentication Data Model for CIM Validator App",
+    "objectSummary": {
+        "Event-Based": 1,
+        "Transaction-Based": 0,
+        "Search-Based": 0
+    },
+    "objects": [
+        {
+            "comment": {
+                "tags": [
+                    "authentication"
+                ]
+            },
+            "objectName": "UBA_Authentication",
+            "displayName": "UBA Authentication",
+            "parentName": "BaseEvent",
+            "fields": [
+                {
+                    "fieldName": "_time",
+                    "owner": "BaseEvent",
+                    "type": "timestamp",
+                    "fieldSearch": "",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "_time",
+                    "comment": ""
+                },
+                {
+                    "comment": {
+                        "data_type": "string",
+                        "description": "The action performed on the resource.",
+                        "recommended": true,
+                        "possible_values": "success, failure, unknown, added"
+                    },
+                    "fieldName": "action",
+                    "owner": "UBA_Authentication",
+                    "type": "string",
+                    "fieldSearch": "action=*",
+                    "required": true,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "action"
+                },
+                {
+                    "comment": {
+                        "data_type": "string",
+                        "description": "The application involved in the event.",
+                        "recommended": false,
+                        "possible_values": "ssh, splunk, win:local"
+                    },
+                    "fieldName": "app",
+                    "owner": "UBA_Authentication",
+                    "type": "string",
+                    "fieldSearch": "app=*",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "app"
+                },
+                {
+                    "comment": {
+                        "data_type": "string",
+                        "description": "The target involved in the authentication. You can alias this from more specific fields including\u00a0dest_ip\u00a0and\u00a0dest_host.",
+                        "recommended": true,
+                        "possible_values": "192.168.10.11, winhost1"
+                    },
+                    "fieldName": "dest",
+                    "owner": "UBA_Authentication",
+                    "type": "string",
+                    "fieldSearch": "dest=*",
+                    "required": true,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "dest"
+                },
+                {
+                    "comment": {
+                        "data_type": "integer",
+                        "description": "The amount of time in seconds that it took to complete the authentication event.",
+                        "recommended": false,
+                        "possible_values": "2"
+                    },
+                    "fieldName": "duration",
+                    "owner": "UBA_Authentication",
+                    "type": "number",
+                    "fieldSearch": "duration=*",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "duration"
+                },
+                {
+                    "fieldName": "host",
+                    "owner": "BaseEvent",
+                    "type": "string",
+                    "fieldSearch": "",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "host",
+                    "comment": ""
+                },
+                {
+                    "fieldName": "source",
+                    "owner": "BaseEvent",
+                    "type": "string",
+                    "fieldSearch": "",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "source",
+                    "comment": ""
+                },
+                {
+                    "fieldName": "sourcetype",
+                    "owner": "BaseEvent",
+                    "type": "string",
+                    "fieldSearch": "",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "sourcetype",
+                    "comment": ""
+                },
+                {
+                    "comment": {
+                        "data_type": "string",
+                        "description": "The source involved in the authentication. In the case of endpoint protection authentication the src is the client. You can alias this from more specific fields including\u00a0src_ip\u00a0and\u00a0src_host.",
+                        "recommended": true,
+                        "possible_values": "192.168.10.12, winhost2"
+                    },
+                    "fieldName": "src",
+                    "owner": "UBA_Authentication",
+                    "type": "string",
+                    "fieldSearch": "src=*",
+                    "required": true,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "src"
+                },
+                {
+                    "comment": {
+                        "data_type": "string",
+                        "description": "In privilege escalation events, src_user represents the user who initiated the privilege escalation. This field is unnecessary when an escalation is not performed.",
+                        "recommended": false,
+                        "possible_values": "user1"
+                    },
+                    "fieldName": "src_user",
+                    "owner": "UBA_Authentication",
+                    "type": "string",
+                    "fieldSearch": "src_user=*",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "src_user"
+                },
+                {
+                    "comment": {
+                        "data_type": "string",
+                        "description": "Splunk UBA categories rely on the tags from CIM-compliant events to correctly parse data from the Splunk platform. Review this table to determine which category in Splunk UBA corresponds to the CIM data model that the events in the Splunk platform are mapped to. Click the name of the Splunk UBA category to review the field mappings between Splunk UBA and the CIM data models.",
+                        "recommended": true,
+                        "possible_values": "authentication"
+                    },
+                    "fieldName": "tag",
+                    "owner": "UBA_Authentication",
+                    "type": "string",
+                    "fieldSearch": "*",
+                    "required": true,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "tag"
+                },
+                {
+                    "comment": {
+                        "data_type": "string",
+                        "description": "The name of the user for whom the authentication is being performed.",
+                        "recommended": true,
+                        "possible_values": "user2"
+                    },
+                    "fieldName": "user",
+                    "owner": "UBA_Authentication",
+                    "type": "string",
+                    "fieldSearch": "user=*",
+                    "required": true,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "user"
+                }
+            ],
+            "calculations": [],
+            "constraints": [
+                {
+                    "search": "`uba_cim_authentication_indexes` authentication",
+                    "owner": "UBA_Authentication"
+                }
+            ],
+            "lineage": "UBA_Authentication"
+        }
+    ],
+    "objectNameList": [
+        "UBA_Authentication"
+    ]
+}

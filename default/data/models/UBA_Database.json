@@ -1,0 +1,419 @@
+{
+    "modelName": "UBA_Database",
+    "displayName": "UBA Database",
+    "description": "Splunk UBA Database Data Model for CIM Validator App",
+    "objectSummary": {
+        "Event-Based": 1,
+        "Transaction-Based": 0,
+        "Search-Based": 0
+    },
+    "objects": [
+        {
+            "objectName": "UBA_Database",
+            "displayName": "UBA Database",
+            "parentName": "BaseEvent",
+            "comment": "",
+            "fields": [
+                {
+                    "fieldName": "_time",
+                    "owner": "BaseEvent",
+                    "type": "timestamp",
+                    "fieldSearch": "",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "_time",
+                    "comment": ""
+                },
+                {
+                    "comment": {
+                        "data_type": "string",
+                        "description": "The action performed by the user.",
+                        "recommended": false,
+                        "possible_values": "LOGON, LOGOFF, CREATE FUNCTION"
+                    },
+                    "fieldName": "action_name",
+                    "owner": "UBA_Database",
+                    "type": "string",
+                    "fieldSearch": "action_name=*",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "action_name"
+                },
+                {
+                    "comment": {
+                        "data_type": "string",
+                        "description": "The SQL query command.",
+                        "recommended": false,
+                        "possible_values": "select, locktable, insert, delete"
+                    },
+                    "fieldName": "command_name",
+                    "owner": "UBA_Database",
+                    "type": "string",
+                    "fieldSearch": "command_name=*",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "command_name"
+                },
+                {
+                    "comment": {
+                        "data_type": "integer",
+                        "description": "The number of commits per second performed by the user associated with the session.",
+                        "recommended": false,
+                        "possible_values": "5"
+                    },
+                    "fieldName": "commits",
+                    "owner": "UBA_Database",
+                    "type": "number",
+                    "fieldSearch": "commits=*",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "commits"
+                },
+                {
+                    "comment": {
+                        "data_type": "integer",
+                        "description": "The number of CPU centiseconds used by the session. Divide this value by 100 to get the CPU seconds.",
+                        "recommended": false,
+                        "possible_values": "1"
+                    },
+                    "fieldName": "cpu_used",
+                    "owner": "UBA_Database",
+                    "type": "number",
+                    "fieldSearch": "cpu_used=*",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "cpu_used"
+                },
+                {
+                    "comment": {
+                        "data_type": "string",
+                        "description": "The host name of the destination.",
+                        "recommended": false,
+                        "possible_values": "winhost2"
+                    },
+                    "fieldName": "dest_host",
+                    "owner": "UBA_Database",
+                    "type": "string",
+                    "fieldSearch": "dest_host=*",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "dest_host"
+                },
+                {
+                    "comment": {
+                        "data_type": "string",
+                        "description": "The IP address of the destination.",
+                        "recommended": false,
+                        "possible_values": "2.2.2.2"
+                    },
+                    "fieldName": "dest_ip",
+                    "owner": "UBA_Database",
+                    "type": "string",
+                    "fieldSearch": "dest_ip=*",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "dest_ip"
+                },
+                {
+                    "comment": {
+                        "data_type": "integer",
+                        "description": "The duration in seconds of the database connection.",
+                        "recommended": false,
+                        "possible_values": "241"
+                    },
+                    "fieldName": "duration",
+                    "owner": "UBA_Database",
+                    "type": "number",
+                    "fieldSearch": "duration=*",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "duration"
+                },
+                {
+                    "comment": {
+                        "data_type": "integer",
+                        "description": "The total amount of time in seconds that elapsed since the user started the session by logging into the database server.",
+                        "recommended": false,
+                        "possible_values": "10"
+                    },
+                    "fieldName": "elapsed_time",
+                    "owner": "UBA_Database",
+                    "type": "number",
+                    "fieldSearch": "elapsed_time=*",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "elapsed_time"
+                },
+                {
+                    "comment": {
+                        "data_type": "string",
+                        "description": "The type of event.",
+                        "recommended": true,
+                        "possible_values": "oracle_auth, oracle_session"
+                    },
+                    "fieldName": "eventtype",
+                    "owner": "UBA_Database",
+                    "type": "string",
+                    "fieldSearch": "eventtype=*",
+                    "required": true,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "eventtype"
+                },
+                {
+                    "fieldName": "host",
+                    "owner": "BaseEvent",
+                    "type": "string",
+                    "fieldSearch": "",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "host",
+                    "comment": ""
+                },
+                {
+                    "comment": {
+                        "data_type": "string",
+                        "description": "The name of the database instance.",
+                        "recommended": true,
+                        "possible_values": "myinstance"
+                    },
+                    "fieldName": "instance_name",
+                    "owner": "UBA_Database",
+                    "type": "string",
+                    "fieldSearch": "instance_name=*",
+                    "required": true,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "instance_name"
+                },
+                {
+                    "comment": {
+                        "data_type": "string",
+                        "description": "The name of the database object.",
+                        "recommended": false,
+                        "possible_values": "view1, index1"
+                    },
+                    "fieldName": "object",
+                    "owner": "UBA_Database",
+                    "type": "string",
+                    "fieldSearch": "object=*",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "object"
+                },
+                {
+                    "comment": {
+                        "data_type": "string",
+                        "description": "The full database query.",
+                        "recommended": false,
+                        "possible_values": "select * from my_table"
+                    },
+                    "fieldName": "query",
+                    "owner": "UBA_Database",
+                    "type": "string",
+                    "fieldSearch": "query=*",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "query"
+                },
+                {
+                    "comment": {
+                        "data_type": "integer",
+                        "description": "The number of records affected by the database query.",
+                        "recommended": false,
+                        "possible_values": "1"
+                    },
+                    "fieldName": "records_affected",
+                    "owner": "UBA_Database",
+                    "type": "number",
+                    "fieldSearch": "records_affected=*",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "records_affected"
+                },
+                {
+                    "fieldName": "source",
+                    "owner": "BaseEvent",
+                    "type": "string",
+                    "fieldSearch": "",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "source",
+                    "comment": ""
+                },
+                {
+                    "fieldName": "sourcetype",
+                    "owner": "BaseEvent",
+                    "type": "string",
+                    "fieldSearch": "",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "sourcetype",
+                    "comment": ""
+                },
+                {
+                    "comment": {
+                        "data_type": "string",
+                        "description": "The domain name of the source server of the database event.",
+                        "recommended": false,
+                        "possible_values": "winhost1"
+                    },
+                    "fieldName": "src_host",
+                    "owner": "UBA_Database",
+                    "type": "string",
+                    "fieldSearch": "src_host=*",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "src_host"
+                },
+                {
+                    "comment": {
+                        "data_type": "string",
+                        "description": "The IP address of the source server of the database event.",
+                        "recommended": false,
+                        "possible_values": "10.10.10.12"
+                    },
+                    "fieldName": "src_ip",
+                    "owner": "UBA_Database",
+                    "type": "string",
+                    "fieldSearch": "src_ip=*",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "src_ip"
+                },
+                {
+                    "comment": {
+                        "data_type": "string",
+                        "description": "The names of the tables hit by the query.",
+                        "recommended": false,
+                        "possible_values": "table1, table2"
+                    },
+                    "fieldName": "tables_hit",
+                    "owner": "UBA_Database",
+                    "type": "string",
+                    "fieldSearch": "tables_hit=*",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "tables_hit"
+                },
+                {
+                    "comment": {
+                        "data_type": "string",
+                        "description": "The name of the tablespace.",
+                        "recommended": false,
+                        "possible_values": "my table space"
+                    },
+                    "fieldName": "tablespace_name",
+                    "owner": "UBA_Database",
+                    "type": "string",
+                    "fieldSearch": "tablespace_name=*",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "tablespace_name"
+                },
+                {
+                    "comment": {
+                        "data_type": "string",
+                        "description": "Splunk UBA categories rely on the tags from CIM-compliant events to correctly parse data from the Splunk platform. Review this table to determine which category in Splunk UBA corresponds to the CIM data model that the events in the Splunk platform are mapped to. Click the name of the Splunk UBA category to review the field mappings between Splunk UBA and the CIM data models.",
+                        "recommended": true,
+                        "possible_values": "database"
+                    },
+                    "fieldName": "tag",
+                    "owner": "UBA_Database",
+                    "type": "string",
+                    "fieldSearch": "*",
+                    "required": true,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "tag"
+                },
+                {
+                    "comment": {
+                        "data_type": "string",
+                        "description": "The name of the database process user.",
+                        "recommended": true,
+                        "possible_values": "cronaldo"
+                    },
+                    "fieldName": "user",
+                    "owner": "UBA_Database",
+                    "type": "string",
+                    "fieldSearch": "user=*",
+                    "required": true,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "user"
+                },
+                {
+                    "comment": {
+                        "data_type": "string",
+                        "description": "The vendor and product name of the database system. This field can be automatically populated by vendor and product fields in your data.",
+                        "recommended": false,
+                        "possible_values": "oracle"
+                    },
+                    "fieldName": "vendor",
+                    "owner": "UBA_Database",
+                    "type": "string",
+                    "fieldSearch": "vendor=*",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "vendor"
+                }
+            ],
+            "calculations": [],
+            "constraints": [
+                {
+                    "search": "`uba_cim_database_indexes` database",
+                    "owner": "UBA_Database"
+                }
+            ],
+            "lineage": "UBA_Database"
+        }
+    ],
+    "objectNameList": [
+        "UBA_Database"
+    ]
+}

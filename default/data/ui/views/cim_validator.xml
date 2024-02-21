@@ -12,10 +12,18 @@
       <choice value="">datamodel</choice>
       <default>search</default>
     </input>
+    <input type="dropdown" token="product_type">
+      <label>Product type:</label>
+      <choice value="*">Any</choice>
+      <choice value="core">Core</choice>
+      <choice value="uba">UBA</choice>
+      <default>*</default>
+      <initialValue>*</initialValue>
+    </input>
     <input type="dropdown" token="dm" searchWhenChanged="true">
       <label>Target datamodel:</label>
       <search>
-        <query>| datamodel            | spath modelName           | table modelName           | sort  modelName</query>
+        <query>| datamodel | spath modelName | table modelName  | eval product_type=if(like(modelName, "UBA_%"), "uba", "core") | search product_type=$product_type|s$ | sort  modelName</query>
       </search>
       <fieldForLabel>modelName</fieldForLabel>
       <fieldForValue>modelName</fieldForValue>
@@ -137,7 +145,8 @@
         <default>1==1</default>
       </input>
       <html>
-        <div><i class="icon-star star" title="star"></i> denotes recommended fields based on use within ES and UBA products.</div>
+        <div>
+          <i class="icon-star star" title="star"/> denotes recommended fields based on use within ES and UBA products.</div>
       </html>
       <table id="tmy_mv_table">
         <title>Data Model $dm$ (and sub models) uses these fields:</title>

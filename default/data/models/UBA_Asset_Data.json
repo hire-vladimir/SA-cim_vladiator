@@ -1,0 +1,572 @@
+{
+    "modelName": "UBA_Asset_Data",
+    "displayName": "UBA Asset Data",
+    "description": "",
+    "objectSummary": {
+        "Event-Based": 1,
+        "Transaction-Based": 0,
+        "Search-Based": 0
+    },
+    "objects": [
+        {
+            "objectName": "UBA_Asset_Data",
+            "displayName": "UBA_Asset_Data",
+            "parentName": "BaseEvent",
+            "comment": "",
+            "fields": [
+                {
+                    "fieldName": "_time",
+                    "owner": "BaseEvent",
+                    "type": "timestamp",
+                    "fieldSearch": "",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "_time",
+                    "comment": ""
+                },
+                {
+                    "comment": {
+                        "data_type": "string",
+                        "description": "The application name.",
+                        "possible_values": "Database",
+                        "recommended": false
+                    },
+                    "fieldName": "app",
+                    "owner": "UBA_Asset_Data",
+                    "type": "string",
+                    "fieldSearch": "app=*",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "app"
+                },
+                {
+                    "comment": {
+                        "data_type": "string",
+                        "description": "The asset ID on the physical asset tag such as a sticker that is typically placed on each device in your organization.",
+                        "possible_values": "123456",
+                        "recommended": false
+                    },
+                    "fieldName": "asset_tag",
+                    "owner": "UBA_Asset_Data",
+                    "type": "string",
+                    "fieldSearch": "asset_*",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "asset_tag"
+                },
+                {
+                    "comment": {
+                        "data_type": "string",
+                        "description": "The business unit that the device belongs to.",
+                        "possible_values": "EMEA, NorCal",
+                        "recommended": false
+                    },
+                    "fieldName": "bunit",
+                    "owner": "UBA_Asset_Data",
+                    "type": "string",
+                    "fieldSearch": "bunit=*",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "bunit"
+                },
+                {
+                    "comment": {
+                        "data_type": "string",
+                        "description": "The city where the device is located.",
+                        "possible_values": "Chicago",
+                        "recommended": false
+                    },
+                    "fieldName": "city",
+                    "owner": "UBA_Asset_Data",
+                    "type": "string",
+                    "fieldSearch": "city=*",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "city"
+                },
+                {
+                    "comment": {
+                        "data_type": "string",
+                        "description": "The cost center that the device belongs to.",
+                        "possible_values": "SP01FIN",
+                        "recommended": false
+                    },
+                    "fieldName": "cost_center",
+                    "owner": "UBA_Asset_Data",
+                    "type": "string",
+                    "fieldSearch": "cost_center=*",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "cost_center"
+                },
+                {
+                    "comment": {
+                        "data_type": "string",
+                        "description": "The country where the device is located.",
+                        "possible_values": "USA",
+                        "recommended": false
+                    },
+                    "fieldName": "country",
+                    "owner": "UBA_Asset_Data",
+                    "type": "string",
+                    "fieldSearch": "country=*",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "country"
+                },
+                {
+                    "comment": {
+                        "data_type": "string",
+                        "description": "The name of the user who created the device in the system.",
+                        "possible_values": "DevOps",
+                        "recommended": false
+                    },
+                    "fieldName": "created_by",
+                    "owner": "UBA_Asset_Data",
+                    "type": "string",
+                    "fieldSearch": "created_by=*",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "created_by"
+                },
+                {
+                    "comment": {
+                        "data_type": "boolean",
+                        "description": "Recommended. Indicates whether or not any IP addresses are associated with the MAC address for this device. Set to\u00a0true\u00a0to prevent any IP addresses from being associated with the MAC address for this device. See\u00a0Exclude identity resolution for devices or users.",
+                        "possible_values": "TRUE,FALSE",
+                        "recommended": true
+                    },
+                    "fieldName": "denyListDeviceIr",
+                    "owner": "UBA_Asset_Data",
+                    "type": "boolean",
+                    "fieldSearch": "denyListDeviceIr=*",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "denyListDeviceIr"
+                },
+                {
+                    "comment": {
+                        "data_type": "boolean",
+                        "description": "Recommended. Indicates whether or not any users are associated with this device. Set to\u00a0true\u00a0to prevent any users from being associated with this device. See\u00a0Exclude identity resolution for devices or users.",
+                        "possible_values": "TRUE,FALSE",
+                        "recommended": true
+                    },
+                    "fieldName": "denyListUserIr",
+                    "owner": "UBA_Asset_Data",
+                    "type": "boolean",
+                    "fieldSearch": "denyListUserIr=*",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "denyListUserIr"
+                },
+                {
+                    "comment": {
+                        "data_type": "string",
+                        "description": "The department that the device belongs to.",
+                        "possible_values": "Field Reps, ITS, Products, HR",
+                        "recommended": false
+                    },
+                    "fieldName": "department",
+                    "owner": "UBA_Asset_Data",
+                    "type": "string",
+                    "fieldSearch": "department=*",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "department"
+                },
+                {
+                    "comment": {
+                        "data_type": "string",
+                        "description": "The type of device.",
+                        "possible_values": "client",
+                        "recommended": false
+                    },
+                    "fieldName": "deviceType",
+                    "owner": "UBA_Asset_Data",
+                    "type": "string",
+                    "fieldSearch": "deviceType=*",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "deviceType"
+                },
+                {
+                    "comment": {
+                        "data_type": "string",
+                        "description": "The FQDN of the device.",
+                        "possible_values": "server1.corp1.acmetech.org",
+                        "recommended": false
+                    },
+                    "fieldName": "dns",
+                    "owner": "UBA_Asset_Data",
+                    "type": "string",
+                    "fieldSearch": "dns=*",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "dns"
+                },
+                {
+                    "comment": {
+                        "data_type": "string",
+                        "description": "The domain of the device.",
+                        "possible_values": "www.acmetech.org",
+                        "recommended": false
+                    },
+                    "fieldName": "dns_domain",
+                    "owner": "UBA_Asset_Data",
+                    "type": "string",
+                    "fieldSearch": "dns_domain=*",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "dns_domain"
+                },
+                {
+                    "fieldName": "host",
+                    "owner": "BaseEvent",
+                    "type": "string",
+                    "fieldSearch": "",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "host",
+                    "comment": ""
+                },
+                {
+                    "comment": {
+                        "data_type": "string",
+                        "description": "Required. The hostname of the device.",
+                        "possible_values": "server1",
+                        "recommended": true
+                    },
+                    "fieldName": "hostname",
+                    "owner": "UBA_Asset_Data",
+                    "type": "string",
+                    "fieldSearch": "hostname=*",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "hostname"
+                },
+                {
+                    "comment": {
+                        "data_type": "string",
+                        "description": "The IP address of the device. The field may contain multiple values. See\u00a0Configure asset ingestion for multi-valued fields.",
+                        "possible_values": "2.1.1.1",
+                        "recommended": false
+                    },
+                    "fieldName": "ip",
+                    "owner": "UBA_Asset_Data",
+                    "type": "string",
+                    "fieldSearch": "ip=*",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "ip"
+                },
+                {
+                    "comment": {
+                        "data_type": "boolean",
+                        "description": "Indicates whether or not this device is always expected. Alerts are generated if this device stops reporting events.",
+                        "possible_values": "TRUE,FALSE",
+                        "recommended": false
+                    },
+                    "fieldName": "is_expected",
+                    "owner": "UBA_Asset_Data",
+                    "type": "boolean",
+                    "fieldSearch": "is_expected=*",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "is_expected"
+                },
+                {
+                    "comment": {
+                        "data_type": "string",
+                        "description": "The latitude location of the device.",
+                        "possible_values": "37.78008",
+                        "recommended": false
+                    },
+                    "fieldName": "latitude",
+                    "owner": "UBA_Asset_Data",
+                    "type": "string",
+                    "fieldSearch": "latitude=*",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "latitude"
+                },
+                {
+                    "comment": {
+                        "data_type": "string",
+                        "description": "The longitude location of the device.",
+                        "possible_values": "-122.42017",
+                        "recommended": false
+                    },
+                    "fieldName": "longitude",
+                    "owner": "UBA_Asset_Data",
+                    "type": "string",
+                    "fieldSearch": "longitude=*",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "longitude"
+                },
+                {
+                    "comment": {
+                        "data_type": "string",
+                        "description": "The MAC address of the device. The field may contain multiple values. See\u00a0Configure asset ingestion for multi-valued fields.",
+                        "possible_values": "00:50:ef:84:f1:21|00:50:ef:84:f1:20",
+                        "recommended": false
+                    },
+                    "fieldName": "mac",
+                    "owner": "UBA_Asset_Data",
+                    "type": "string",
+                    "fieldSearch": "mac=*",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "mac"
+                },
+                {
+                    "comment": {
+                        "data_type": "string",
+                        "description": "The manager of the device.",
+                        "possible_values": "admin",
+                        "recommended": false
+                    },
+                    "fieldName": "managed_by",
+                    "owner": "UBA_Asset_Data",
+                    "type": "string",
+                    "fieldSearch": "managed_by=*",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "managed_by"
+                },
+                {
+                    "comment": {
+                        "data_type": "string",
+                        "description": "The operating system running on the device.",
+                        "possible_values": "macOS, WIndows",
+                        "recommended": false
+                    },
+                    "fieldName": "os",
+                    "owner": "UBA_Asset_Data",
+                    "type": "string",
+                    "fieldSearch": "os=*",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "os"
+                },
+                {
+                    "comment": {
+                        "data_type": "string",
+                        "description": "The OS domain of the device.",
+                        "possible_values": "Windows",
+                        "recommended": false
+                    },
+                    "fieldName": "os_domain",
+                    "owner": "UBA_Asset_Data",
+                    "type": "string",
+                    "fieldSearch": "os_domain=*",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "os_domain"
+                },
+                {
+                    "comment": {
+                        "data_type": "string",
+                        "description": "The owner of the device.",
+                        "possible_values": "f.prefect@acmetech.org, DevOps, Bill",
+                        "recommended": false
+                    },
+                    "fieldName": "owner",
+                    "owner": "UBA_Asset_Data",
+                    "type": "string",
+                    "fieldSearch": "owner=*",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "owner"
+                },
+                {
+                    "comment": {
+                        "data_type": "string",
+                        "description": "The PCI address domain of the device.",
+                        "possible_values": "dmz, untrust",
+                        "recommended": false
+                    },
+                    "fieldName": "pci_domain",
+                    "owner": "UBA_Asset_Data",
+                    "type": "string",
+                    "fieldSearch": "pci_domain=*",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "pci_domain"
+                },
+                {
+                    "comment": {
+                        "data_type": "string",
+                        "description": "The serial number of the device.",
+                        "possible_values": "AB1C24D5EFGH",
+                        "recommended": false
+                    },
+                    "fieldName": "serial",
+                    "owner": "UBA_Asset_Data",
+                    "type": "string",
+                    "fieldSearch": "serial=*",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "serial"
+                },
+                {
+                    "fieldName": "source",
+                    "owner": "BaseEvent",
+                    "type": "string",
+                    "fieldSearch": "",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "source",
+                    "comment": ""
+                },
+                {
+                    "fieldName": "sourcetype",
+                    "owner": "BaseEvent",
+                    "type": "string",
+                    "fieldSearch": "",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "sourcetype",
+                    "comment": ""
+                },
+                {
+                    "comment": {
+                        "data_type": "string",
+                        "description": "The hexadecimal Windows status code for the device.",
+                        "possible_values": "0XC0000234 (user is currently locked out)",
+                        "recommended": false
+                    },
+                    "fieldName": "status",
+                    "owner": "UBA_Asset_Data",
+                    "type": "string",
+                    "fieldSearch": "status=*",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "status"
+                },
+                {
+                    "comment": {
+                        "data_type": "string",
+                        "description": "The hexadecimal sub-status code for the device.",
+                        "possible_values": "0XC000006D (invalid username or authentication)",
+                        "recommended": false
+                    },
+                    "fieldName": "substatus",
+                    "owner": "UBA_Asset_Data",
+                    "type": "string",
+                    "fieldSearch": "substatus=*",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "substatus"
+                },
+                {
+                    "comment": {
+                        "data_type": "string",
+                        "description": "The date and time stamp of when the device was first entered into the system. The format is\u00a0MM/DD/YYYY.",
+                        "possible_values": "5/1/19",
+                        "recommended": false
+                    },
+                    "fieldName": "sys_created_on",
+                    "owner": "UBA_Asset_Data",
+                    "type": "string",
+                    "fieldSearch": "sys_created_on=*",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "sys_created_on"
+                },
+                {
+                    "comment": {
+                        "data_type": "string",
+                        "description": "The data and time stamp of the last time the device was updated. For example, a laptop may be assigned to a new owner. The format is\u00a0MM/DD/YYYY.",
+                        "possible_values": "5/1/19",
+                        "recommended": false
+                    },
+                    "fieldName": "sys_updated_on",
+                    "owner": "UBA_Asset_Data",
+                    "type": "string",
+                    "fieldSearch": "sys_updated_on=*",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "sys_updated_on"
+                }
+            ],
+            "calculations": [],
+            "constraints": [
+                {
+                    "search": "index=main",
+                    "owner": "UBA_Asset_Data"
+                }
+            ],
+            "lineage": "UBA_Asset_Data"
+        }
+    ],
+    "objectNameList": [
+        "UBA_Asset_Data"
+    ]
+}

@@ -1,0 +1,380 @@
+{
+    "modelName": "UBA_VPN",
+    "displayName": "UBA VPN",
+    "description": "Splunk UBA VPN Data Model for CIM Validator App. To properly parse traffic flow in a VPN connection, Splunk UBA requires network, session, vpn.",
+    "objectSummary": {
+        "Event-Based": 3,
+        "Transaction-Based": 0,
+        "Search-Based": 0
+    },
+    "objects": [
+        {
+            "objectName": "UBA_VPN",
+            "displayName": "UBA VPN",
+            "parentName": "BaseEvent",
+            "comment": "",
+            "fields": [
+                {
+                    "fieldName": "_time",
+                    "owner": "BaseEvent",
+                    "type": "timestamp",
+                    "fieldSearch": "",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "_time",
+                    "comment": ""
+                },
+                {
+                    "comment": {
+                        "data_type": "integer",
+                        "description": "The total number of bytes transferred by the device corresponding to the\u00a0src_ip\u00a0(bytes_in + bytes_out).",
+                        "recommended": false,
+                        "possible_values": "1168"
+                    },
+                    "fieldName": "bytes",
+                    "owner": "UBA_VPN",
+                    "type": "number",
+                    "fieldSearch": "bytes=*",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "bytes"
+                },
+                {
+                    "comment": {
+                        "data_type": "integer",
+                        "description": "The number of bytes received by the device corresponding to the\u00a0src_ip\u00a0(downloads).",
+                        "recommended": false,
+                        "possible_values": "1028"
+                    },
+                    "fieldName": "bytes_in",
+                    "owner": "UBA_VPN",
+                    "type": "number",
+                    "fieldSearch": "bytes_in=*",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "bytes_in"
+                },
+                {
+                    "comment": {
+                        "data_type": "integer",
+                        "description": "The number of bytes sent out by the device corresponding to the\u00a0src_ip\u00a0(uploads).",
+                        "recommended": false,
+                        "possible_values": "140"
+                    },
+                    "fieldName": "bytes_out",
+                    "owner": "UBA_VPN",
+                    "type": "number",
+                    "fieldSearch": "bytes_out=*",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "bytes_out"
+                },
+                {
+                    "comment": {
+                        "data_type": "string",
+                        "description": "The IP address of the destination device.",
+                        "recommended": false,
+                        "possible_values": "192.168.1.2"
+                    },
+                    "fieldName": "dest_ip",
+                    "owner": "UBA_VPN",
+                    "type": "string",
+                    "fieldSearch": "dest_ip=*",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "dest_ip"
+                },
+                {
+                    "comment": {
+                        "data_type": "integer",
+                        "description": "The duration in seconds of the VPN session. This field is expected when an\u00a0end\u00a0tag is present.",
+                        "recommended": false,
+                        "possible_values": "2000"
+                    },
+                    "fieldName": "duration",
+                    "owner": "UBA_VPN",
+                    "type": "number",
+                    "fieldSearch": "duration=*",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "duration"
+                },
+                {
+                    "fieldName": "host",
+                    "owner": "BaseEvent",
+                    "type": "string",
+                    "fieldSearch": "",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "host",
+                    "comment": ""
+                },
+                {
+                    "fieldName": "source",
+                    "owner": "BaseEvent",
+                    "type": "string",
+                    "fieldSearch": "",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "source",
+                    "comment": ""
+                },
+                {
+                    "fieldName": "sourcetype",
+                    "owner": "BaseEvent",
+                    "type": "string",
+                    "fieldSearch": "",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "sourcetype",
+                    "comment": ""
+                },
+                {
+                    "comment": {
+                        "data_type": "string",
+                        "description": "The IP address of the originator of the request.",
+                        "recommended": true,
+                        "possible_values": "11.12.13.14"
+                    },
+                    "fieldName": "src_ip",
+                    "owner": "UBA_VPN",
+                    "type": "string",
+                    "fieldSearch": "src_ip=*",
+                    "required": true,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "src_ip"
+                },
+                {
+                    "comment": {
+                        "data_type": "string",
+                        "description": "Splunk UBA categories rely on the tags from CIM-compliant events to correctly parse data from the Splunk platform. Review this table to determine which category in Splunk UBA corresponds to the CIM data model that the events in the Splunk platform are mapped to. Click the name of the Splunk UBA category to review the field mappings between Splunk UBA and the CIM data models. See VPN categories for VPN specific combinations",
+                        "recommended": true,
+                        "possible_values": "network,session,vpn"
+                    },
+                    "fieldName": "tag",
+                    "owner": "UBA_VPN",
+                    "type": "string",
+                    "fieldSearch": "*",
+                    "required": true,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "tag"
+                },
+                {
+                    "comment": {
+                        "data_type": "string",
+                        "description": "The name of the user for whom the authentication is being performed.",
+                        "recommended": true,
+                        "possible_values": "user2"
+                    },
+                    "fieldName": "user",
+                    "owner": "UBA_VPN",
+                    "type": "string",
+                    "fieldSearch": "user=*",
+                    "required": true,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "user"
+                }
+            ],
+            "calculations": [],
+            "constraints": [
+                {
+                    "search": "`uba_cim_vpn_indexes` network session vpn",
+                    "owner": "UBA_VPN"
+                }
+            ],
+            "lineage": "UBA_VPN"
+        },
+        {
+            "objectName": "UBA_VPN_End",
+            "displayName": "UBA VPN End",
+            "parentName": "UBA_VPN",
+            "comment": "",
+            "fields": [
+                {
+                    "fieldName": "bytes",
+                    "owner": "UBA_VPN",
+                    "type": "number",
+                    "fieldSearch": "",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "bytes",
+                    "comment": ""
+                },
+                {
+                    "fieldName": "bytes_in",
+                    "owner": "UBA_VPN",
+                    "type": "number",
+                    "fieldSearch": "",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "bytes_in",
+                    "comment": ""
+                },
+                {
+                    "fieldName": "bytes_out",
+                    "owner": "UBA_VPN",
+                    "type": "number",
+                    "fieldSearch": "",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "bytes_out",
+                    "comment": ""
+                },
+                {
+                    "fieldName": "dest_ip",
+                    "owner": "UBA_VPN",
+                    "type": "ipv4",
+                    "fieldSearch": "",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "dest_ip",
+                    "comment": ""
+                },
+                {
+                    "fieldName": "duration",
+                    "owner": "UBA_VPN",
+                    "type": "number",
+                    "fieldSearch": "",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "duration",
+                    "comment": ""
+                },
+                {
+                    "fieldName": "src_ip",
+                    "owner": "UBA_VPN",
+                    "type": "ipv4",
+                    "fieldSearch": "src_ip=*",
+                    "required": true,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "src_ip",
+                    "comment": ""
+                },
+                {
+                    "fieldName": "user",
+                    "owner": "UBA_VPN",
+                    "type": "string",
+                    "fieldSearch": "user=*",
+                    "required": true,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "user",
+                    "comment": ""
+                },
+                {
+                    "fieldName": "_time",
+                    "owner": "BaseEvent",
+                    "type": "timestamp",
+                    "fieldSearch": "",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "_time",
+                    "comment": ""
+                },
+                {
+                    "fieldName": "host",
+                    "owner": "BaseEvent",
+                    "type": "string",
+                    "fieldSearch": "",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "host",
+                    "comment": ""
+                },
+                {
+                    "fieldName": "source",
+                    "owner": "BaseEvent",
+                    "type": "string",
+                    "fieldSearch": "",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "source",
+                    "comment": ""
+                },
+                {
+                    "fieldName": "sourcetype",
+                    "owner": "BaseEvent",
+                    "type": "string",
+                    "fieldSearch": "",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "sourcetype",
+                    "comment": ""
+                }
+            ],
+            "calculations": [],
+            "constraints": [
+                {
+                    "search": "end",
+                    "owner": "UBA_VPN.UBA_VPN_End"
+                }
+            ],
+            "lineage": "UBA_VPN.UBA_VPN_End"
+        },
+        {
+            "objectName": "UBA_VPN_Start",
+            "displayName": "UBA VPN Start",
+            "parentName": "UBA_VPN",
+            "comment": "",
+            "fields": [],
+            "calculations": [],
+            "constraints": [
+                {
+                    "search": "start",
+                    "owner": "UBA_VPN.UBA_VPN_Start"
+                }
+            ],
+            "lineage": "UBA_VPN.UBA_VPN_Start"
+        }
+    ],
+    "objectNameList": [
+        "UBA_VPN",
+        "UBA_VPN_End",
+        "UBA_VPN_Start"
+    ]
+}

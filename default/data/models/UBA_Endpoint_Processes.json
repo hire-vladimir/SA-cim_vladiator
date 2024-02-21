@@ -1,0 +1,640 @@
+{
+    "modelName": "UBA_Endpoint_Processes",
+    "displayName": "UBA Endpoint Processes",
+    "description": "Splunk UBA Endpoint Processes Data Model for CIM Validator App. \n- An entity is required in order to generate anomalies mapped to Lateral Movement threats.\n- Splunk UBA requires the following tag combinations to process endpoint category events:\nTo properly parse port data, Splunk UBA requires listening, port.\nTo properly parse process data, Splunk UBA requires process, report.\nTo properly parse service data, Splunk UBA requires tag=service, tag=report.\nTo properly parse filesystem data, Splunk UBA requires tag=endpoint, tag=filesystem.\nTo properly parse registry data, Splunk UBA requires tag=endpoint, tag=registry.\n- The Endpoint category contains multiple datasets. Some fields have the same names across multiple datasets.",
+    "objectSummary": {
+        "Event-Based": 1,
+        "Transaction-Based": 0,
+        "Search-Based": 0
+    },
+    "objects": [
+        {
+            "objectName": "UBA_Endpoint_Processes",
+            "displayName": "UBA Endpoint Processes",
+            "parentName": "BaseEvent",
+            "comment": "",
+            "fields": [
+                {
+                    "fieldName": "_time",
+                    "owner": "BaseEvent",
+                    "type": "timestamp",
+                    "fieldSearch": "",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "_time",
+                    "comment": ""
+                },
+                {
+                    "comment": {
+                        "data_type": "string",
+                        "description": "The action taken by the endpoint.",
+                        "recommended": true,
+                        "possible_values": "allowed, blocked"
+                    },
+                    "fieldName": "action",
+                    "owner": "UBA_Endpoint_Processes",
+                    "type": "string",
+                    "fieldSearch": "action=*",
+                    "required": true,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "action"
+                },
+                {
+                    "comment": {
+                        "data_type": "string",
+                        "description": "The categories that this external alarm belongs to. Multiple categories can be separated by comma. The values must be one or more of the categories in\u00a0Filter the anomaly table.",
+                        "recommended": false,
+                        "possible_values": "Exfiltration"
+                    },
+                    "fieldName": "alarmCategories",
+                    "owner": "UBA_Endpoint_Processes",
+                    "type": "string",
+                    "fieldSearch": "alarmCategories=*",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "alarmCategories"
+                },
+                {
+                    "comment": {
+                        "data_type": "string",
+                        "description": "The event category, if applicable.",
+                        "recommended": false,
+                        "possible_values": "malware, watchlist.hit.ingress.process"
+                    },
+                    "fieldName": "category",
+                    "owner": "UBA_Endpoint_Processes",
+                    "type": "string",
+                    "fieldSearch": "category=*",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "category"
+                },
+                {
+                    "comment": {
+                        "data_type": "string",
+                        "description": "The host name of the endpoint.",
+                        "recommended": false,
+                        "possible_values": "winhost1"
+                    },
+                    "fieldName": "dest_host",
+                    "owner": "UBA_Endpoint_Processes",
+                    "type": "string",
+                    "fieldSearch": "dest_host=*",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "dest_host"
+                },
+                {
+                    "comment": {
+                        "data_type": "string",
+                        "description": "IP address of the endpoint where the activity happened.",
+                        "recommended": false,
+                        "possible_values": "1.1.1.1"
+                    },
+                    "fieldName": "dest_ip",
+                    "owner": "UBA_Endpoint_Processes",
+                    "type": "string",
+                    "fieldSearch": "dest_ip=*",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "dest_ip"
+                },
+                {
+                    "comment": {
+                        "data_type": "string",
+                        "description": "The NT domain of the endpoint, if applicable.",
+                        "recommended": false,
+                        "possible_values": "acme"
+                    },
+                    "fieldName": "dest_nt_domain",
+                    "owner": "UBA_Endpoint_Processes",
+                    "type": "string",
+                    "fieldSearch": "dest_nt_domain=*",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "dest_nt_domain"
+                },
+                {
+                    "comment": {
+                        "data_type": "string",
+                        "description": "The host name of the endpoint.",
+                        "recommended": false,
+                        "possible_values": "winhost1"
+                    },
+                    "fieldName": "endpoint_dns",
+                    "owner": "UBA_Endpoint_Processes",
+                    "type": "string",
+                    "fieldSearch": "endpoint_dns=*",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "endpoint_dns"
+                },
+                {
+                    "comment": {
+                        "data_type": "string",
+                        "description": "IP address of the endpoint where the activity happened.",
+                        "recommended": false,
+                        "possible_values": "1.1.1.1"
+                    },
+                    "fieldName": "endpoint_ip",
+                    "owner": "UBA_Endpoint_Processes",
+                    "type": "string",
+                    "fieldSearch": "endpoint_ip=*",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "endpoint_ip"
+                },
+                {
+                    "comment": {
+                        "data_type": "string",
+                        "description": "The NT domain of the endpoint, if applicable.",
+                        "recommended": false,
+                        "possible_values": "acme"
+                    },
+                    "fieldName": "endpoint_nt_domain",
+                    "owner": "UBA_Endpoint_Processes",
+                    "type": "string",
+                    "fieldSearch": "endpoint_nt_domain=*",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "endpoint_nt_domain"
+                },
+                {
+                    "comment": {
+                        "data_type": "integer",
+                        "description": "Network port listening on the endpoint.",
+                        "recommended": false,
+                        "possible_values": "53"
+                    },
+                    "fieldName": "endpoint_port",
+                    "owner": "UBA_Endpoint_Processes",
+                    "type": "number",
+                    "fieldSearch": "endpoint_port=*",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "endpoint_port"
+                },
+                {
+                    "comment": {
+                        "data_type": "integer",
+                        "description": "The event ID or code for the activity.",
+                        "recommended": false,
+                        "possible_values": "7045"
+                    },
+                    "fieldName": "event_id",
+                    "owner": "UBA_Endpoint_Processes",
+                    "type": "number",
+                    "fieldSearch": "event_id=*",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "event_id"
+                },
+                {
+                    "comment": {
+                        "data_type": "string",
+                        "description": "The type of the event.",
+                        "recommended": true,
+                        "possible_values": "symantec_ep_risk_alert_virus, A service was installed in the system"
+                    },
+                    "fieldName": "eventtype",
+                    "owner": "UBA_Endpoint_Processes",
+                    "type": "string",
+                    "fieldSearch": "eventtype=*",
+                    "required": true,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "eventtype"
+                },
+                {
+                    "fieldName": "host",
+                    "owner": "BaseEvent",
+                    "type": "string",
+                    "fieldSearch": "",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "host",
+                    "comment": ""
+                },
+                {
+                    "comment": {
+                        "data_type": "string",
+                        "description": "The executable name of the parent process.",
+                        "recommended": true,
+                        "possible_values": "notepad.exe"
+                    },
+                    "fieldName": "parent_process_exec",
+                    "owner": "UBA_Endpoint_Processes",
+                    "type": "string",
+                    "fieldSearch": "parent_process_exec=*",
+                    "required": true,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "parent_process_exec"
+                },
+                {
+                    "comment": {
+                        "data_type": "string",
+                        "description": "The globally unique identifier of the parent process assigned by the vendor_product.",
+                        "recommended": false,
+                        "possible_values": "0dd879c-ee2f-11db-8314-0800200c9a66"
+                    },
+                    "fieldName": "parent_process_guid",
+                    "owner": "UBA_Endpoint_Processes",
+                    "type": "string",
+                    "fieldSearch": "parent_process_guid=*",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "parent_process_guid"
+                },
+                {
+                    "comment": {
+                        "data_type": "integer",
+                        "description": "The numeric identifier of the parent process assigned by the operating system.",
+                        "recommended": false,
+                        "possible_values": "12345"
+                    },
+                    "fieldName": "parent_process_id",
+                    "owner": "UBA_Endpoint_Processes",
+                    "type": "number",
+                    "fieldSearch": "parent_process_id=*",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "parent_process_id"
+                },
+                {
+                    "comment": {
+                        "data_type": "string",
+                        "description": "The friendly name of the parent process.",
+                        "recommended": true,
+                        "possible_values": "notepad.exe"
+                    },
+                    "fieldName": "parent_process_name",
+                    "owner": "UBA_Endpoint_Processes",
+                    "type": "string",
+                    "fieldSearch": "parent_process_name=*",
+                    "required": true,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "parent_process_name"
+                },
+                {
+                    "comment": {
+                        "data_type": "string",
+                        "description": "The full command string of the parent process.",
+                        "recommended": false,
+                        "possible_values": "C:\\\\WINDOWS\\\\system32\\\\cmd.exe \\/c \\\"\\\"C:\\\\Program Files\\\\SplunkUniversalForwarder\\\\etc\\\\system\\\\bin\\\\powershell.cmd\\\" --scheme"
+                    },
+                    "fieldName": "parent_process_path",
+                    "owner": "UBA_Endpoint_Processes",
+                    "type": "string",
+                    "fieldSearch": "parent_process_path=*",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "parent_process_path"
+                },
+                {
+                    "comment": {
+                        "data_type": "string",
+                        "description": "The full command string of the spawned process.",
+                        "recommended": true,
+                        "possible_values": "C:\\\\WINDOWS\\\\system32\\\\cmd.exe \\/c \\\"\\\"C:\\\\Program Files\\\\SplunkUniversalForwarder\\\\etc\\\\system\\\\bin\\\\powershell.cmd\\\" --scheme"
+                    },
+                    "fieldName": "process",
+                    "owner": "UBA_Endpoint_Processes",
+                    "type": "string",
+                    "fieldSearch": "process=*",
+                    "required": true,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "process"
+                },
+                {
+                    "comment": {
+                        "data_type": "string",
+                        "description": "The current working directory used to spawn the process.",
+                        "recommended": false,
+                        "possible_values": "/usr/bin/"
+                    },
+                    "fieldName": "process_current_directory",
+                    "owner": "UBA_Endpoint_Processes",
+                    "type": "string",
+                    "fieldSearch": "process_current_directory=*",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "process_current_directory"
+                },
+                {
+                    "comment": {
+                        "data_type": "string",
+                        "description": "The executable name of the process.",
+                        "recommended": false,
+                        "possible_values": "notepad.exe"
+                    },
+                    "fieldName": "process_exec",
+                    "owner": "UBA_Endpoint_Processes",
+                    "type": "string",
+                    "fieldSearch": "process_exec=*",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "process_exec"
+                },
+                {
+                    "comment": {
+                        "data_type": "string",
+                        "description": "The globally unique identifier of the process assigned by the vendor_product.",
+                        "recommended": false,
+                        "possible_values": "example_guid, example_id"
+                    },
+                    "fieldName": "process_guid.",
+                    "owner": "UBA_Endpoint_Processes",
+                    "type": "string",
+                    "fieldSearch": "process_guid.=*",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "process_guid."
+                },
+                {
+                    "comment": {
+                        "data_type": "string",
+                        "description": "The digests of the parent process.",
+                        "recommended": false,
+                        "possible_values": "<md5>, <sha1>"
+                    },
+                    "fieldName": "process_hash",
+                    "owner": "UBA_Endpoint_Processes",
+                    "type": "string",
+                    "fieldSearch": "process_hash=*",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "process_hash"
+                },
+                {
+                    "comment": {
+                        "data_type": "integer",
+                        "description": "The numeric identifier of the process assigned by the operating system.",
+                        "recommended": false,
+                        "possible_values": "12345"
+                    },
+                    "fieldName": "process_id",
+                    "owner": "UBA_Endpoint_Processes",
+                    "type": "number",
+                    "fieldSearch": "process_id=*",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "process_id"
+                },
+                {
+                    "comment": {
+                        "data_type": "string",
+                        "description": "The Windows integrity level of the process.",
+                        "recommended": false,
+                        "possible_values": "System, Medium"
+                    },
+                    "fieldName": "process_integrity_level",
+                    "owner": "UBA_Endpoint_Processes",
+                    "type": "string",
+                    "fieldSearch": "process_integrity_level=*",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "process_integrity_level"
+                },
+                {
+                    "comment": {
+                        "data_type": "string",
+                        "description": "The file path of the process.",
+                        "recommended": true,
+                        "possible_values": "C:\\Windows\\System32\\notepad.exe"
+                    },
+                    "fieldName": "process_path",
+                    "owner": "UBA_Endpoint_Processes",
+                    "type": "string",
+                    "fieldSearch": "process_path=*",
+                    "required": true,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "process_path"
+                },
+                {
+                    "comment": {
+                        "data_type": "string",
+                        "description": "The severity of the endpoint event.",
+                        "recommended": false,
+                        "possible_values": "informational, unknown, low, medium, high, critical"
+                    },
+                    "fieldName": "severity",
+                    "owner": "UBA_Endpoint_Processes",
+                    "type": "string",
+                    "fieldSearch": "severity=*",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "severity"
+                },
+                {
+                    "comment": {
+                        "data_type": "string",
+                        "description": "The sub-category or signature of the event, if applicable.",
+                        "recommended": false,
+                        "possible_values": "process_blocking"
+                    },
+                    "fieldName": "signature",
+                    "owner": "UBA_Endpoint_Processes",
+                    "type": "string",
+                    "fieldSearch": "signature=*",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "signature"
+                },
+                {
+                    "fieldName": "source",
+                    "owner": "BaseEvent",
+                    "type": "string",
+                    "fieldSearch": "",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "source",
+                    "comment": ""
+                },
+                {
+                    "fieldName": "sourcetype",
+                    "owner": "BaseEvent",
+                    "type": "string",
+                    "fieldSearch": "",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "sourcetype",
+                    "comment": ""
+                },
+                {
+                    "comment": {
+                        "data_type": "string",
+                        "description": "The hostname of the \"remote\" system connected to the listening port (if applicable)",
+                        "recommended": false,
+                        "possible_values": "acmehost1"
+                    },
+                    "fieldName": "src_dns",
+                    "owner": "UBA_Endpoint_Processes",
+                    "type": "string",
+                    "fieldSearch": "src_dns=*",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "src_dns"
+                },
+                {
+                    "comment": {
+                        "data_type": "string",
+                        "description": "The hostname of the \"remote\" system connected to the listening port (if applicable)",
+                        "recommended": false,
+                        "possible_values": "acmehost1"
+                    },
+                    "fieldName": "src_host",
+                    "owner": "UBA_Endpoint_Processes",
+                    "type": "string",
+                    "fieldSearch": "src_host=*",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "src_host"
+                },
+                {
+                    "comment": {
+                        "data_type": "string",
+                        "description": "The IP address of the \"remote\" system connected to the listening port (if applicable).",
+                        "recommended": false,
+                        "possible_values": "2.2.2.2"
+                    },
+                    "fieldName": "src_ip",
+                    "owner": "UBA_Endpoint_Processes",
+                    "type": "string",
+                    "fieldSearch": "src_ip=*",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "src_ip"
+                },
+                {
+                    "comment": {
+                        "data_type": "integer",
+                        "description": "The \"remote\" port connected to the listening port (if applicable).",
+                        "recommended": false,
+                        "possible_values": "53"
+                    },
+                    "fieldName": "src_port",
+                    "owner": "UBA_Endpoint_Processes",
+                    "type": "number",
+                    "fieldSearch": "src_port=*",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "src_port"
+                },
+                {
+                    "comment": {
+                        "data_type": "string",
+                        "description": "Splunk UBA categories rely on the tags from CIM-compliant events to correctly parse data from the Splunk platform. Review this table to determine which category in Splunk UBA corresponds to the CIM data model that the events in the Splunk platform are mapped to. Click the name of the Splunk UBA category to review the field mappings between Splunk UBA and the CIM data models.",
+                        "recommended": true,
+                        "possible_values": "process,report"
+                    },
+                    "fieldName": "tag",
+                    "owner": "UBA_Endpoint_Processes",
+                    "type": "string",
+                    "fieldSearch": "*",
+                    "required": true,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "tag"
+                },
+                {
+                    "comment": {
+                        "data_type": "string",
+                        "description": "The unique identifier of the user account which spawned the process.",
+                        "recommended": true,
+                        "possible_values": "example_user"
+                    },
+                    "fieldName": "user",
+                    "owner": "UBA_Endpoint_Processes",
+                    "type": "string",
+                    "fieldSearch": "user=*",
+                    "required": true,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "user"
+                }
+            ],
+            "calculations": [],
+            "constraints": [
+                {
+                    "search": "`uba_cim_endpoint_indexes` process report",
+                    "owner": "UBA_Endpoint_Processes"
+                }
+            ],
+            "lineage": "UBA_Endpoint_Processes"
+        }
+    ],
+    "objectNameList": [
+        "UBA_Endpoint_Processes"
+    ]
+}

@@ -1,0 +1,181 @@
+{
+    "modelName": "UBA_DHCP",
+    "displayName": "UBA DHCP",
+    "description": "Splunk UBA DHCP Data Model for CIM Validator App",
+    "objectSummary": {
+        "Event-Based": 1,
+        "Transaction-Based": 0,
+        "Search-Based": 0
+    },
+    "objects": [
+        {
+            "objectName": "UBA_DHCP",
+            "displayName": "UBA DHCP",
+            "parentName": "BaseEvent",
+            "comment": "",
+            "fields": [
+                {
+                    "fieldName": "_time",
+                    "owner": "BaseEvent",
+                    "type": "timestamp",
+                    "fieldSearch": "",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "_time",
+                    "comment": ""
+                },
+                {
+                    "comment": {
+                        "data_type": "string",
+                        "description": "The host name of the machine to which the IP address is being assigned.",
+                        "recommended": false,
+                        "possible_values": "winhost1"
+                    },
+                    "fieldName": "dest_host",
+                    "owner": "UBA_DHCP",
+                    "type": "string",
+                    "fieldSearch": "dest_host=*",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "dest_host"
+                },
+                {
+                    "comment": {
+                        "data_type": "string",
+                        "description": "The assigned IP address.",
+                        "recommended": true,
+                        "possible_values": "192.168.1.12"
+                    },
+                    "fieldName": "dest_ip",
+                    "owner": "UBA_DHCP",
+                    "type": "string",
+                    "fieldSearch": "dest_ip=*",
+                    "required": true,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "dest_ip"
+                },
+                {
+                    "comment": {
+                        "data_type": "string",
+                        "description": "The MAC address of the machine to which the IP address is being assigned.",
+                        "recommended": true,
+                        "possible_values": "ad:7b:3d:db:49:8b"
+                    },
+                    "fieldName": "dest_mac",
+                    "owner": "UBA_DHCP",
+                    "type": "string",
+                    "fieldSearch": "dest_mac=*",
+                    "required": true,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "dest_mac"
+                },
+                {
+                    "fieldName": "host",
+                    "owner": "BaseEvent",
+                    "type": "string",
+                    "fieldSearch": "",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "host",
+                    "comment": ""
+                },
+                {
+                    "comment": {
+                        "data_type": "integer",
+                        "description": "The duration in seconds of the Dynamic Host Configuration Protocol (DHCP) lease.",
+                        "recommended": true,
+                        "possible_values": "2000"
+                    },
+                    "fieldName": "lease_duration",
+                    "owner": "UBA_DHCP",
+                    "type": "number",
+                    "fieldSearch": "lease_duration=*",
+                    "required": true,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "lease_duration"
+                },
+                {
+                    "comment": {
+                        "data_type": "string",
+                        "description": "An indication of the type of network session event.",
+                        "recommended": true,
+                        "possible_values": "DHCPACK, DHCPOFFER, DHCPREQUEST, DHCPINFORM, DHCPDISCOVER , DHCPNAK, DHCPDECLINE, DHCPRELEASE\r\n\"A new IP address was leased to a client\", \"Issued\", \"DHCP_GrantLease\",\r\n\"An IP address was found to be in use on the network\"\r\n\"A lease was renewed by a client\", \"Fixed\", \"Renewed\", \"DHCP_RenewLease\"\r\n\"A lease was released by a client\", \"DHCP Release\", \"Freed\"\r\n\"No DHCP lease available to offer from subnet\""
+                    },
+                    "fieldName": "signature",
+                    "owner": "UBA_DHCP",
+                    "type": "string",
+                    "fieldSearch": "signature=*",
+                    "required": true,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "signature"
+                },
+                {
+                    "fieldName": "source",
+                    "owner": "BaseEvent",
+                    "type": "string",
+                    "fieldSearch": "",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "source",
+                    "comment": ""
+                },
+                {
+                    "fieldName": "sourcetype",
+                    "owner": "BaseEvent",
+                    "type": "string",
+                    "fieldSearch": "",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "sourcetype",
+                    "comment": ""
+                },
+                {
+                    "comment": {
+                        "data_type": "string",
+                        "description": "Splunk UBA categories rely on the tags from CIM-compliant events to correctly parse data from the Splunk platform. Review this table to determine which category in Splunk UBA corresponds to the CIM data model that the events in the Splunk platform are mapped to. Click the name of the Splunk UBA category to review the field mappings between Splunk UBA and the CIM data models.",
+                        "recommended": true,
+                        "possible_values": "network,session,dhcp"
+                    },
+                    "fieldName": "tag",
+                    "owner": "UBA_DHCP",
+                    "type": "string",
+                    "fieldSearch": "*",
+                    "required": true,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "tag"
+                }
+            ],
+            "calculations": [],
+            "constraints": [
+                {
+                    "search": "`uba_cim_dhcp_indexes` network session dhcp",
+                    "owner": "UBA_DHCP"
+                }
+            ],
+            "lineage": "UBA_DHCP"
+        }
+    ],
+    "objectNameList": [
+        "UBA_DHCP"
+    ]
+}

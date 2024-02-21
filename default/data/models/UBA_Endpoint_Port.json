@@ -1,0 +1,572 @@
+{
+    "modelName": "UBA_Endpoint_Port",
+    "displayName": "UBA Endpoint Port",
+    "description": "Splunk UBA Endpoint Port Data Model for CIM Validator App. \n- An entity is required in order to generate anomalies mapped to Lateral Movement threats.\n- Splunk UBA requires the following tag combinations to process endpoint category events:\nTo properly parse port data, Splunk UBA requires listening, port.\nTo properly parse process data, Splunk UBA requires process, report.\nTo properly parse service data, Splunk UBA requires tag=service, tag=report.\nTo properly parse filesystem data, Splunk UBA requires tag=endpoint, tag=filesystem.\nTo properly parse registry data, Splunk UBA requires tag=endpoint, tag=registry.\n- The Endpoint category contains multiple datasets. Some fields have the same names across multiple datasets.",
+    "objectSummary": {
+        "Event-Based": 1,
+        "Transaction-Based": 0,
+        "Search-Based": 0
+    },
+    "objects": [
+        {
+            "objectName": "UBA_Endpoint_Port",
+            "displayName": "UBA Endpoint Port",
+            "parentName": "BaseEvent",
+            "comment": "",
+            "fields": [
+                {
+                    "fieldName": "_time",
+                    "owner": "BaseEvent",
+                    "type": "timestamp",
+                    "fieldSearch": "",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "_time",
+                    "comment": ""
+                },
+                {
+                    "comment": {
+                        "data_type": "string",
+                        "description": "The action taken by the endpoint.",
+                        "recommended": true,
+                        "possible_values": "allowed, blocked"
+                    },
+                    "fieldName": "action",
+                    "owner": "UBA_Endpoint_Port",
+                    "type": "string",
+                    "fieldSearch": "action=*",
+                    "required": true,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "action"
+                },
+                {
+                    "comment": {
+                        "data_type": "string",
+                        "description": "The categories that this external alarm belongs to. Multiple categories can be separated by comma. The values must be one or more of the categories in\u00a0Filter the anomaly table.",
+                        "recommended": false,
+                        "possible_values": "Exfiltration"
+                    },
+                    "fieldName": "alarmCategories",
+                    "owner": "UBA_Endpoint_Port",
+                    "type": "string",
+                    "fieldSearch": "alarmCategories=*",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "alarmCategories"
+                },
+                {
+                    "comment": {
+                        "data_type": "string",
+                        "description": "The event category, if applicable.",
+                        "recommended": false,
+                        "possible_values": "malware, watchlist.hit.ingress.process"
+                    },
+                    "fieldName": "category",
+                    "owner": "UBA_Endpoint_Port",
+                    "type": "string",
+                    "fieldSearch": "category=*",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "category"
+                },
+                {
+                    "comment": {
+                        "data_type": "integer",
+                        "description": "CPU load consumed by the process (in percent)",
+                        "recommended": false,
+                        "possible_values": "85"
+                    },
+                    "fieldName": "cpu_load_percent",
+                    "owner": "UBA_Endpoint_Port",
+                    "type": "number",
+                    "fieldSearch": "cpu_load_percent=*",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "cpu_load_percent"
+                },
+                {
+                    "comment": {
+                        "data_type": "integer",
+                        "description": "The epoch time at which the network port started listening on the endpoint.",
+                        "recommended": false,
+                        "possible_values": "1547749588"
+                    },
+                    "fieldName": "creation_time",
+                    "owner": "UBA_Endpoint_Port",
+                    "type": "number",
+                    "fieldSearch": "creation_time=*",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "creation_time"
+                },
+                {
+                    "comment": {
+                        "data_type": "string",
+                        "description": "The host name of the endpoint.",
+                        "recommended": true,
+                        "possible_values": "winhost1"
+                    },
+                    "fieldName": "dest_host",
+                    "owner": "UBA_Endpoint_Port",
+                    "type": "string",
+                    "fieldSearch": "dest_host=*",
+                    "required": true,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "dest_host"
+                },
+                {
+                    "comment": {
+                        "data_type": "string",
+                        "description": "IP address of the endpoint where the activity happened.",
+                        "recommended": false,
+                        "possible_values": "1.1.1.1"
+                    },
+                    "fieldName": "dest_ip",
+                    "owner": "UBA_Endpoint_Port",
+                    "type": "string",
+                    "fieldSearch": "dest_ip=*",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "dest_ip"
+                },
+                {
+                    "comment": {
+                        "data_type": "string",
+                        "description": "The NT domain of the endpoint, if applicable.",
+                        "recommended": false,
+                        "possible_values": "acme"
+                    },
+                    "fieldName": "dest_nt_domain",
+                    "owner": "UBA_Endpoint_Port",
+                    "type": "string",
+                    "fieldSearch": "dest_nt_domain=*",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "dest_nt_domain"
+                },
+                {
+                    "comment": {
+                        "data_type": "integer",
+                        "description": "The network port listening on the endpoint.",
+                        "recommended": true,
+                        "possible_values": "53"
+                    },
+                    "fieldName": "dest_port",
+                    "owner": "UBA_Endpoint_Port",
+                    "type": "number",
+                    "fieldSearch": "dest_port=*",
+                    "required": true,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "dest_port"
+                },
+                {
+                    "comment": {
+                        "data_type": "string",
+                        "description": "The host name of the endpoint.",
+                        "recommended": true,
+                        "possible_values": "winhost1"
+                    },
+                    "fieldName": "endpoint_dns",
+                    "owner": "UBA_Endpoint_Port",
+                    "type": "string",
+                    "fieldSearch": "endpoint_dns=*",
+                    "required": true,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "endpoint_dns"
+                },
+                {
+                    "comment": {
+                        "data_type": "string",
+                        "description": "IP address of the endpoint where the activity happened.",
+                        "recommended": false,
+                        "possible_values": "1.1.1.1"
+                    },
+                    "fieldName": "endpoint_ip",
+                    "owner": "UBA_Endpoint_Port",
+                    "type": "string",
+                    "fieldSearch": "endpoint_ip=*",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "endpoint_ip"
+                },
+                {
+                    "comment": {
+                        "data_type": "string",
+                        "description": "The NT domain of the endpoint, if applicable.",
+                        "recommended": false,
+                        "possible_values": "acme"
+                    },
+                    "fieldName": "endpoint_nt_domain",
+                    "owner": "UBA_Endpoint_Port",
+                    "type": "string",
+                    "fieldSearch": "endpoint_nt_domain=*",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "endpoint_nt_domain"
+                },
+                {
+                    "comment": {
+                        "data_type": "integer",
+                        "description": "Network port listening on the endpoint.",
+                        "recommended": false,
+                        "possible_values": "53"
+                    },
+                    "fieldName": "endpoint_port",
+                    "owner": "UBA_Endpoint_Port",
+                    "type": "number",
+                    "fieldSearch": "endpoint_port=*",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "endpoint_port"
+                },
+                {
+                    "comment": {
+                        "data_type": "integer",
+                        "description": "The event ID or code for the activity.",
+                        "recommended": false,
+                        "possible_values": "7045"
+                    },
+                    "fieldName": "event_id",
+                    "owner": "UBA_Endpoint_Port",
+                    "type": "number",
+                    "fieldSearch": "event_id=*",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "event_id"
+                },
+                {
+                    "comment": {
+                        "data_type": "string",
+                        "description": "The type of the event.",
+                        "recommended": true,
+                        "possible_values": "symantec_ep_risk_alert_virus, A service was installed in the system"
+                    },
+                    "fieldName": "eventtype",
+                    "owner": "UBA_Endpoint_Port",
+                    "type": "string",
+                    "fieldSearch": "eventtype=*",
+                    "required": true,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "eventtype"
+                },
+                {
+                    "fieldName": "host",
+                    "owner": "BaseEvent",
+                    "type": "string",
+                    "fieldSearch": "",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "host",
+                    "comment": ""
+                },
+                {
+                    "comment": {
+                        "data_type": "integer",
+                        "description": "Memory in bytes used by the process.",
+                        "recommended": false,
+                        "possible_values": "12345"
+                    },
+                    "fieldName": "mem_used",
+                    "owner": "UBA_Endpoint_Port",
+                    "type": "number",
+                    "fieldSearch": "mem_used=*",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "mem_used"
+                },
+                {
+                    "comment": {
+                        "data_type": "string",
+                        "description": "The operating system of the resource.",
+                        "recommended": false,
+                        "possible_values": "Microsoft Windows Server 2008r2"
+                    },
+                    "fieldName": "os",
+                    "owner": "UBA_Endpoint_Port",
+                    "type": "string",
+                    "fieldSearch": "os=*",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "os"
+                },
+                {
+                    "comment": {
+                        "data_type": "integer",
+                        "description": "The numeric identifier of the process assigned by the operating system.",
+                        "recommended": false,
+                        "possible_values": "12345"
+                    },
+                    "fieldName": "process_id",
+                    "owner": "UBA_Endpoint_Port",
+                    "type": "number",
+                    "fieldSearch": "process_id=*",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "process_id"
+                },
+                {
+                    "comment": {
+                        "data_type": "string",
+                        "description": "The severity of the endpoint event.",
+                        "recommended": false,
+                        "possible_values": "informational, unknown, low, medium, high, critical"
+                    },
+                    "fieldName": "severity",
+                    "owner": "UBA_Endpoint_Port",
+                    "type": "string",
+                    "fieldSearch": "severity=*",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "severity"
+                },
+                {
+                    "comment": {
+                        "data_type": "string",
+                        "description": "The sub-category or signature of the event, if applicable.",
+                        "recommended": false,
+                        "possible_values": "process_blocking"
+                    },
+                    "fieldName": "signature",
+                    "owner": "UBA_Endpoint_Port",
+                    "type": "string",
+                    "fieldSearch": "signature=*",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "signature"
+                },
+                {
+                    "fieldName": "source",
+                    "owner": "BaseEvent",
+                    "type": "string",
+                    "fieldSearch": "",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "source",
+                    "comment": ""
+                },
+                {
+                    "fieldName": "sourcetype",
+                    "owner": "BaseEvent",
+                    "type": "string",
+                    "fieldSearch": "",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "sourcetype",
+                    "comment": ""
+                },
+                {
+                    "comment": {
+                        "data_type": "string",
+                        "description": "The hostname of the \"remote\" system connected to the listening port (if applicable)",
+                        "recommended": true,
+                        "possible_values": "acmehost1"
+                    },
+                    "fieldName": "src_dns",
+                    "owner": "UBA_Endpoint_Port",
+                    "type": "string",
+                    "fieldSearch": "src_dns=*",
+                    "required": true,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "src_dns"
+                },
+                {
+                    "comment": {
+                        "data_type": "string",
+                        "description": "The hostname of the \"remote\" system connected to the listening port (if applicable)",
+                        "recommended": true,
+                        "possible_values": "acmehost1"
+                    },
+                    "fieldName": "src_host",
+                    "owner": "UBA_Endpoint_Port",
+                    "type": "string",
+                    "fieldSearch": "src_host=*",
+                    "required": true,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "src_host"
+                },
+                {
+                    "comment": {
+                        "data_type": "string",
+                        "description": "The IP address of the \"remote\" system connected to the listening port (if applicable).",
+                        "recommended": false,
+                        "possible_values": "2.2.2.2"
+                    },
+                    "fieldName": "src_ip",
+                    "owner": "UBA_Endpoint_Port",
+                    "type": "string",
+                    "fieldSearch": "src_ip=*",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "src_ip"
+                },
+                {
+                    "comment": {
+                        "data_type": "integer",
+                        "description": "The \"remote\" port connected to the listening port (if applicable).",
+                        "recommended": true,
+                        "possible_values": "53"
+                    },
+                    "fieldName": "src_port",
+                    "owner": "UBA_Endpoint_Port",
+                    "type": "number",
+                    "fieldSearch": "src_port=*",
+                    "required": true,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "src_port"
+                },
+                {
+                    "comment": {
+                        "data_type": "string",
+                        "description": "The status of the listening port.",
+                        "recommended": true,
+                        "possible_values": "established, listening"
+                    },
+                    "fieldName": "state",
+                    "owner": "UBA_Endpoint_Port",
+                    "type": "string",
+                    "fieldSearch": "state=*",
+                    "required": true,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "state"
+                },
+                {
+                    "comment": {
+                        "data_type": "string",
+                        "description": "Splunk UBA categories rely on the tags from CIM-compliant events to correctly parse data from the Splunk platform. Review this table to determine which category in Splunk UBA corresponds to the CIM data model that the events in the Splunk platform are mapped to. Click the name of the Splunk UBA category to review the field mappings between Splunk UBA and the CIM data models.",
+                        "recommended": true,
+                        "possible_values": "listening,port"
+                    },
+                    "fieldName": "tag",
+                    "owner": "UBA_Endpoint_Port",
+                    "type": "string",
+                    "fieldSearch": "*",
+                    "required": true,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "tag"
+                },
+                {
+                    "comment": {
+                        "data_type": "string",
+                        "description": "The network transport protocol associated with the listening port.",
+                        "recommended": true,
+                        "possible_values": "tcp, udp"
+                    },
+                    "fieldName": "transport",
+                    "owner": "UBA_Endpoint_Port",
+                    "type": "string",
+                    "fieldSearch": "transport=*",
+                    "required": true,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "transport"
+                },
+                {
+                    "comment": {
+                        "data_type": "string",
+                        "description": "The user account that spawned the process.",
+                        "recommended": true,
+                        "possible_values": "cronaldo"
+                    },
+                    "fieldName": "user",
+                    "owner": "UBA_Endpoint_Port",
+                    "type": "string",
+                    "fieldSearch": "user=*",
+                    "required": true,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "user"
+                },
+                {
+                    "comment": {
+                        "data_type": "string",
+                        "description": "The vendor and product name of the Endpoint solution that reported the event.",
+                        "recommended": false,
+                        "possible_values": "Carbon Black Cb Response"
+                    },
+                    "fieldName": "vendor_product",
+                    "owner": "UBA_Endpoint_Port",
+                    "type": "string",
+                    "fieldSearch": "vendor_product=*",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "vendor_product"
+                }
+            ],
+            "calculations": [],
+            "constraints": [
+                {
+                    "search": "`uba_cim_endpoint_indexes` listening port",
+                    "owner": "UBA_Endpoint_Port"
+                }
+            ],
+            "lineage": "UBA_Endpoint_Port"
+        }
+    ],
+    "objectNameList": [
+        "UBA_Endpoint_Port"
+    ]
+}

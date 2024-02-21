@@ -1,0 +1,351 @@
+{
+    "modelName": "UBA_External_Alarm",
+    "displayName": "UBA External Alarm",
+    "description": "Splunk UBA External Alarm Data Model for CIM Validator App",
+    "objectSummary": {
+        "Event-Based": 1,
+        "Transaction-Based": 0,
+        "Search-Based": 0
+    },
+    "objects": [
+        {
+            "objectName": "UBA_External_Alarm",
+            "displayName": "UBA External Alarm",
+            "parentName": "BaseEvent",
+            "comment": "",
+            "fields": [
+                {
+                    "fieldName": "_time",
+                    "owner": "BaseEvent",
+                    "type": "timestamp",
+                    "fieldSearch": "",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "_time",
+                    "comment": ""
+                },
+                {
+                    "comment": {
+                        "data_type": "string",
+                        "description": "The action taken by the external device.",
+                        "recommended": false,
+                        "possible_values": "allowed, blocked, deferred"
+                    },
+                    "fieldName": "action",
+                    "owner": "UBA_External_Alarm",
+                    "type": "string",
+                    "fieldSearch": "action=*",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "action"
+                },
+                {
+                    "comment": {
+                        "data_type": "string",
+                        "description": "The categories that this external alarm belongs to. Multiple categories can be separated by comma. The values must be one or more of the categories in\u00a0Filter the anomaly table.",
+                        "recommended": true,
+                        "possible_values": "Exfiltration"
+                    },
+                    "fieldName": "alarmCategories",
+                    "owner": "UBA_External_Alarm",
+                    "type": "string",
+                    "fieldSearch": "alarmCategories=*",
+                    "required": true,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "alarmCategories"
+                },
+                {
+                    "comment": {
+                        "data_type": "string",
+                        "description": "The application involved in the event.",
+                        "recommended": false,
+                        "possible_values": "ssl"
+                    },
+                    "fieldName": "app",
+                    "owner": "UBA_External_Alarm",
+                    "type": "string",
+                    "fieldSearch": "app=*",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "app"
+                },
+                {
+                    "comment": {
+                        "data_type": "string",
+                        "description": "The category of the event, if applicable.",
+                        "recommended": false,
+                        "possible_values": "malware, watchlist.hit.ingress.proces"
+                    },
+                    "fieldName": "category",
+                    "owner": "UBA_External_Alarm",
+                    "type": "string",
+                    "fieldSearch": "category=*",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "category"
+                },
+                {
+                    "comment": {
+                        "data_type": "string",
+                        "description": "The host name of the destination.",
+                        "recommended": false,
+                        "possible_values": "winhost2"
+                    },
+                    "fieldName": "dest_host",
+                    "owner": "UBA_External_Alarm",
+                    "type": "string",
+                    "fieldSearch": "dest_host=*",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "dest_host"
+                },
+                {
+                    "comment": {
+                        "data_type": "string",
+                        "description": "The IP address of the destination.",
+                        "recommended": false,
+                        "possible_values": "2.2.2.2"
+                    },
+                    "fieldName": "dest_ip",
+                    "owner": "UBA_External_Alarm",
+                    "type": "string",
+                    "fieldSearch": "dest_ip=*",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "dest_ip"
+                },
+                {
+                    "comment": {
+                        "data_type": "string",
+                        "description": "The destination zone.",
+                        "recommended": false,
+                        "possible_values": "PCI"
+                    },
+                    "fieldName": "dest_zone",
+                    "owner": "UBA_External_Alarm",
+                    "type": "string",
+                    "fieldSearch": "dest_zone=*",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "dest_zone"
+                },
+                {
+                    "comment": {
+                        "data_type": "string",
+                        "description": "The type of the event.",
+                        "recommended": true,
+                        "possible_values": "URL Filtering"
+                    },
+                    "fieldName": "eventtype",
+                    "owner": "UBA_External_Alarm",
+                    "type": "string",
+                    "fieldSearch": "eventtype=*",
+                    "required": true,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "eventtype"
+                },
+                {
+                    "fieldName": "host",
+                    "owner": "BaseEvent",
+                    "type": "string",
+                    "fieldSearch": "",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "host",
+                    "comment": ""
+                },
+                {
+                    "comment": {
+                        "data_type": "string",
+                        "description": "The severity of the external alarm.",
+                        "recommended": false,
+                        "possible_values": "informational, unknown, low, medium, high, critical"
+                    },
+                    "fieldName": "severity",
+                    "owner": "UBA_External_Alarm",
+                    "type": "string",
+                    "fieldSearch": "severity=*",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "severity"
+                },
+                {
+                    "comment": {
+                        "data_type": "string",
+                        "description": "The type of the event.",
+                        "recommended": true,
+                        "possible_values": "URL Filtering"
+                    },
+                    "fieldName": "signature",
+                    "owner": "UBA_External_Alarm",
+                    "type": "string",
+                    "fieldSearch": "signature=*",
+                    "required": true,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "signature"
+                },
+                {
+                    "fieldName": "source",
+                    "owner": "BaseEvent",
+                    "type": "string",
+                    "fieldSearch": "",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "source",
+                    "comment": ""
+                },
+                {
+                    "fieldName": "sourcetype",
+                    "owner": "BaseEvent",
+                    "type": "string",
+                    "fieldSearch": "",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "sourcetype",
+                    "comment": ""
+                },
+                {
+                    "comment": {
+                        "data_type": "string",
+                        "description": "The host name of the source.",
+                        "recommended": false,
+                        "possible_values": "winhost1"
+                    },
+                    "fieldName": "src_host",
+                    "owner": "UBA_External_Alarm",
+                    "type": "string",
+                    "fieldSearch": "src_host=*",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "src_host"
+                },
+                {
+                    "comment": {
+                        "data_type": "string",
+                        "description": "The source of the network traffic, such as the client requesting the connection.",
+                        "recommended": false,
+                        "possible_values": "10.10.10.12"
+                    },
+                    "fieldName": "src_ip",
+                    "owner": "UBA_External_Alarm",
+                    "type": "string",
+                    "fieldSearch": "src_ip=*",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "src_ip"
+                },
+                {
+                    "comment": {
+                        "data_type": "string",
+                        "description": "The source zone.",
+                        "recommended": false,
+                        "possible_values": "contractor"
+                    },
+                    "fieldName": "src_zone",
+                    "owner": "UBA_External_Alarm",
+                    "type": "string",
+                    "fieldSearch": "src_zone=*",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "src_zone"
+                },
+                {
+                    "comment": {
+                        "data_type": "string",
+                        "description": "Splunk UBA categories rely on the tags from CIM-compliant events to correctly parse data from the Splunk platform. Review this table to determine which category in Splunk UBA corresponds to the CIM data model that the events in the Splunk platform are mapped to. Click the name of the Splunk UBA category to review the field mappings between Splunk UBA and the CIM data models.",
+                        "recommended": true,
+                        "possible_values": "attack"
+                    },
+                    "fieldName": "tag",
+                    "owner": "UBA_External_Alarm",
+                    "type": "string",
+                    "fieldSearch": "*",
+                    "required": true,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "tag"
+                },
+                {
+                    "comment": {
+                        "data_type": "string",
+                        "description": "The URL accessed in the request.",
+                        "recommended": false,
+                        "possible_values": "http://subdomain.acme.com/index.html"
+                    },
+                    "fieldName": "url",
+                    "owner": "UBA_External_Alarm",
+                    "type": "string",
+                    "fieldSearch": "url=*",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "url"
+                },
+                {
+                    "comment": {
+                        "data_type": "string",
+                        "description": "The user involved in the activity reported.",
+                        "recommended": false,
+                        "possible_values": "cronaldo"
+                    },
+                    "fieldName": "user",
+                    "owner": "UBA_External_Alarm",
+                    "type": "string",
+                    "fieldSearch": "user=*",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "user"
+                }
+            ],
+            "calculations": [],
+            "constraints": [
+                {
+                    "search": "`uba_cim_external_alarm_indexes` attack",
+                    "owner": "UBA_External_Alarm"
+                }
+            ],
+            "lineage": "UBA_External_Alarm"
+        }
+    ],
+    "objectNameList": [
+        "UBA_External_Alarm"
+    ]
+}

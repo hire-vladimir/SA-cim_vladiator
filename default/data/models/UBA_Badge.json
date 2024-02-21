@@ -1,0 +1,215 @@
+{
+    "modelName": "UBA_Badge",
+    "displayName": "UBA Badge",
+    "description": "Splunk UBA Badge Data Model for CIM Validator App",
+    "objectSummary": {
+        "Event-Based": 1,
+        "Transaction-Based": 0,
+        "Search-Based": 0
+    },
+    "objects": [
+        {
+            "objectName": "UBA_Badge",
+            "displayName": "UBA_Badge",
+            "parentName": "BaseEvent",
+            "comment": "",
+            "fields": [
+                {
+                    "fieldName": "_time",
+                    "owner": "BaseEvent",
+                    "type": "timestamp",
+                    "fieldSearch": "",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "_time",
+                    "comment": ""
+                },
+                {
+                    "comment": {
+                        "data_type": "string",
+                        "description": "The category of the badge access event.",
+                        "possible_values": "Failed Access",
+                        "required": true
+                    },
+                    "fieldName": "category",
+                    "owner": "UBA_Badge",
+                    "type": "string",
+                    "fieldSearch": "category=*",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "category"
+                },
+                {
+                    "comment": {
+                        "data_type": "string",
+                        "description": "The reason for the failed operation.",
+                        "possible_values": "Unauthorized Access Attempt",
+                        "required": false
+                    },
+                    "fieldName": "failure_reason",
+                    "owner": "UBA_Badge",
+                    "type": "string",
+                    "fieldSearch": "failure_reason=*",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "failure_reason"
+                },
+                {
+                    "fieldName": "host",
+                    "owner": "BaseEvent",
+                    "type": "string",
+                    "fieldSearch": "",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "host",
+                    "comment": ""
+                },
+                {
+                    "comment": {
+                        "data_type": "string",
+                        "description": "The location in the building where the badge access was requested.",
+                        "possible_values": "Mail Room",
+                        "required": true
+                    },
+                    "fieldName": "object_name",
+                    "owner": "UBA_Badge",
+                    "type": "string",
+                    "fieldSearch": "object_name=*",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "object_name"
+                },
+                {
+                    "comment": {
+                        "data_type": "string",
+                        "description": "The type of device used in the badge access event.",
+                        "possible_values": "ACCESS_POINT",
+                        "required": true
+                    },
+                    "fieldName": "object_type",
+                    "owner": "UBA_Badge",
+                    "type": "string",
+                    "fieldSearch": "object_type=*",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "object_type"
+                },
+                {
+                    "comment": {
+                        "data_type": "string",
+                        "description": "The location of the building.",
+                        "possible_values": "123 Main Street",
+                        "required": false
+                    },
+                    "fieldName": "site_name",
+                    "owner": "UBA_Badge",
+                    "type": "string",
+                    "fieldSearch": "site_name=*",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "site_name"
+                },
+                {
+                    "fieldName": "source",
+                    "owner": "BaseEvent",
+                    "type": "string",
+                    "fieldSearch": "",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "source",
+                    "comment": ""
+                },
+                {
+                    "fieldName": "sourcetype",
+                    "owner": "BaseEvent",
+                    "type": "string",
+                    "fieldSearch": "",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "sourcetype",
+                    "comment": ""
+                },
+                {
+                    "comment": {
+                        "data_type": "string",
+                        "description": "Splunk UBA categories rely on the tags from CIM-compliant events to correctly parse data from the Splunk platform. Review this table to determine which category in Splunk UBA corresponds to the CIM data model that the events in the Splunk platform are mapped to. Click the name of the Splunk UBA category to review the field mappings between Splunk UBA and the CIM data models.",
+                        "possible_values": "badge",
+                        "required": true
+                    },
+                    "fieldName": "tag",
+                    "owner": "UBA_Badge",
+                    "type": "string",
+                    "fieldSearch": "*",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "tag"
+                },
+                {
+                    "comment": {
+                        "data_type": "string",
+                        "description": "The user involved in this badge access event.",
+                        "possible_values": "cronaldo",
+                        "required": false
+                    },
+                    "fieldName": "user",
+                    "owner": "UBA_Badge",
+                    "type": "string",
+                    "fieldSearch": "user=*",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "user"
+                },
+                {
+                    "comment": {
+                        "data_type": "string",
+                        "description": "The vendor of the badge access solution.",
+                        "possible_values": "brivo",
+                        "required": false
+                    },
+                    "fieldName": "vendor",
+                    "owner": "UBA_Badge",
+                    "type": "string",
+                    "fieldSearch": "vendor=*",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "vendor"
+                }
+            ],
+            "calculations": [],
+            "constraints": [
+                {
+                    "search": "`uba_cim_badge_indexes` badge",
+                    "owner": "UBA_Badge"
+                }
+            ],
+            "lineage": "UBA_Badge"
+        }
+    ],
+    "objectNameList": [
+        "UBA_Badge"
+    ]
+}
