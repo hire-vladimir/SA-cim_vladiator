@@ -15,7 +15,7 @@
     <input type="dropdown" token="product_type">
       <label>Product type:</label>
       <choice value="*">Any</choice>
-      <choice value="core">Core</choice>
+      <choice value="core">Core, ES</choice>
       <choice value="uba">UBA</choice>
       <default>*</default>
       <initialValue>*</initialValue>
