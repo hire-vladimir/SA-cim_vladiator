@@ -9,14 +9,10 @@
     },
     "objects": [
         {
-            "comment": {
-                "tags": [
-                    "authentication"
-                ]
-            },
             "objectName": "UBA_Authentication",
             "displayName": "UBA Authentication",
             "parentName": "BaseEvent",
+            "comment": "",
             "fields": [
                 {
                     "fieldName": "_time",
@@ -35,7 +31,7 @@
                         "data_type": "string",
                         "description": "The action performed on the resource.",
                         "recommended": true,
-                        "possible_values": "success, failure, unknown, added"
+                        "expected_values": ["success", "failure", "unknown", "added"]
                     },
                     "fieldName": "action",
                     "owner": "UBA_Authentication",
@@ -52,7 +48,7 @@
                         "data_type": "string",
                         "description": "The application involved in the event.",
                         "recommended": false,
-                        "possible_values": "ssh, splunk, win:local"
+                        "expected_values": ["ssh", "splunk", "win:local"]
                     },
                     "fieldName": "app",
                     "owner": "UBA_Authentication",
@@ -69,7 +65,7 @@
                         "data_type": "string",
                         "description": "The target involved in the authentication. You can alias this from more specific fields including\u00a0dest_ip\u00a0and\u00a0dest_host.",
                         "recommended": true,
-                        "possible_values": "192.168.10.11, winhost1"
+                        "expected_values": ["192.168.10.11", "winhost1"]
                     },
                     "fieldName": "dest",
                     "owner": "UBA_Authentication",
@@ -86,7 +82,7 @@
                         "data_type": "integer",
                         "description": "The amount of time in seconds that it took to complete the authentication event.",
                         "recommended": false,
-                        "possible_values": "2"
+                        "expected_values": ["2"]
                     },
                     "fieldName": "duration",
                     "owner": "UBA_Authentication",
@@ -139,7 +135,7 @@
                         "data_type": "string",
                         "description": "The source involved in the authentication. In the case of endpoint protection authentication the src is the client. You can alias this from more specific fields including\u00a0src_ip\u00a0and\u00a0src_host.",
                         "recommended": true,
-                        "possible_values": "192.168.10.12, winhost2"
+                        "expected_values": ["192.168.10.12", "winhost2"]
                     },
                     "fieldName": "src",
                     "owner": "UBA_Authentication",
@@ -156,7 +152,7 @@
                         "data_type": "string",
                         "description": "In privilege escalation events, src_user represents the user who initiated the privilege escalation. This field is unnecessary when an escalation is not performed.",
                         "recommended": false,
-                        "possible_values": "user1"
+                        "expected_values": ["user1"]
                     },
                     "fieldName": "src_user",
                     "owner": "UBA_Authentication",
@@ -171,9 +167,9 @@
                 {
                     "comment": {
                         "data_type": "string",
-                        "description": "Splunk UBA categories rely on the tags from CIM-compliant events to correctly parse data from the Splunk platform. Review this table to determine which category in Splunk UBA corresponds to the CIM data model that the events in the Splunk platform are mapped to. Click the name of the Splunk UBA category to review the field mappings between Splunk UBA and the CIM data models.",
+                        "description": "Splunk UBA categories rely on the tags from CIM-compliant events to correctly parse data from the Splunk platform when using Splunk Direct in Splunk UBA.",
                         "recommended": true,
-                        "possible_values": "authentication"
+                        "expected_values": ["authentication"]
                     },
                     "fieldName": "tag",
                     "owner": "UBA_Authentication",
@@ -190,7 +186,7 @@
                         "data_type": "string",
                         "description": "The name of the user for whom the authentication is being performed.",
                         "recommended": true,
-                        "possible_values": "user2"
+                        "expected_values": ["user2"]
                     },
                     "fieldName": "user",
                     "owner": "UBA_Authentication",
@@ -206,7 +202,7 @@
             "calculations": [],
             "constraints": [
                 {
-                    "search": "`uba_cim_authentication_indexes` authentication",
+                    "search": "`uba_cim_authentication_indexes`",
                     "owner": "UBA_Authentication"
                 }
             ],

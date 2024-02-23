@@ -31,7 +31,11 @@
                         "data_type": "string",
                         "description": "The action taken by the external device.",
                         "recommended": false,
-                        "possible_values": "allowed, blocked, deferred"
+                        "expected_values": [
+                            "allowed",
+                            "blocked",
+                            "deferred"
+                        ]
                     },
                     "fieldName": "action",
                     "owner": "UBA_External_Alarm",
@@ -48,7 +52,9 @@
                         "data_type": "string",
                         "description": "The categories that this external alarm belongs to. Multiple categories can be separated by comma. The values must be one or more of the categories in\u00a0Filter the anomaly table.",
                         "recommended": true,
-                        "possible_values": "Exfiltration"
+                        "expected_values": [
+                            "Exfiltration"
+                        ]
                     },
                     "fieldName": "alarmCategories",
                     "owner": "UBA_External_Alarm",
@@ -65,7 +71,9 @@
                         "data_type": "string",
                         "description": "The application involved in the event.",
                         "recommended": false,
-                        "possible_values": "ssl"
+                        "expected_values": [
+                            "ssl"
+                        ]
                     },
                     "fieldName": "app",
                     "owner": "UBA_External_Alarm",
@@ -82,7 +90,10 @@
                         "data_type": "string",
                         "description": "The category of the event, if applicable.",
                         "recommended": false,
-                        "possible_values": "malware, watchlist.hit.ingress.proces"
+                        "expected_values": [
+                            "malware",
+                            "watchlist.hit.ingress.proces"
+                        ]
                     },
                     "fieldName": "category",
                     "owner": "UBA_External_Alarm",
@@ -99,7 +110,9 @@
                         "data_type": "string",
                         "description": "The host name of the destination.",
                         "recommended": false,
-                        "possible_values": "winhost2"
+                        "expected_values": [
+                            "winhost2"
+                        ]
                     },
                     "fieldName": "dest_host",
                     "owner": "UBA_External_Alarm",
@@ -116,7 +129,9 @@
                         "data_type": "string",
                         "description": "The IP address of the destination.",
                         "recommended": false,
-                        "possible_values": "2.2.2.2"
+                        "expected_values": [
+                            "2.2.2.2"
+                        ]
                     },
                     "fieldName": "dest_ip",
                     "owner": "UBA_External_Alarm",
@@ -133,7 +148,9 @@
                         "data_type": "string",
                         "description": "The destination zone.",
                         "recommended": false,
-                        "possible_values": "PCI"
+                        "expected_values": [
+                            "PCI"
+                        ]
                     },
                     "fieldName": "dest_zone",
                     "owner": "UBA_External_Alarm",
@@ -150,7 +167,9 @@
                         "data_type": "string",
                         "description": "The type of the event.",
                         "recommended": true,
-                        "possible_values": "URL Filtering"
+                        "expected_values": [
+                            "URL Filtering"
+                        ]
                     },
                     "fieldName": "eventtype",
                     "owner": "UBA_External_Alarm",
@@ -179,7 +198,14 @@
                         "data_type": "string",
                         "description": "The severity of the external alarm.",
                         "recommended": false,
-                        "possible_values": "informational, unknown, low, medium, high, critical"
+                        "expected_values": [
+                            "informational",
+                            "unknown",
+                            "low",
+                            "medium",
+                            "high",
+                            "critical"
+                        ]
                     },
                     "fieldName": "severity",
                     "owner": "UBA_External_Alarm",
@@ -196,7 +222,9 @@
                         "data_type": "string",
                         "description": "The type of the event.",
                         "recommended": true,
-                        "possible_values": "URL Filtering"
+                        "expected_values": [
+                            "URL Filtering"
+                        ]
                     },
                     "fieldName": "signature",
                     "owner": "UBA_External_Alarm",
@@ -237,7 +265,9 @@
                         "data_type": "string",
                         "description": "The host name of the source.",
                         "recommended": false,
-                        "possible_values": "winhost1"
+                        "expected_values": [
+                            "winhost1"
+                        ]
                     },
                     "fieldName": "src_host",
                     "owner": "UBA_External_Alarm",
@@ -254,7 +284,9 @@
                         "data_type": "string",
                         "description": "The source of the network traffic, such as the client requesting the connection.",
                         "recommended": false,
-                        "possible_values": "10.10.10.12"
+                        "expected_values": [
+                            "10.10.10.12"
+                        ]
                     },
                     "fieldName": "src_ip",
                     "owner": "UBA_External_Alarm",
@@ -271,7 +303,9 @@
                         "data_type": "string",
                         "description": "The source zone.",
                         "recommended": false,
-                        "possible_values": "contractor"
+                        "expected_values": [
+                            "contractor"
+                        ]
                     },
                     "fieldName": "src_zone",
                     "owner": "UBA_External_Alarm",
@@ -286,9 +320,11 @@
                 {
                     "comment": {
                         "data_type": "string",
-                        "description": "Splunk UBA categories rely on the tags from CIM-compliant events to correctly parse data from the Splunk platform. Review this table to determine which category in Splunk UBA corresponds to the CIM data model that the events in the Splunk platform are mapped to. Click the name of the Splunk UBA category to review the field mappings between Splunk UBA and the CIM data models.",
+                        "description": "Splunk UBA categories rely on the tags from CIM-compliant events to correctly parse data from the Splunk platform when using Splunk Direct in Splunk UBA.",
                         "recommended": true,
-                        "possible_values": "attack"
+                        "expected_values": [
+                            "attack"
+                        ]
                     },
                     "fieldName": "tag",
                     "owner": "UBA_External_Alarm",
@@ -305,7 +341,9 @@
                         "data_type": "string",
                         "description": "The URL accessed in the request.",
                         "recommended": false,
-                        "possible_values": "http://subdomain.acme.com/index.html"
+                        "expected_values": [
+                            "http://subdomain.acme.com/index.html"
+                        ]
                     },
                     "fieldName": "url",
                     "owner": "UBA_External_Alarm",
@@ -322,7 +360,9 @@
                         "data_type": "string",
                         "description": "The user involved in the activity reported.",
                         "recommended": false,
-                        "possible_values": "cronaldo"
+                        "expected_values": [
+                            "cronaldo"
+                        ]
                     },
                     "fieldName": "user",
                     "owner": "UBA_External_Alarm",
@@ -338,7 +378,7 @@
             "calculations": [],
             "constraints": [
                 {
-                    "search": "`uba_cim_external_alarm_indexes` attack",
+                    "search": "`uba_cim_external_alarm_indexes`",
                     "owner": "UBA_External_Alarm"
                 }
             ],

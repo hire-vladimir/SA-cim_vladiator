@@ -31,7 +31,10 @@
                         "data_type": "string",
                         "description": "The action taken by the endpoint.",
                         "recommended": true,
-                        "possible_values": "allowed, blocked"
+                        "expected_values": [
+                            "allowed",
+                            "blocked"
+                        ]
                     },
                     "fieldName": "action",
                     "owner": "UBA_Endpoint_Filesystem",
@@ -48,7 +51,9 @@
                         "data_type": "string",
                         "description": "The categories that this external alarm belongs to. Multiple categories can be separated by comma. The values must be one or more of the categories in\u00a0Filter the anomaly table.",
                         "recommended": false,
-                        "possible_values": "Exfiltration"
+                        "expected_values": [
+                            "Exfiltration"
+                        ]
                     },
                     "fieldName": "alarmCategories",
                     "owner": "UBA_Endpoint_Filesystem",
@@ -65,7 +70,10 @@
                         "data_type": "string",
                         "description": "The event category, if applicable.",
                         "recommended": false,
-                        "possible_values": "malware, watchlist.hit.ingress.process"
+                        "expected_values": [
+                            "malware",
+                            "watchlist.hit.ingress.process"
+                        ]
                     },
                     "fieldName": "category",
                     "owner": "UBA_Endpoint_Filesystem",
@@ -82,7 +90,9 @@
                         "data_type": "string",
                         "description": "The host name of the endpoint.",
                         "recommended": true,
-                        "possible_values": "winhost1"
+                        "expected_values": [
+                            "winhost1"
+                        ]
                     },
                     "fieldName": "dest_host",
                     "owner": "UBA_Endpoint_Filesystem",
@@ -99,7 +109,9 @@
                         "data_type": "string",
                         "description": "IP address of the endpoint where the activity happened.",
                         "recommended": false,
-                        "possible_values": "1.1.1.1"
+                        "expected_values": [
+                            "1.1.1.1"
+                        ]
                     },
                     "fieldName": "dest_ip",
                     "owner": "UBA_Endpoint_Filesystem",
@@ -116,7 +128,9 @@
                         "data_type": "string",
                         "description": "The NT domain of the endpoint, if applicable.",
                         "recommended": false,
-                        "possible_values": "acme"
+                        "expected_values": [
+                            "acme"
+                        ]
                     },
                     "fieldName": "dest_nt_domain",
                     "owner": "UBA_Endpoint_Filesystem",
@@ -133,7 +147,9 @@
                         "data_type": "string",
                         "description": "The host name of the endpoint.",
                         "recommended": true,
-                        "possible_values": "winhost1"
+                        "expected_values": [
+                            "winhost1"
+                        ]
                     },
                     "fieldName": "endpoint_dns",
                     "owner": "UBA_Endpoint_Filesystem",
@@ -150,7 +166,9 @@
                         "data_type": "string",
                         "description": "IP address of the endpoint where the activity happened.",
                         "recommended": false,
-                        "possible_values": "1.1.1.1"
+                        "expected_values": [
+                            "1.1.1.1"
+                        ]
                     },
                     "fieldName": "endpoint_ip",
                     "owner": "UBA_Endpoint_Filesystem",
@@ -167,7 +185,9 @@
                         "data_type": "string",
                         "description": "The NT domain of the endpoint, if applicable.",
                         "recommended": false,
-                        "possible_values": "acme"
+                        "expected_values": [
+                            "acme"
+                        ]
                     },
                     "fieldName": "endpoint_nt_domain",
                     "owner": "UBA_Endpoint_Filesystem",
@@ -184,7 +204,9 @@
                         "data_type": "integer",
                         "description": "Network port listening on the endpoint.",
                         "recommended": false,
-                        "possible_values": "53"
+                        "expected_values": [
+                            "53"
+                        ]
                     },
                     "fieldName": "endpoint_port",
                     "owner": "UBA_Endpoint_Filesystem",
@@ -201,7 +223,9 @@
                         "data_type": "integer",
                         "description": "The event ID or code for the activity.",
                         "recommended": false,
-                        "possible_values": "7045"
+                        "expected_values": [
+                            "7045"
+                        ]
                     },
                     "fieldName": "event_id",
                     "owner": "UBA_Endpoint_Filesystem",
@@ -218,7 +242,10 @@
                         "data_type": "string",
                         "description": "The type of the event.",
                         "recommended": true,
-                        "possible_values": "symantec_ep_risk_alert_virus, A service was installed in the system"
+                        "expected_values": [
+                            "symantec_ep_risk_alert_virus",
+                            "A service was installed in the system"
+                        ]
                     },
                     "fieldName": "eventtype",
                     "owner": "UBA_Endpoint_Filesystem",
@@ -235,7 +262,9 @@
                         "data_type": "integer",
                         "description": "The epoch time that the file (the object of the event) was accessed.",
                         "recommended": true,
-                        "possible_values": "1547749588"
+                        "expected_values": [
+                            "1547749588"
+                        ]
                     },
                     "fieldName": "file_access_time",
                     "owner": "UBA_Endpoint_Filesystem",
@@ -252,7 +281,9 @@
                         "data_type": "string",
                         "description": "Access controls associated with the file affected by the event.",
                         "recommended": true,
-                        "possible_values": "readonly"
+                        "expected_values": [
+                            "readonly"
+                        ]
                     },
                     "fieldName": "file_acl",
                     "owner": "UBA_Endpoint_Filesystem",
@@ -269,7 +300,9 @@
                         "data_type": "integer",
                         "description": "The epoch time that the file (the object of the event) was created.",
                         "recommended": true,
-                        "possible_values": "1547749588"
+                        "expected_values": [
+                            "1547749588"
+                        ]
                     },
                     "fieldName": "file_create_time",
                     "owner": "UBA_Endpoint_Filesystem",
@@ -286,7 +319,9 @@
                         "data_type": "integer",
                         "description": "The epoch time that the file (the object of the event) was altered.",
                         "recommended": true,
-                        "possible_values": "1547749588"
+                        "expected_values": [
+                            "1547749588"
+                        ]
                     },
                     "fieldName": "file_modify_time",
                     "owner": "UBA_Endpoint_Filesystem",
@@ -303,7 +338,9 @@
                         "data_type": "string",
                         "description": "The name of the file.",
                         "recommended": true,
-                        "possible_values": "notepad.exe"
+                        "expected_values": [
+                            "notepad.exe"
+                        ]
                     },
                     "fieldName": "file_name",
                     "owner": "UBA_Endpoint_Filesystem",
@@ -320,7 +357,9 @@
                         "data_type": "string",
                         "description": "The path of the file.",
                         "recommended": true,
-                        "possible_values": "C:\\Windows\\System32\\notepad.exe"
+                        "expected_values": [
+                            "C:\\Windows\\System32\\notepad.exe"
+                        ]
                     },
                     "fieldName": "file_path",
                     "owner": "UBA_Endpoint_Filesystem",
@@ -337,7 +376,9 @@
                         "data_type": "integer",
                         "description": "The size in kilobytes of the file that is the object of the event.",
                         "recommended": true,
-                        "possible_values": "5346"
+                        "expected_values": [
+                            "5346"
+                        ]
                     },
                     "fieldName": "file_size",
                     "owner": "UBA_Endpoint_Filesystem",
@@ -366,7 +407,14 @@
                         "data_type": "string",
                         "description": "The severity of the endpoint event.",
                         "recommended": false,
-                        "possible_values": "informational, unknown, low, medium, high, critical"
+                        "expected_values": [
+                            "informational",
+                            "unknown",
+                            "low",
+                            "medium",
+                            "high",
+                            "critical"
+                        ]
                     },
                     "fieldName": "severity",
                     "owner": "UBA_Endpoint_Filesystem",
@@ -383,7 +431,9 @@
                         "data_type": "string",
                         "description": "The sub-category or signature of the event, if applicable.",
                         "recommended": false,
-                        "possible_values": "process_blocking"
+                        "expected_values": [
+                            "process_blocking"
+                        ]
                     },
                     "fieldName": "signature",
                     "owner": "UBA_Endpoint_Filesystem",
@@ -424,7 +474,9 @@
                         "data_type": "string",
                         "description": "The hostname of the \"remote\" system connected to the listening port (if applicable)",
                         "recommended": false,
-                        "possible_values": "acmehost1"
+                        "expected_values": [
+                            "acmehost1"
+                        ]
                     },
                     "fieldName": "src_dns",
                     "owner": "UBA_Endpoint_Filesystem",
@@ -441,7 +493,9 @@
                         "data_type": "string",
                         "description": "The hostname of the \"remote\" system connected to the listening port (if applicable)",
                         "recommended": false,
-                        "possible_values": "acmehost1"
+                        "expected_values": [
+                            "acmehost1"
+                        ]
                     },
                     "fieldName": "src_host",
                     "owner": "UBA_Endpoint_Filesystem",
@@ -458,7 +512,9 @@
                         "data_type": "string",
                         "description": "The IP address of the \"remote\" system connected to the listening port (if applicable).",
                         "recommended": false,
-                        "possible_values": "2.2.2.2"
+                        "expected_values": [
+                            "2.2.2.2"
+                        ]
                     },
                     "fieldName": "src_ip",
                     "owner": "UBA_Endpoint_Filesystem",
@@ -475,7 +531,9 @@
                         "data_type": "integer",
                         "description": "The \"remote\" port connected to the listening port (if applicable).",
                         "recommended": false,
-                        "possible_values": "53"
+                        "expected_values": [
+                            "53"
+                        ]
                     },
                     "fieldName": "src_port",
                     "owner": "UBA_Endpoint_Filesystem",
@@ -490,9 +548,12 @@
                 {
                     "comment": {
                         "data_type": "string",
-                        "description": "Splunk UBA categories rely on the tags from CIM-compliant events to correctly parse data from the Splunk platform. Review this table to determine which category in Splunk UBA corresponds to the CIM data model that the events in the Splunk platform are mapped to. Click the name of the Splunk UBA category to review the field mappings between Splunk UBA and the CIM data models.",
+                        "description": "Splunk UBA categories rely on the tags from CIM-compliant events to correctly parse data from the Splunk platform when using Splunk Direct in Splunk UBA.",
                         "recommended": true,
-                        "possible_values": "endpoint,filesystem"
+                        "expected_values": [
+                            "endpoint",
+                            "filesystem"
+                        ]
                     },
                     "fieldName": "tag",
                     "owner": "UBA_Endpoint_Filesystem",
@@ -509,7 +570,9 @@
                         "data_type": "string",
                         "description": "The user account associated with the service or the filesystem access, or the registry access.",
                         "recommended": true,
-                        "possible_values": "cronaldo"
+                        "expected_values": [
+                            "cronaldo"
+                        ]
                     },
                     "fieldName": "user",
                     "owner": "UBA_Endpoint_Filesystem",
@@ -525,7 +588,7 @@
             "calculations": [],
             "constraints": [
                 {
-                    "search": "`uba_cim_endpoint_indexes` endpoint filesystem",
+                    "search": "`uba_cim_endpoint_filesystem_indexes`",
                     "owner": "UBA_Endpoint_Filesystem"
                 }
             ],

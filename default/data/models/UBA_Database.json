@@ -31,7 +31,11 @@
                         "data_type": "string",
                         "description": "The action performed by the user.",
                         "recommended": false,
-                        "possible_values": "LOGON, LOGOFF, CREATE FUNCTION"
+                        "expected_values": [
+                            "LOGON",
+                            "LOGOFF",
+                            "CREATE FUNCTION"
+                        ]
                     },
                     "fieldName": "action_name",
                     "owner": "UBA_Database",
@@ -48,7 +52,12 @@
                         "data_type": "string",
                         "description": "The SQL query command.",
                         "recommended": false,
-                        "possible_values": "select, locktable, insert, delete"
+                        "expected_values": [
+                            "select",
+                            "locktable",
+                            "insert",
+                            "delete"
+                        ]
                     },
                     "fieldName": "command_name",
                     "owner": "UBA_Database",
@@ -65,7 +74,9 @@
                         "data_type": "integer",
                         "description": "The number of commits per second performed by the user associated with the session.",
                         "recommended": false,
-                        "possible_values": "5"
+                        "expected_values": [
+                            "5"
+                        ]
                     },
                     "fieldName": "commits",
                     "owner": "UBA_Database",
@@ -82,7 +93,9 @@
                         "data_type": "integer",
                         "description": "The number of CPU centiseconds used by the session. Divide this value by 100 to get the CPU seconds.",
                         "recommended": false,
-                        "possible_values": "1"
+                        "expected_values": [
+                            "1"
+                        ]
                     },
                     "fieldName": "cpu_used",
                     "owner": "UBA_Database",
@@ -99,7 +112,9 @@
                         "data_type": "string",
                         "description": "The host name of the destination.",
                         "recommended": false,
-                        "possible_values": "winhost2"
+                        "expected_values": [
+                            "winhost2"
+                        ]
                     },
                     "fieldName": "dest_host",
                     "owner": "UBA_Database",
@@ -116,7 +131,9 @@
                         "data_type": "string",
                         "description": "The IP address of the destination.",
                         "recommended": false,
-                        "possible_values": "2.2.2.2"
+                        "expected_values": [
+                            "2.2.2.2"
+                        ]
                     },
                     "fieldName": "dest_ip",
                     "owner": "UBA_Database",
@@ -133,7 +150,9 @@
                         "data_type": "integer",
                         "description": "The duration in seconds of the database connection.",
                         "recommended": false,
-                        "possible_values": "241"
+                        "expected_values": [
+                            "241"
+                        ]
                     },
                     "fieldName": "duration",
                     "owner": "UBA_Database",
@@ -150,7 +169,9 @@
                         "data_type": "integer",
                         "description": "The total amount of time in seconds that elapsed since the user started the session by logging into the database server.",
                         "recommended": false,
-                        "possible_values": "10"
+                        "expected_values": [
+                            "10"
+                        ]
                     },
                     "fieldName": "elapsed_time",
                     "owner": "UBA_Database",
@@ -167,7 +188,10 @@
                         "data_type": "string",
                         "description": "The type of event.",
                         "recommended": true,
-                        "possible_values": "oracle_auth, oracle_session"
+                        "expected_values": [
+                            "oracle_auth",
+                            "oracle_session"
+                        ]
                     },
                     "fieldName": "eventtype",
                     "owner": "UBA_Database",
@@ -196,7 +220,9 @@
                         "data_type": "string",
                         "description": "The name of the database instance.",
                         "recommended": true,
-                        "possible_values": "myinstance"
+                        "expected_values": [
+                            "myinstance"
+                        ]
                     },
                     "fieldName": "instance_name",
                     "owner": "UBA_Database",
@@ -213,7 +239,10 @@
                         "data_type": "string",
                         "description": "The name of the database object.",
                         "recommended": false,
-                        "possible_values": "view1, index1"
+                        "expected_values": [
+                            "view1",
+                            "index1"
+                        ]
                     },
                     "fieldName": "object",
                     "owner": "UBA_Database",
@@ -230,7 +259,9 @@
                         "data_type": "string",
                         "description": "The full database query.",
                         "recommended": false,
-                        "possible_values": "select * from my_table"
+                        "expected_values": [
+                            "select * from my_table"
+                        ]
                     },
                     "fieldName": "query",
                     "owner": "UBA_Database",
@@ -247,7 +278,9 @@
                         "data_type": "integer",
                         "description": "The number of records affected by the database query.",
                         "recommended": false,
-                        "possible_values": "1"
+                        "expected_values": [
+                            "1"
+                        ]
                     },
                     "fieldName": "records_affected",
                     "owner": "UBA_Database",
@@ -288,7 +321,9 @@
                         "data_type": "string",
                         "description": "The domain name of the source server of the database event.",
                         "recommended": false,
-                        "possible_values": "winhost1"
+                        "expected_values": [
+                            "winhost1"
+                        ]
                     },
                     "fieldName": "src_host",
                     "owner": "UBA_Database",
@@ -305,7 +340,9 @@
                         "data_type": "string",
                         "description": "The IP address of the source server of the database event.",
                         "recommended": false,
-                        "possible_values": "10.10.10.12"
+                        "expected_values": [
+                            "10.10.10.12"
+                        ]
                     },
                     "fieldName": "src_ip",
                     "owner": "UBA_Database",
@@ -322,7 +359,10 @@
                         "data_type": "string",
                         "description": "The names of the tables hit by the query.",
                         "recommended": false,
-                        "possible_values": "table1, table2"
+                        "expected_values": [
+                            "table1",
+                            "table2"
+                        ]
                     },
                     "fieldName": "tables_hit",
                     "owner": "UBA_Database",
@@ -339,7 +379,9 @@
                         "data_type": "string",
                         "description": "The name of the tablespace.",
                         "recommended": false,
-                        "possible_values": "my table space"
+                        "expected_values": [
+                            "my table space"
+                        ]
                     },
                     "fieldName": "tablespace_name",
                     "owner": "UBA_Database",
@@ -354,9 +396,11 @@
                 {
                     "comment": {
                         "data_type": "string",
-                        "description": "Splunk UBA categories rely on the tags from CIM-compliant events to correctly parse data from the Splunk platform. Review this table to determine which category in Splunk UBA corresponds to the CIM data model that the events in the Splunk platform are mapped to. Click the name of the Splunk UBA category to review the field mappings between Splunk UBA and the CIM data models.",
+                        "description": "Splunk UBA categories rely on the tags from CIM-compliant events to correctly parse data from the Splunk platform when using Splunk Direct in Splunk UBA.",
                         "recommended": true,
-                        "possible_values": "database"
+                        "expected_values": [
+                            "database"
+                        ]
                     },
                     "fieldName": "tag",
                     "owner": "UBA_Database",
@@ -373,7 +417,9 @@
                         "data_type": "string",
                         "description": "The name of the database process user.",
                         "recommended": true,
-                        "possible_values": "cronaldo"
+                        "expected_values": [
+                            "cronaldo"
+                        ]
                     },
                     "fieldName": "user",
                     "owner": "UBA_Database",
@@ -390,7 +436,9 @@
                         "data_type": "string",
                         "description": "The vendor and product name of the database system. This field can be automatically populated by vendor and product fields in your data.",
                         "recommended": false,
-                        "possible_values": "oracle"
+                        "expected_values": [
+                            "oracle"
+                        ]
                     },
                     "fieldName": "vendor",
                     "owner": "UBA_Database",
@@ -406,7 +454,7 @@
             "calculations": [],
             "constraints": [
                 {
-                    "search": "`uba_cim_database_indexes` database",
+                    "search": "`uba_cim_database_indexes`",
                     "owner": "UBA_Database"
                 }
             ],

@@ -31,7 +31,10 @@
                         "data_type": "string",
                         "description": "The action taken by the firewall.",
                         "recommended": true,
-                        "possible_values": "allowed, blocked"
+                        "expected_values": [
+                            "allowed",
+                            "blocked"
+                        ]
                     },
                     "fieldName": "action",
                     "owner": "UBA_Firewall",
@@ -48,7 +51,9 @@
                         "data_type": "string",
                         "description": "The application protocol of the traffic.",
                         "recommended": false,
-                        "possible_values": "SSL"
+                        "expected_values": [
+                            "SSL"
+                        ]
                     },
                     "fieldName": "app",
                     "owner": "UBA_Firewall",
@@ -65,7 +70,9 @@
                         "data_type": "integer",
                         "description": "The total number of bytes transferred (bytes_in + bytes_out).",
                         "recommended": false,
-                        "possible_values": "1168"
+                        "expected_values": [
+                            "1168"
+                        ]
                     },
                     "fieldName": "bytes",
                     "owner": "UBA_Firewall",
@@ -82,7 +89,9 @@
                         "data_type": "integer",
                         "description": "The number of inbound bytes transferred.",
                         "recommended": true,
-                        "possible_values": "1028"
+                        "expected_values": [
+                            "1028"
+                        ]
                     },
                     "fieldName": "bytes_in",
                     "owner": "UBA_Firewall",
@@ -99,7 +108,9 @@
                         "data_type": "integer",
                         "description": "The number of outbound bytes transferred.",
                         "recommended": true,
-                        "possible_values": "140"
+                        "expected_values": [
+                            "140"
+                        ]
                     },
                     "fieldName": "bytes_out",
                     "owner": "UBA_Firewall",
@@ -116,7 +127,9 @@
                         "data_type": "string",
                         "description": "The host name of the destination.",
                         "recommended": false,
-                        "possible_values": "winhost2"
+                        "expected_values": [
+                            "winhost2"
+                        ]
                     },
                     "fieldName": "dest_host",
                     "owner": "UBA_Firewall",
@@ -133,7 +146,9 @@
                         "data_type": "string",
                         "description": "The IP address of the destination.",
                         "recommended": true,
-                        "possible_values": "2.2.2.2"
+                        "expected_values": [
+                            "2.2.2.2"
+                        ]
                     },
                     "fieldName": "dest_ip",
                     "owner": "UBA_Firewall",
@@ -150,7 +165,9 @@
                         "data_type": "integer",
                         "description": "The port number of the destination.",
                         "recommended": false,
-                        "possible_values": "123"
+                        "expected_values": [
+                            "123"
+                        ]
                     },
                     "fieldName": "dest_port",
                     "owner": "UBA_Firewall",
@@ -167,7 +184,9 @@
                         "data_type": "string",
                         "description": "The NATed IPv4 or IPv6 address to which a packet is sent.",
                         "recommended": false,
-                        "possible_values": "192.168.1.12"
+                        "expected_values": [
+                            "192.168.1.12"
+                        ]
                     },
                     "fieldName": "dest_translated_ip",
                     "owner": "UBA_Firewall",
@@ -184,7 +203,9 @@
                         "data_type": "string",
                         "description": "The destination zone.",
                         "recommended": false,
-                        "possible_values": "PCI"
+                        "expected_values": [
+                            "PCI"
+                        ]
                     },
                     "fieldName": "dest_zone",
                     "owner": "UBA_Firewall",
@@ -201,7 +222,9 @@
                         "data_type": "integer",
                         "description": "The amount of time in seconds for the completion of the network event.",
                         "recommended": false,
-                        "possible_values": "241"
+                        "expected_values": [
+                            "241"
+                        ]
                     },
                     "fieldName": "duration",
                     "owner": "UBA_Firewall",
@@ -230,7 +253,9 @@
                         "data_type": "integer",
                         "description": "The number of inbound packets transferred.",
                         "recommended": false,
-                        "possible_values": "5"
+                        "expected_values": [
+                            "5"
+                        ]
                     },
                     "fieldName": "packets_in",
                     "owner": "UBA_Firewall",
@@ -247,7 +272,9 @@
                         "data_type": "integer",
                         "description": "The number of outbound packets transferred.",
                         "recommended": false,
-                        "possible_values": "6"
+                        "expected_values": [
+                            "6"
+                        ]
                     },
                     "fieldName": "packets_out",
                     "owner": "UBA_Firewall",
@@ -264,7 +291,11 @@
                         "data_type": "string",
                         "description": "The OSI layer 3 (network) protocol of the traffic observed, in lowercase.",
                         "recommended": true,
-                        "possible_values": "ip, appletalk, ipx"
+                        "expected_values": [
+                            "ip",
+                            "appletalk",
+                            "ipx"
+                        ]
                     },
                     "fieldName": "protocol",
                     "owner": "UBA_Firewall",
@@ -305,7 +336,9 @@
                         "data_type": "string",
                         "description": "The host name of the source.",
                         "recommended": false,
-                        "possible_values": "winhost1"
+                        "expected_values": [
+                            "winhost1"
+                        ]
                     },
                     "fieldName": "src_host",
                     "owner": "UBA_Firewall",
@@ -322,7 +355,9 @@
                         "data_type": "string",
                         "description": "The source of the network traffic, such as the client requesting the connection.",
                         "recommended": true,
-                        "possible_values": "10.10.10.12"
+                        "expected_values": [
+                            "10.10.10.12"
+                        ]
                     },
                     "fieldName": "src_ip",
                     "owner": "UBA_Firewall",
@@ -339,7 +374,9 @@
                         "data_type": "integer",
                         "description": "The port number of the source.",
                         "recommended": false,
-                        "possible_values": "12345"
+                        "expected_values": [
+                            "12345"
+                        ]
                     },
                     "fieldName": "src_port",
                     "owner": "UBA_Firewall",
@@ -356,7 +393,9 @@
                         "data_type": "string",
                         "description": "The NATed IPv4 or IPv6 address from which a packet is sent.",
                         "recommended": false,
-                        "possible_values": "192.168.1.11"
+                        "expected_values": [
+                            "192.168.1.11"
+                        ]
                     },
                     "fieldName": "src_translated_ip",
                     "owner": "UBA_Firewall",
@@ -373,7 +412,9 @@
                         "data_type": "string",
                         "description": "The source zone.",
                         "recommended": false,
-                        "possible_values": "contractor"
+                        "expected_values": [
+                            "contractor"
+                        ]
                     },
                     "fieldName": "src_zone",
                     "owner": "UBA_Firewall",
@@ -388,9 +429,12 @@
                 {
                     "comment": {
                         "data_type": "string",
-                        "description": "Splunk UBA categories rely on the tags from CIM-compliant events to correctly parse data from the Splunk platform. Review this table to determine which category in Splunk UBA corresponds to the CIM data model that the events in the Splunk platform are mapped to. Click the name of the Splunk UBA category to review the field mappings between Splunk UBA and the CIM data models.",
+                        "description": "Splunk UBA categories rely on the tags from CIM-compliant events to correctly parse data from the Splunk platform when using Splunk Direct in Splunk UBA.",
                         "recommended": true,
-                        "possible_values": "network,communicate"
+                        "expected_values": [
+                            "network",
+                            "communicate"
+                        ]
                     },
                     "fieldName": "tag",
                     "owner": "UBA_Firewall",
@@ -407,7 +451,9 @@
                         "data_type": "string",
                         "description": "The URL accessed in the request.",
                         "recommended": false,
-                        "possible_values": "http://subdomain.acme.com/index.html"
+                        "expected_values": [
+                            "http://subdomain.acme.com/index.html"
+                        ]
                     },
                     "fieldName": "url",
                     "owner": "UBA_Firewall",
@@ -424,7 +470,9 @@
                         "data_type": "string",
                         "description": "The user who requested the traffic flow.",
                         "recommended": false,
-                        "possible_values": "cronaldo"
+                        "expected_values": [
+                            "cronaldo"
+                        ]
                     },
                     "fieldName": "user",
                     "owner": "UBA_Firewall",
@@ -441,7 +489,10 @@
                         "data_type": "string",
                         "description": "The type of the event.",
                         "recommended": true,
-                        "possible_values": "Teardown TCP, Built inbound connection"
+                        "expected_values": [
+                            "Teardown TCP",
+                            "Built inbound connection"
+                        ]
                     },
                     "fieldName": "vendor_action",
                     "owner": "UBA_Firewall",
@@ -457,7 +508,7 @@
             "calculations": [],
             "constraints": [
                 {
-                    "search": "`uba_cim_firewall_indexes` network communicate",
+                    "search": "`uba_cim_firewall_indexes`",
                     "owner": "UBA_Firewall"
                 }
             ],

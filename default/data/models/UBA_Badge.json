@@ -30,8 +30,8 @@
                     "comment": {
                         "data_type": "string",
                         "description": "The category of the badge access event.",
-                        "possible_values": "Failed Access",
-                        "required": true
+                        "expected_values": ["Failed Access"],
+                        "recommended": true
                     },
                     "fieldName": "category",
                     "owner": "UBA_Badge",
@@ -47,8 +47,8 @@
                     "comment": {
                         "data_type": "string",
                         "description": "The reason for the failed operation.",
-                        "possible_values": "Unauthorized Access Attempt",
-                        "required": false
+                        "expected_values": ["Unauthorized Access Attempt"],
+                        "recommended": false
                     },
                     "fieldName": "failure_reason",
                     "owner": "UBA_Badge",
@@ -76,8 +76,8 @@
                     "comment": {
                         "data_type": "string",
                         "description": "The location in the building where the badge access was requested.",
-                        "possible_values": "Mail Room",
-                        "required": true
+                        "expected_values": ["Mail Room"],
+                        "recommended": true
                     },
                     "fieldName": "object_name",
                     "owner": "UBA_Badge",
@@ -93,8 +93,8 @@
                     "comment": {
                         "data_type": "string",
                         "description": "The type of device used in the badge access event.",
-                        "possible_values": "ACCESS_POINT",
-                        "required": true
+                        "expected_values": ["ACCESS_POINT"],
+                        "recommended": true
                     },
                     "fieldName": "object_type",
                     "owner": "UBA_Badge",
@@ -110,8 +110,8 @@
                     "comment": {
                         "data_type": "string",
                         "description": "The location of the building.",
-                        "possible_values": "123 Main Street",
-                        "required": false
+                        "expected_values": ["123 Main Street"],
+                        "recommended": false
                     },
                     "fieldName": "site_name",
                     "owner": "UBA_Badge",
@@ -150,9 +150,9 @@
                 {
                     "comment": {
                         "data_type": "string",
-                        "description": "Splunk UBA categories rely on the tags from CIM-compliant events to correctly parse data from the Splunk platform. Review this table to determine which category in Splunk UBA corresponds to the CIM data model that the events in the Splunk platform are mapped to. Click the name of the Splunk UBA category to review the field mappings between Splunk UBA and the CIM data models.",
-                        "possible_values": "badge",
-                        "required": true
+                        "description": "Splunk UBA categories rely on the tags from CIM-compliant events to correctly parse data from the Splunk platform when using Splunk Direct in Splunk UBA.",
+                        "expected_values": ["badge"],
+                        "recommended": true
                     },
                     "fieldName": "tag",
                     "owner": "UBA_Badge",
@@ -168,8 +168,8 @@
                     "comment": {
                         "data_type": "string",
                         "description": "The user involved in this badge access event.",
-                        "possible_values": "cronaldo",
-                        "required": false
+                        "expected_values": ["cronaldo"],
+                        "recommended": false
                     },
                     "fieldName": "user",
                     "owner": "UBA_Badge",
@@ -185,8 +185,8 @@
                     "comment": {
                         "data_type": "string",
                         "description": "The vendor of the badge access solution.",
-                        "possible_values": "brivo",
-                        "required": false
+                        "expected_values": ["brivo"],
+                        "recommended": false
                     },
                     "fieldName": "vendor",
                     "owner": "UBA_Badge",
@@ -202,7 +202,7 @@
             "calculations": [],
             "constraints": [
                 {
-                    "search": "`uba_cim_badge_indexes` badge",
+                    "search": "`uba_cim_badge_indexes`",
                     "owner": "UBA_Badge"
                 }
             ],

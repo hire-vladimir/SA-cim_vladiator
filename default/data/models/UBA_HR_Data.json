@@ -1,7 +1,7 @@
 {
     "modelName": "UBA_HR_Data",
     "displayName": "UBA HR Data",
-    "description": "",
+    "description": "Splunk UBA HR Data Model for CIM Validator App",
     "objectSummary": {
         "Event-Based": 1,
         "Transaction-Based": 0,
@@ -18,7 +18,9 @@
                     "comment": {
                         "data_type": "string",
                         "description": "The user's middle name. This value is used to compute the display name field if the display name field is empty.",
-                        "possible_values": "Michelle",
+                        "expected_values": [
+                            "Michelle"
+                        ],
                         "recommended": false
                     },
                     "fieldName": "MiddleName",
@@ -34,8 +36,11 @@
                 {
                     "comment": {
                         "data_type": "string",
-                        "description": "\tUser account control code from AD. Use UAC when the value in your HR data is an ENUM value such as NORMAL_ACCOUNT. If a UAC value is not available, Splunk UBA calculates the UAC using the value of the userAccountControl, such as 512 for a NORMAL_ACCOUNT.",
-                        "possible_values": "66050, ACCOUNT_DISABLED",
+                        "description": "User account control code from AD. Use UAC when the value in your HR data is an ENUM value such as NORMAL_ACCOUNT. If a UAC value is not available, Splunk UBA calculates the UAC using the value of the userAccountControl, such as 512 for a NORMAL_ACCOUNT.",
+                        "expected_values": [
+                            "66050",
+                            "ACCOUNT_DISABLED"
+                        ],
                         "recommended": false
                     },
                     "fieldName": "UAC",
@@ -63,8 +68,10 @@
                 {
                     "comment": {
                         "data_type": "string",
-                        "description": "\tValid formats:\nWindows FileTime\nyyyy-MM-dd'T'HH:mm:ss\n %Y-%m-%dT%H:%M:%S.%QZ\nMM/dd/yyyy\nyyyyMMddHHmmss.S'Z'\nyyyyMMdd",
-                        "possible_values": "7/9/19",
+                        "description": "Valid formats:\nWindows FileTime\nyyyy-MM-dd'T'HH:mm:ss\n %Y-%m-%dT%H:%M:%S.%QZ\nMM/dd/yyyy\nyyyyMMddHHmmss.S'Z'\nyyyyMMdd",
+                        "expected_values": [
+                            "7/9/19"
+                        ],
                         "recommended": false
                     },
                     "fieldName": "accountExpires",
@@ -81,7 +88,10 @@
                     "comment": {
                         "data_type": "string",
                         "description": "City (location) of the user.",
-                        "possible_values": "San Francisco, London",
+                        "expected_values": [
+                            "San Francisco",
+                            "London"
+                        ],
                         "recommended": false
                     },
                     "fieldName": "city",
@@ -98,7 +108,10 @@
                     "comment": {
                         "data_type": "string",
                         "description": "Country of the user.",
-                        "possible_values": "USA, Scotland",
+                        "expected_values": [
+                            "USA",
+                            "Scotland"
+                        ],
                         "recommended": false
                     },
                     "fieldName": "co",
@@ -115,7 +128,10 @@
                     "comment": {
                         "data_type": "string",
                         "description": "Country of the user.",
-                        "possible_values": "USA, Scotland",
+                        "expected_values": [
+                            "USA",
+                            "Scotland"
+                        ],
                         "recommended": false
                     },
                     "fieldName": "country",
@@ -132,7 +148,10 @@
                     "comment": {
                         "data_type": "string",
                         "description": "Whether or not the user has decided to leave the company.",
-                        "possible_values": "true, false",
+                        "expected_values": [
+                            "true",
+                            "false"
+                        ],
                         "recommended": false
                     },
                     "fieldName": "departingUser",
@@ -149,7 +168,9 @@
                     "comment": {
                         "data_type": "string",
                         "description": "Organizational unit (department) or business unit of the user.",
-                        "possible_values": "Organizational unit (department) or business unit of the user.\t",
+                        "expected_values": [
+                            "Organizational unit (department) or business unit of the user."
+                        ],
                         "recommended": true
                     },
                     "fieldName": "department",
@@ -165,8 +186,10 @@
                 {
                     "comment": {
                         "data_type": "string",
-                        "description": "The user's full name or a service account name. If this field is empty, the display name is created by using the values in the first name, middle name, and last name fields.\t",
-                        "possible_values": "Shruti Michelle Buttercup",
+                        "description": "The user's full name or a service account name. If this field is empty, the display name is created by using the values in the first name, middle name, and last name fields.",
+                        "expected_values": [
+                            "Shruti Michelle Buttercup"
+                        ],
                         "recommended": false
                     },
                     "fieldName": "displayName",
@@ -183,7 +206,9 @@
                     "comment": {
                         "data_type": "string",
                         "description": "The user's domain + login ID. Supported formats:\nadDomain\\loginId\nadDomain\\\\loginId\nadDomain/loginId\nloginId\\adDomain\nloginId@dnsDomain\nadDomain\\loginId@dnsDomain",
-                        "possible_values": "domain1/smbuttercup",
+                        "expected_values": [
+                            "domain1/smbuttercup"
+                        ],
                         "recommended": false
                     },
                     "fieldName": "domainLoginId",
@@ -200,7 +225,9 @@
                     "comment": {
                         "data_type": "string",
                         "description": "User's email address. In some cases, you may find this stored in the userPrincipalName field.",
-                        "possible_values": "smbuttercup@example.com",
+                        "expected_values": [
+                            "smbuttercup@example.com"
+                        ],
                         "recommended": false
                     },
                     "fieldName": "email",
@@ -217,7 +244,9 @@
                     "comment": {
                         "data_type": "string",
                         "description": "The type of employee.",
-                        "possible_values": "Contractor",
+                        "expected_values": [
+                            "Contractor"
+                        ],
                         "recommended": false
                     },
                     "fieldName": "employeeType",
@@ -234,7 +263,9 @@
                     "comment": {
                         "data_type": "string",
                         "description": "The user's first name. This value is used to compute the display name field if the display name field is empty.",
-                        "possible_values": "Shruti",
+                        "expected_values": [
+                            "Shruti"
+                        ],
                         "recommended": false
                     },
                     "fieldName": "firstname",
@@ -251,7 +282,9 @@
                     "comment": {
                         "data_type": "string",
                         "description": "The user's first name. This value is used to compute the display name field if the display name field is empty.",
-                        "possible_values": "Shruti",
+                        "expected_values": [
+                            "Shruti"
+                        ],
                         "recommended": true
                     },
                     "fieldName": "givenName",
@@ -268,7 +301,10 @@
                     "comment": {
                         "data_type": "string",
                         "description": "List of AD groups that the user is a member of. If there are no groups, leave the value blank.",
-                        "possible_values": "ACME-Support, ACME-Finance",
+                        "expected_values": [
+                            "ACME-Support",
+                            "ACME-Finance"
+                        ],
                         "recommended": false
                     },
                     "fieldName": "groups",
@@ -285,7 +321,10 @@
                     "comment": {
                         "data_type": "boolean",
                         "description": "Whether or not the user is identified as a high risk user, such as an executive.",
-                        "possible_values": "true, false",
+                        "expected_values": [
+                            "true",
+                            "false"
+                        ],
                         "recommended": false
                     },
                     "fieldName": "highRiskUser",
@@ -302,7 +341,9 @@
                     "comment": {
                         "data_type": "string",
                         "description": "Date the user was hired. Valid formats:\nMM/dd/yyyy\nyyyyMMddHHmmss.S'Z'\nyyyMMdd",
-                        "possible_values": "7/9/19",
+                        "expected_values": [
+                            "7/9/19"
+                        ],
                         "recommended": false
                     },
                     "fieldName": "hireDate",
@@ -331,7 +372,9 @@
                     "comment": {
                         "data_type": "string",
                         "description": "Code of the user status.",
-                        "possible_values": "\t3",
+                        "expected_values": [
+                            "3"
+                        ],
                         "recommended": false
                     },
                     "fieldName": "hrstatuscode",
@@ -348,7 +391,9 @@
                     "comment": {
                         "data_type": "string",
                         "description": "The user's middle name. This value is used to compute the display name field if the display name field is empty.",
-                        "possible_values": "Michelle",
+                        "expected_values": [
+                            "Michelle"
+                        ],
                         "recommended": true
                     },
                     "fieldName": "initials",
@@ -365,7 +410,10 @@
                     "comment": {
                         "data_type": "string",
                         "description": "City (location) of the user.",
-                        "possible_values": "San Francisco, London",
+                        "expected_values": [
+                            "San Francisco",
+                            "London"
+                        ],
                         "recommended": false
                     },
                     "fieldName": "l",
@@ -382,7 +430,9 @@
                     "comment": {
                         "data_type": "string",
                         "description": "Last time the user logged on. Valid formats:\nWindows FileTime\nyyyy-MM-dd'T'HH:mm:ss\n %Y-%m-%dT%H:%M:%S.%QZ\nMM/dd/yyyy\nyyyyMMddHHmmss.S'Z'\nyyyMMdd",
-                        "possible_values": "7/9/19",
+                        "expected_values": [
+                            "7/9/19"
+                        ],
                         "recommended": false
                     },
                     "fieldName": "lastLogon",
@@ -399,7 +449,9 @@
                     "comment": {
                         "data_type": "string",
                         "description": "Valid formats:\nWindows FileTime\nyyyy-MM-dd'T'HH:mm:ss\n %Y-%m-%dT%H:%M:%S.%QZ\nMM/dd/yyyy\nyyyyMMddHHmmss.S'Z'\nyyyMMdd",
-                        "possible_values": "7/9/19",
+                        "expected_values": [
+                            "7/9/19"
+                        ],
                         "recommended": false
                     },
                     "fieldName": "lastLogonTimestamp",
@@ -415,8 +467,10 @@
                 {
                     "comment": {
                         "data_type": "string",
-                        "description": "The user's last name. This value is used to compute the display name field if the display name field is empty.\t",
-                        "possible_values": "Buttercup",
+                        "description": "The user's last name. This value is used to compute the display name field if the display name field is empty.",
+                        "expected_values": [
+                            "Buttercup"
+                        ],
                         "recommended": false
                     },
                     "fieldName": "lastname",
@@ -433,7 +487,9 @@
                     "comment": {
                         "data_type": "string",
                         "description": "Login ID or username of an account associated with the user.",
-                        "possible_values": "smbuttercup",
+                        "expected_values": [
+                            "smbuttercup"
+                        ],
                         "recommended": false
                     },
                     "fieldName": "loginId",
@@ -450,7 +506,9 @@
                     "comment": {
                         "data_type": "string",
                         "description": "User's email address. In some cases, you may find this stored in the userPrincipalName field.",
-                        "possible_values": "smbuttercup@example.com",
+                        "expected_values": [
+                            "smbuttercup@example.com"
+                        ],
                         "recommended": true
                     },
                     "fieldName": "mail",
@@ -467,7 +525,9 @@
                     "comment": {
                         "data_type": "string",
                         "description": "Name or ID of the user's manager.",
-                        "possible_values": "Charlotte Arachnia",
+                        "expected_values": [
+                            "Charlotte Arachnia"
+                        ],
                         "recommended": false
                     },
                     "fieldName": "manager",
@@ -484,7 +544,9 @@
                     "comment": {
                         "data_type": "string",
                         "description": "Name or ID of the user's manager.",
-                        "possible_values": "Charlotte Arachnia",
+                        "expected_values": [
+                            "Charlotte Arachnia"
+                        ],
                         "recommended": false
                     },
                     "fieldName": "manageremployeeId",
@@ -501,7 +563,10 @@
                     "comment": {
                         "data_type": "string",
                         "description": "List of AD groups that the user is a member of. If there are no groups, leave the value blank.",
-                        "possible_values": "ACME-Support, ACME-Finance",
+                        "expected_values": [
+                            "ACME-Support",
+                            "ACME-Finance"
+                        ],
                         "recommended": false
                     },
                     "fieldName": "memberOf",
@@ -518,7 +583,10 @@
                     "comment": {
                         "data_type": "boolean",
                         "description": "Whether or not the user is on a performance improvement plan.",
-                        "possible_values": "true, false",
+                        "expected_values": [
+                            "true",
+                            "false"
+                        ],
                         "recommended": false
                     },
                     "fieldName": "onPIP",
@@ -535,7 +603,10 @@
                     "comment": {
                         "data_type": "boolean",
                         "description": "Whether or not the user is on a performance improvement plan.",
-                        "possible_values": "true, false",
+                        "expected_values": [
+                            "true",
+                            "false"
+                        ],
                         "recommended": false
                     },
                     "fieldName": "onPerformanceImprovementPlan",
@@ -552,7 +623,9 @@
                     "comment": {
                         "data_type": "string",
                         "description": "Organizational unit (department) or business unit of the user.",
-                        "possible_values": "Organizational unit (department) or business unit of the user.\t",
+                        "expected_values": [
+                            "Organizational unit (department) or business unit of the user."
+                        ],
                         "recommended": false
                     },
                     "fieldName": "ou",
@@ -569,7 +642,9 @@
                     "comment": {
                         "data_type": "string",
                         "description": "Phone number of the user.",
-                        "possible_values": "123-456-7890",
+                        "expected_values": [
+                            "123-456-7890"
+                        ],
                         "recommended": false
                     },
                     "fieldName": "phone",
@@ -586,7 +661,9 @@
                     "comment": {
                         "data_type": "string",
                         "description": "Zip code of the user.",
-                        "possible_values": "94107",
+                        "expected_values": [
+                            "94107"
+                        ],
                         "recommended": false
                     },
                     "fieldName": "postalCode",
@@ -603,7 +680,9 @@
                     "comment": {
                         "data_type": "string",
                         "description": "The user's first name. This value is used to compute the display name field if the display name field is empty.",
-                        "possible_values": "Shruti",
+                        "expected_values": [
+                            "Shruti"
+                        ],
                         "recommended": false
                     },
                     "fieldName": "preferredName",
@@ -620,7 +699,9 @@
                     "comment": {
                         "data_type": "string",
                         "description": "Login ID or username of an account associated with the user.",
-                        "possible_values": "smbuttercup",
+                        "expected_values": [
+                            "smbuttercup"
+                        ],
                         "recommended": true
                     },
                     "fieldName": "sAMAccountName",
@@ -636,8 +717,10 @@
                 {
                     "comment": {
                         "data_type": "string",
-                        "description": "The user's last name. This value is used to compute the display name field if the display name field is empty.\t",
-                        "possible_values": "Buttercup",
+                        "description": "The user's last name. This value is used to compute the display name field if the display name field is empty.",
+                        "expected_values": [
+                            "Buttercup"
+                        ],
                         "recommended": true
                     },
                     "fieldName": "sn",
@@ -678,7 +761,9 @@
                     "comment": {
                         "data_type": "string",
                         "description": "State where the user resides.",
-                        "possible_values": "CA",
+                        "expected_values": [
+                            "CA"
+                        ],
                         "recommended": false
                     },
                     "fieldName": "st",
@@ -695,7 +780,9 @@
                     "comment": {
                         "data_type": "string",
                         "description": "State where the user resides.",
-                        "possible_values": "CA",
+                        "expected_values": [
+                            "CA"
+                        ],
                         "recommended": false
                     },
                     "fieldName": "state",
@@ -711,8 +798,10 @@
                 {
                     "comment": {
                         "data_type": "string",
-                        "description": "Active or inactive status of the user from the HR system.\t",
-                        "possible_values": "Active/InActive",
+                        "description": "Active or inactive status of the user from the HR system.",
+                        "expected_values": [
+                            "Active/InActive"
+                        ],
                         "recommended": false
                     },
                     "fieldName": "status",
@@ -729,7 +818,9 @@
                     "comment": {
                         "data_type": "string",
                         "description": "Street where the user resides.",
-                        "possible_values": "Main",
+                        "expected_values": [
+                            "Main"
+                        ],
                         "recommended": false
                     },
                     "fieldName": "street",
@@ -746,7 +837,9 @@
                     "comment": {
                         "data_type": "string",
                         "description": "Street where the user resides.",
-                        "possible_values": "Main",
+                        "expected_values": [
+                            "Main"
+                        ],
                         "recommended": false
                     },
                     "fieldName": "streetAddress",
@@ -763,7 +856,9 @@
                     "comment": {
                         "data_type": "string",
                         "description": "Phone number of the user.",
-                        "possible_values": "123-456-7890",
+                        "expected_values": [
+                            "123-456-7890"
+                        ],
                         "recommended": false
                     },
                     "fieldName": "telephoneNumber",
@@ -780,7 +875,10 @@
                     "comment": {
                         "data_type": "boolean",
                         "description": "Whether or not the user has been terminated.",
-                        "possible_values": "true, false",
+                        "expected_values": [
+                            "true",
+                            "false"
+                        ],
                         "recommended": false
                     },
                     "fieldName": "terminatedUser",
@@ -797,7 +895,10 @@
                     "comment": {
                         "data_type": "string",
                         "description": "Whether or not the user has been terminated.",
-                        "possible_values": "true, false",
+                        "expected_values": [
+                            "true",
+                            "false"
+                        ],
                         "recommended": false
                     },
                     "fieldName": "terminationDate",
@@ -814,7 +915,10 @@
                     "comment": {
                         "data_type": "string",
                         "description": "The user's title.",
-                        "possible_values": "Senior manager, Junior developer",
+                        "expected_values": [
+                            "Senior manager",
+                            "Junior developer"
+                        ],
                         "recommended": false
                     },
                     "fieldName": "title",
@@ -831,7 +935,10 @@
                     "comment": {
                         "data_type": "boolean",
                         "description": "Whether or not the user is traveling.",
-                        "possible_values": "true, false",
+                        "expected_values": [
+                            "true",
+                            "false"
+                        ],
                         "recommended": false
                     },
                     "fieldName": "traveling",
@@ -847,8 +954,11 @@
                 {
                     "comment": {
                         "data_type": "string",
-                        "description": "\tUser account control code from AD. Use UAC when the value in your HR data is an ENUM value such as NORMAL_ACCOUNT. If a UAC value is not available, Splunk UBA calculates the UAC using the value of the userAccountControl, such as 512 for a NORMAL_ACCOUNT.",
-                        "possible_values": "66050, ACCOUNT_DISABLED",
+                        "description": "User account control code from AD. Use UAC when the value in your HR data is an ENUM value such as NORMAL_ACCOUNT. If a UAC value is not available, Splunk UBA calculates the UAC using the value of the userAccountControl, such as 512 for a NORMAL_ACCOUNT.",
+                        "expected_values": [
+                            "66050",
+                            "ACCOUNT_DISABLED"
+                        ],
                         "recommended": false
                     },
                     "fieldName": "userAccountControl",
@@ -865,7 +975,9 @@
                     "comment": {
                         "data_type": "string",
                         "description": "User's email address. In some cases, you may find this stored in the userPrincipalName field.",
-                        "possible_values": "smbuttercup@example.com",
+                        "expected_values": [
+                            "smbuttercup@example.com"
+                        ],
                         "recommended": false
                     },
                     "fieldName": "userPrincipalName",
@@ -882,7 +994,9 @@
                     "comment": {
                         "data_type": "string",
                         "description": "The type of employee.",
-                        "possible_values": "Contractor",
+                        "expected_values": [
+                            "Contractor"
+                        ],
                         "recommended": false
                     },
                     "fieldName": "userType",
@@ -899,7 +1013,9 @@
                     "comment": {
                         "data_type": "string",
                         "description": "Zip code of the user.",
-                        "possible_values": "94107",
+                        "expected_values": [
+                            "94107"
+                        ],
                         "recommended": false
                     },
                     "fieldName": "zip",
@@ -916,7 +1032,7 @@
             "calculations": [],
             "constraints": [
                 {
-                    "search": "index=main",
+                    "search": "`uba_cim_hr_data`",
                     "owner": "UBA_HR_Data"
                 }
             ],

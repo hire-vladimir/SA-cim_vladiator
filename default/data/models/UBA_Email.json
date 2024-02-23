@@ -31,7 +31,13 @@
                         "data_type": "string",
                         "description": "The action taken by the reporting device.",
                         "recommended": false,
-                        "possible_values": "delivered, blocked, quarantined, deleted, unknown"
+                        "expected_values": [
+                            "delivered",
+                            "blocked",
+                            "quarantined",
+                            "deleted",
+                            "unknown"
+                        ]
                     },
                     "fieldName": "action",
                     "owner": "UBA_Email",
@@ -48,7 +54,9 @@
                         "data_type": "string",
                         "description": "The names of the files attached to the message, if any.",
                         "recommended": false,
-                        "possible_values": "example.txt"
+                        "expected_values": [
+                            "example.txt"
+                        ]
                     },
                     "fieldName": "file_name",
                     "owner": "UBA_Email",
@@ -65,7 +73,9 @@
                         "data_type": "integer",
                         "description": "The size of the file attached to the message, if any. If the message has multiple attachments, the sum value of all attachments as a single integer.",
                         "recommended": false,
-                        "possible_values": "10280"
+                        "expected_values": [
+                            "10280"
+                        ]
                     },
                     "fieldName": "file_size",
                     "owner": "UBA_Email",
@@ -94,7 +104,10 @@
                         "data_type": "string",
                         "description": "A field listing individual recipient email addresses.",
                         "recommended": true,
-                        "possible_values": "abc@example.com, bcd@example.com"
+                        "expected_values": [
+                            "abc@example.com",
+                            "bcd@example.com"
+                        ]
                     },
                     "fieldName": "recipient",
                     "owner": "UBA_Email",
@@ -105,6 +118,26 @@
                     "hidden": false,
                     "editable": true,
                     "displayName": "recipient"
+                },
+                {
+                    "comment": {
+                        "data_type": "string",
+                        "description": "A field listing individual sender email addresses. The scope is internal users or users in the HR Data.",
+                        "recommended": true,
+                        "expected_values": [
+                            "abc@example.com",
+                            "bcd@example.com"
+                        ]
+                    },
+                    "fieldName": "sender",
+                    "owner": "UBA_Email",
+                    "type": "string",
+                    "fieldSearch": "sender=*",
+                    "required": true,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "sender"
                 },
                 {
                     "fieldName": "source",
@@ -135,7 +168,9 @@
                         "data_type": "string",
                         "description": "The system that sent the message. You can alias this from more specific fields, such as\u00a0src_host,\u00a0src_ip, or\u00a0src_name.",
                         "recommended": false,
-                        "possible_values": "11.12.13.14"
+                        "expected_values": [
+                            "11.12.13.14"
+                        ]
                     },
                     "fieldName": "src",
                     "owner": "UBA_Email",
@@ -152,7 +187,9 @@
                         "data_type": "string",
                         "description": "The email address of the message sender.",
                         "recommended": false,
-                        "possible_values": "tony@stark.co"
+                        "expected_values": [
+                            "acme@example.com"
+                        ]
                     },
                     "fieldName": "src_user",
                     "owner": "UBA_Email",
@@ -169,7 +206,10 @@
                         "data_type": "string",
                         "description": "The subject of the email message.",
                         "recommended": true,
-                        "possible_values": "Important Message, Meeting Agenda Update"
+                        "expected_values": [
+                            "Important Message",
+                            "Meeting Agenda Update"
+                        ]
                     },
                     "fieldName": "subject",
                     "owner": "UBA_Email",
@@ -184,9 +224,11 @@
                 {
                     "comment": {
                         "data_type": "string",
-                        "description": "Splunk UBA categories rely on the tags from CIM-compliant events to correctly parse data from the Splunk platform. Review this table to determine which category in Splunk UBA corresponds to the CIM data model that the events in the Splunk platform are mapped to. Click the name of the Splunk UBA category to review the field mappings between Splunk UBA and the CIM data models.",
+                        "description": "Splunk UBA categories rely on the tags from CIM-compliant events to correctly parse data from the Splunk platform when using Splunk Direct in Splunk UBA.",
                         "recommended": true,
-                        "possible_values": "email"
+                        "expected_values": [
+                            "email"
+                        ]
                     },
                     "fieldName": "tag",
                     "owner": "UBA_Email",
@@ -202,7 +244,7 @@
             "calculations": [],
             "constraints": [
                 {
-                    "search": "`uba_cim_email_indexes` email",
+                    "search": "`uba_cim_email_indexes`",
                     "owner": "UBA_Email"
                 }
             ],

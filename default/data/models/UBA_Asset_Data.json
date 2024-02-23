@@ -1,7 +1,7 @@
 {
     "modelName": "UBA_Asset_Data",
     "displayName": "UBA Asset Data",
-    "description": "",
+    "description": "Splunk UBA Asset Data Model for CIM Validator App",
     "objectSummary": {
         "Event-Based": 1,
         "Transaction-Based": 0,
@@ -30,7 +30,7 @@
                     "comment": {
                         "data_type": "string",
                         "description": "The application name.",
-                        "possible_values": "Database",
+                        "expected_values": ["Database"],
                         "recommended": false
                     },
                     "fieldName": "app",
@@ -47,7 +47,7 @@
                     "comment": {
                         "data_type": "string",
                         "description": "The asset ID on the physical asset tag such as a sticker that is typically placed on each device in your organization.",
-                        "possible_values": "123456",
+                        "expected_values": ["123456"],
                         "recommended": false
                     },
                     "fieldName": "asset_tag",
@@ -64,7 +64,7 @@
                     "comment": {
                         "data_type": "string",
                         "description": "The business unit that the device belongs to.",
-                        "possible_values": "EMEA, NorCal",
+                        "expected_values": ["EMEA", "NorCal"],
                         "recommended": false
                     },
                     "fieldName": "bunit",
@@ -81,7 +81,7 @@
                     "comment": {
                         "data_type": "string",
                         "description": "The city where the device is located.",
-                        "possible_values": "Chicago",
+                        "expected_values": ["Chicago"],
                         "recommended": false
                     },
                     "fieldName": "city",
@@ -98,7 +98,7 @@
                     "comment": {
                         "data_type": "string",
                         "description": "The cost center that the device belongs to.",
-                        "possible_values": "SP01FIN",
+                        "expected_values": ["SP01FIN"],
                         "recommended": false
                     },
                     "fieldName": "cost_center",
@@ -115,7 +115,7 @@
                     "comment": {
                         "data_type": "string",
                         "description": "The country where the device is located.",
-                        "possible_values": "USA",
+                        "expected_values": ["USA"],
                         "recommended": false
                     },
                     "fieldName": "country",
@@ -132,7 +132,7 @@
                     "comment": {
                         "data_type": "string",
                         "description": "The name of the user who created the device in the system.",
-                        "possible_values": "DevOps",
+                        "expected_values": ["DevOps"],
                         "recommended": false
                     },
                     "fieldName": "created_by",
@@ -149,7 +149,7 @@
                     "comment": {
                         "data_type": "boolean",
                         "description": "Recommended. Indicates whether or not any IP addresses are associated with the MAC address for this device. Set to\u00a0true\u00a0to prevent any IP addresses from being associated with the MAC address for this device. See\u00a0Exclude identity resolution for devices or users.",
-                        "possible_values": "TRUE,FALSE",
+                        "expected_values": ["TRUE","FALSE"],
                         "recommended": true
                     },
                     "fieldName": "denyListDeviceIr",
@@ -166,7 +166,7 @@
                     "comment": {
                         "data_type": "boolean",
                         "description": "Recommended. Indicates whether or not any users are associated with this device. Set to\u00a0true\u00a0to prevent any users from being associated with this device. See\u00a0Exclude identity resolution for devices or users.",
-                        "possible_values": "TRUE,FALSE",
+                        "expected_values": ["TRUE","FALSE"],
                         "recommended": true
                     },
                     "fieldName": "denyListUserIr",
@@ -183,7 +183,7 @@
                     "comment": {
                         "data_type": "string",
                         "description": "The department that the device belongs to.",
-                        "possible_values": "Field Reps, ITS, Products, HR",
+                        "expected_values": ["Field Reps", "ITS", "Products", "HR"],
                         "recommended": false
                     },
                     "fieldName": "department",
@@ -200,7 +200,7 @@
                     "comment": {
                         "data_type": "string",
                         "description": "The type of device.",
-                        "possible_values": "client",
+                        "expected_values": ["client"],
                         "recommended": false
                     },
                     "fieldName": "deviceType",
@@ -217,7 +217,7 @@
                     "comment": {
                         "data_type": "string",
                         "description": "The FQDN of the device.",
-                        "possible_values": "server1.corp1.acmetech.org",
+                        "expected_values": ["server1.corp1.acmetech.org"],
                         "recommended": false
                     },
                     "fieldName": "dns",
@@ -234,7 +234,7 @@
                     "comment": {
                         "data_type": "string",
                         "description": "The domain of the device.",
-                        "possible_values": "www.acmetech.org",
+                        "expected_values": ["www.acmetech.org"],
                         "recommended": false
                     },
                     "fieldName": "dns_domain",
@@ -263,7 +263,7 @@
                     "comment": {
                         "data_type": "string",
                         "description": "Required. The hostname of the device.",
-                        "possible_values": "server1",
+                        "expected_values": ["server1"],
                         "recommended": true
                     },
                     "fieldName": "hostname",
@@ -280,7 +280,7 @@
                     "comment": {
                         "data_type": "string",
                         "description": "The IP address of the device. The field may contain multiple values. See\u00a0Configure asset ingestion for multi-valued fields.",
-                        "possible_values": "2.1.1.1",
+                        "expected_values": ["2.1.1.1"],
                         "recommended": false
                     },
                     "fieldName": "ip",
@@ -297,7 +297,7 @@
                     "comment": {
                         "data_type": "boolean",
                         "description": "Indicates whether or not this device is always expected. Alerts are generated if this device stops reporting events.",
-                        "possible_values": "TRUE,FALSE",
+                        "expected_values": ["TRUE","FALSE"],
                         "recommended": false
                     },
                     "fieldName": "is_expected",
@@ -314,7 +314,7 @@
                     "comment": {
                         "data_type": "string",
                         "description": "The latitude location of the device.",
-                        "possible_values": "37.78008",
+                        "expected_values": ["37.78008"],
                         "recommended": false
                     },
                     "fieldName": "latitude",
@@ -331,7 +331,7 @@
                     "comment": {
                         "data_type": "string",
                         "description": "The longitude location of the device.",
-                        "possible_values": "-122.42017",
+                        "expected_values": ["-122.42017"],
                         "recommended": false
                     },
                     "fieldName": "longitude",
@@ -348,7 +348,7 @@
                     "comment": {
                         "data_type": "string",
                         "description": "The MAC address of the device. The field may contain multiple values. See\u00a0Configure asset ingestion for multi-valued fields.",
-                        "possible_values": "00:50:ef:84:f1:21|00:50:ef:84:f1:20",
+                        "expected_values": ["00:50:ef:84:f1:21","00:50:ef:84:f1:20"],
                         "recommended": false
                     },
                     "fieldName": "mac",
@@ -365,7 +365,7 @@
                     "comment": {
                         "data_type": "string",
                         "description": "The manager of the device.",
-                        "possible_values": "admin",
+                        "expected_values": ["admin"],
                         "recommended": false
                     },
                     "fieldName": "managed_by",
@@ -382,7 +382,7 @@
                     "comment": {
                         "data_type": "string",
                         "description": "The operating system running on the device.",
-                        "possible_values": "macOS, WIndows",
+                        "expected_values": ["macOS", "Windows"],
                         "recommended": false
                     },
                     "fieldName": "os",
@@ -399,7 +399,7 @@
                     "comment": {
                         "data_type": "string",
                         "description": "The OS domain of the device.",
-                        "possible_values": "Windows",
+                        "expected_values": ["Windows"],
                         "recommended": false
                     },
                     "fieldName": "os_domain",
@@ -416,7 +416,7 @@
                     "comment": {
                         "data_type": "string",
                         "description": "The owner of the device.",
-                        "possible_values": "f.prefect@acmetech.org, DevOps, Bill",
+                        "expected_values": ["f.prefect@acmetech.org", "DevOps", "Bill"],
                         "recommended": false
                     },
                     "fieldName": "owner",
@@ -433,7 +433,7 @@
                     "comment": {
                         "data_type": "string",
                         "description": "The PCI address domain of the device.",
-                        "possible_values": "dmz, untrust",
+                        "expected_values": ["dmz", "untrust"],
                         "recommended": false
                     },
                     "fieldName": "pci_domain",
@@ -450,7 +450,7 @@
                     "comment": {
                         "data_type": "string",
                         "description": "The serial number of the device.",
-                        "possible_values": "AB1C24D5EFGH",
+                        "expected_values": ["AB1C24D5EFGH"],
                         "recommended": false
                     },
                     "fieldName": "serial",
@@ -491,7 +491,7 @@
                     "comment": {
                         "data_type": "string",
                         "description": "The hexadecimal Windows status code for the device.",
-                        "possible_values": "0XC0000234 (user is currently locked out)",
+                        "expected_values": ["0XC0000234 (user is currently locked out)"],
                         "recommended": false
                     },
                     "fieldName": "status",
@@ -508,7 +508,7 @@
                     "comment": {
                         "data_type": "string",
                         "description": "The hexadecimal sub-status code for the device.",
-                        "possible_values": "0XC000006D (invalid username or authentication)",
+                        "expected_values": ["0XC000006D (invalid username or authentication)"],
                         "recommended": false
                     },
                     "fieldName": "substatus",
@@ -524,8 +524,8 @@
                 {
                     "comment": {
                         "data_type": "string",
-                        "description": "The date and time stamp of when the device was first entered into the system. The format is\u00a0MM/DD/YYYY.",
-                        "possible_values": "5/1/19",
+                        "description": "The date and time stamp of when the device was first entered into the system. The format is MM/DD/YYYY.",
+                        "expected_values": ["5/1/19"],
                         "recommended": false
                     },
                     "fieldName": "sys_created_on",
@@ -542,7 +542,7 @@
                     "comment": {
                         "data_type": "string",
                         "description": "The data and time stamp of the last time the device was updated. For example, a laptop may be assigned to a new owner. The format is\u00a0MM/DD/YYYY.",
-                        "possible_values": "5/1/19",
+                        "expected_values": ["5/1/19"],
                         "recommended": false
                     },
                     "fieldName": "sys_updated_on",
@@ -559,7 +559,7 @@
             "calculations": [],
             "constraints": [
                 {
-                    "search": "index=main",
+                    "search": "`uba_cim_asset_data`",
                     "owner": "UBA_Asset_Data"
                 }
             ],

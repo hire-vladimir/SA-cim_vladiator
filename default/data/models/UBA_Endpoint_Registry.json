@@ -31,7 +31,10 @@
                         "data_type": "string",
                         "description": "The action taken by the endpoint.",
                         "recommended": true,
-                        "possible_values": "allowed, blocked"
+                        "expected_values": [
+                            "allowed",
+                            "blocked"
+                        ]
                     },
                     "fieldName": "action",
                     "owner": "UBA_Endpoint_Registry",
@@ -48,7 +51,9 @@
                         "data_type": "string",
                         "description": "The categories that this external alarm belongs to. Multiple categories can be separated by comma. The values must be one or more of the categories in\u00a0Filter the anomaly table.",
                         "recommended": false,
-                        "possible_values": "Exfiltration"
+                        "expected_values": [
+                            "Exfiltration"
+                        ]
                     },
                     "fieldName": "alarmCategories",
                     "owner": "UBA_Endpoint_Registry",
@@ -65,7 +70,10 @@
                         "data_type": "string",
                         "description": "The event category, if applicable.",
                         "recommended": false,
-                        "possible_values": "malware, watchlist.hit.ingress.process"
+                        "expected_values": [
+                            "malware",
+                            "watchlist.hit.ingress.process"
+                        ]
                     },
                     "fieldName": "category",
                     "owner": "UBA_Endpoint_Registry",
@@ -82,7 +90,9 @@
                         "data_type": "string",
                         "description": "The host name of the endpoint.",
                         "recommended": true,
-                        "possible_values": "winhost1"
+                        "expected_values": [
+                            "winhost1"
+                        ]
                     },
                     "fieldName": "dest_host",
                     "owner": "UBA_Endpoint_Registry",
@@ -99,7 +109,9 @@
                         "data_type": "string",
                         "description": "IP address of the endpoint where the activity happened.",
                         "recommended": false,
-                        "possible_values": "1.1.1.1"
+                        "expected_values": [
+                            "1.1.1.1"
+                        ]
                     },
                     "fieldName": "dest_ip",
                     "owner": "UBA_Endpoint_Registry",
@@ -116,7 +128,9 @@
                         "data_type": "string",
                         "description": "The NT domain of the endpoint, if applicable.",
                         "recommended": false,
-                        "possible_values": "acme"
+                        "expected_values": [
+                            "acme"
+                        ]
                     },
                     "fieldName": "dest_nt_domain",
                     "owner": "UBA_Endpoint_Registry",
@@ -133,7 +147,9 @@
                         "data_type": "string",
                         "description": "The host name of the endpoint.",
                         "recommended": true,
-                        "possible_values": "winhost1"
+                        "expected_values": [
+                            "winhost1"
+                        ]
                     },
                     "fieldName": "endpoint_dns",
                     "owner": "UBA_Endpoint_Registry",
@@ -150,7 +166,9 @@
                         "data_type": "string",
                         "description": "IP address of the endpoint where the activity happened.",
                         "recommended": false,
-                        "possible_values": "1.1.1.1"
+                        "expected_values": [
+                            "1.1.1.1"
+                        ]
                     },
                     "fieldName": "endpoint_ip",
                     "owner": "UBA_Endpoint_Registry",
@@ -167,7 +185,9 @@
                         "data_type": "string",
                         "description": "The NT domain of the endpoint, if applicable.",
                         "recommended": false,
-                        "possible_values": "acme"
+                        "expected_values": [
+                            "acme"
+                        ]
                     },
                     "fieldName": "endpoint_nt_domain",
                     "owner": "UBA_Endpoint_Registry",
@@ -184,7 +204,9 @@
                         "data_type": "integer",
                         "description": "Network port listening on the endpoint.",
                         "recommended": false,
-                        "possible_values": "53"
+                        "expected_values": [
+                            "53"
+                        ]
                     },
                     "fieldName": "endpoint_port",
                     "owner": "UBA_Endpoint_Registry",
@@ -201,7 +223,9 @@
                         "data_type": "integer",
                         "description": "The event ID or code for the activity.",
                         "recommended": false,
-                        "possible_values": "7045"
+                        "expected_values": [
+                            "7045"
+                        ]
                     },
                     "fieldName": "event_id",
                     "owner": "UBA_Endpoint_Registry",
@@ -218,7 +242,10 @@
                         "data_type": "string",
                         "description": "The type of the event.",
                         "recommended": true,
-                        "possible_values": "symantec_ep_risk_alert_virus, A service was installed in the system"
+                        "expected_values": [
+                            "symantec_ep_risk_alert_virus",
+                            "A service was installed in the system"
+                        ]
                     },
                     "fieldName": "eventtype",
                     "owner": "UBA_Endpoint_Registry",
@@ -247,7 +274,10 @@
                         "data_type": "string",
                         "description": "The logical grouping of registry keys, subkeys, and values.",
                         "recommended": false,
-                        "possible_values": "HKEY_CURRENT_CONFIG, HKEY_CURRENT_USER"
+                        "expected_values": [
+                            "HKEY_CURRENT_CONFIG",
+                            "HKEY_CURRENT_USER"
+                        ]
                     },
                     "fieldName": "registry_hive",
                     "owner": "UBA_Endpoint_Registry",
@@ -264,7 +294,9 @@
                         "data_type": "string",
                         "description": "The name of the registry key.",
                         "recommended": true,
-                        "possible_values": "PrinterDriverData"
+                        "expected_values": [
+                            "PrinterDriverData"
+                        ]
                     },
                     "fieldName": "registry_key_name",
                     "owner": "UBA_Endpoint_Registry",
@@ -281,7 +313,9 @@
                         "data_type": "string",
                         "description": "The path to the registry value.",
                         "recommended": true,
-                        "possible_values": "\\win\\directory\\directory2\\{676235CD-B656-42D5-B737-49856E97D072}\\PrinterDriverData"
+                        "expected_values": [
+                            "\\win\\directory\\directory2\\{676235CD-B656-42D5-B737-49856E97D072}\\PrinterDriverData"
+                        ]
                     },
                     "fieldName": "registry_path",
                     "owner": "UBA_Endpoint_Registry",
@@ -298,7 +332,9 @@
                         "data_type": "string",
                         "description": "The unaltered registry value.",
                         "recommended": true,
-                        "possible_values": "example_value"
+                        "expected_values": [
+                            "example_value"
+                        ]
                     },
                     "fieldName": "registry_value_data",
                     "owner": "UBA_Endpoint_Registry",
@@ -315,7 +351,9 @@
                         "data_type": "string",
                         "description": "The name of the registry value.",
                         "recommended": true,
-                        "possible_values": "example_name"
+                        "expected_values": [
+                            "example_name"
+                        ]
                     },
                     "fieldName": "registry_value_name",
                     "owner": "UBA_Endpoint_Registry",
@@ -332,7 +370,9 @@
                         "data_type": "string",
                         "description": "The textual representation of registry_value_data (if applicable).",
                         "recommended": false,
-                        "possible_values": "example_text"
+                        "expected_values": [
+                            "example_text"
+                        ]
                     },
                     "fieldName": "registry_value_text",
                     "owner": "UBA_Endpoint_Registry",
@@ -349,7 +389,19 @@
                         "data_type": "string",
                         "description": "The type of the registry value.",
                         "recommended": true,
-                        "possible_values": "REG_BINARY, REG_DWORD, REG_DWORD_LITTLE_ENDIAN, REG_DWORD_BIG_ENDIAN, REG_EXPAND_SZ, REG_LINK, REG_MULTI_SZ, REG_NONE, REG_QWORD, REG_QWORD_LITTLE_ENDIAN, REG_SZ"
+                        "expected_values": [
+                            "REG_BINARY",
+                            "REG_DWORD",
+                            "REG_DWORD_LITTLE_ENDIAN",
+                            "REG_DWORD_BIG_ENDIAN",
+                            "REG_EXPAND_SZ",
+                            "REG_LINK",
+                            "REG_MULTI_SZ",
+                            "REG_NONE",
+                            "REG_QWORD",
+                            "REG_QWORD_LITTLE_ENDIAN",
+                            "REG_SZ"
+                        ]
                     },
                     "fieldName": "registry_value_type",
                     "owner": "UBA_Endpoint_Registry",
@@ -366,7 +418,14 @@
                         "data_type": "string",
                         "description": "The severity of the endpoint event.",
                         "recommended": false,
-                        "possible_values": "informational, unknown, low, medium, high, critical"
+                        "expected_values": [
+                            "informational",
+                            "unknown",
+                            "low",
+                            "medium",
+                            "high",
+                            "critical"
+                        ]
                     },
                     "fieldName": "severity",
                     "owner": "UBA_Endpoint_Registry",
@@ -383,7 +442,9 @@
                         "data_type": "string",
                         "description": "The sub-category or signature of the event, if applicable.",
                         "recommended": false,
-                        "possible_values": "process_blocking"
+                        "expected_values": [
+                            "process_blocking"
+                        ]
                     },
                     "fieldName": "signature",
                     "owner": "UBA_Endpoint_Registry",
@@ -424,7 +485,9 @@
                         "data_type": "string",
                         "description": "The hostname of the \"remote\" system connected to the listening port (if applicable)",
                         "recommended": false,
-                        "possible_values": "acmehost1"
+                        "expected_values": [
+                            "acmehost1"
+                        ]
                     },
                     "fieldName": "src_dns",
                     "owner": "UBA_Endpoint_Registry",
@@ -441,7 +504,9 @@
                         "data_type": "string",
                         "description": "The hostname of the \"remote\" system connected to the listening port (if applicable)",
                         "recommended": false,
-                        "possible_values": "acmehost1"
+                        "expected_values": [
+                            "acmehost1"
+                        ]
                     },
                     "fieldName": "src_host",
                     "owner": "UBA_Endpoint_Registry",
@@ -458,7 +523,9 @@
                         "data_type": "string",
                         "description": "The IP address of the \"remote\" system connected to the listening port (if applicable).",
                         "recommended": false,
-                        "possible_values": "2.2.2.2"
+                        "expected_values": [
+                            "2.2.2.2"
+                        ]
                     },
                     "fieldName": "src_ip",
                     "owner": "UBA_Endpoint_Registry",
@@ -475,7 +542,9 @@
                         "data_type": "integer",
                         "description": "The \"remote\" port connected to the listening port (if applicable).",
                         "recommended": false,
-                        "possible_values": "53"
+                        "expected_values": [
+                            "53"
+                        ]
                     },
                     "fieldName": "src_port",
                     "owner": "UBA_Endpoint_Registry",
@@ -492,7 +561,10 @@
                         "data_type": "string",
                         "description": "The status of the service or registry.",
                         "recommended": false,
-                        "possible_values": "failure, success"
+                        "expected_values": [
+                            "failure",
+                            "success"
+                        ]
                     },
                     "fieldName": "status",
                     "owner": "UBA_Endpoint_Registry",
@@ -507,9 +579,12 @@
                 {
                     "comment": {
                         "data_type": "string",
-                        "description": "Splunk UBA categories rely on the tags from CIM-compliant events to correctly parse data from the Splunk platform. Review this table to determine which category in Splunk UBA corresponds to the CIM data model that the events in the Splunk platform are mapped to. Click the name of the Splunk UBA category to review the field mappings between Splunk UBA and the CIM data models.",
+                        "description": "Splunk UBA categories rely on the tags from CIM-compliant events to correctly parse data from the Splunk platform when using Splunk Direct in Splunk UBA.",
                         "recommended": true,
-                        "possible_values": "endpoint,registry"
+                        "expected_values": [
+                            "endpoint",
+                            "registry"
+                        ]
                     },
                     "fieldName": "tag",
                     "owner": "UBA_Endpoint_Registry",
@@ -526,7 +601,9 @@
                         "data_type": "string",
                         "description": "The user account associated with the service or the filesystem access, or the registry access.",
                         "recommended": true,
-                        "possible_values": "cronaldo"
+                        "expected_values": [
+                            "cronaldo"
+                        ]
                     },
                     "fieldName": "user",
                     "owner": "UBA_Endpoint_Registry",
@@ -542,7 +619,7 @@
             "calculations": [],
             "constraints": [
                 {
-                    "search": "`uba_cim_endpoint_indexes` endpoint registry",
+                    "search": "`uba_cim_endpoint_registry_indexes`",
                     "owner": "UBA_Endpoint_Registry"
                 }
             ],

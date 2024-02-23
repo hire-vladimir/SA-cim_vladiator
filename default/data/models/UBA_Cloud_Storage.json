@@ -31,7 +31,7 @@
                         "data_type": "string",
                         "description": "The application that is generating this event.",
                         "recommended": true,
-                        "possible_values": "Box, Office365, Google Drive."
+                        "expected_values": ["Box", "Office365", "Google Drive."]
                     },
                     "fieldName": "app",
                     "owner": "UBA_Cloud_Storage",
@@ -48,7 +48,7 @@
                         "data_type": "string",
                         "description": "The type of access.",
                         "recommended": true,
-                        "possible_values": "Download, Preview, Delete, Create, Edit."
+                        "expected_values": ["Download", "Preview", "Delete", "Create", "Edit."]
                     },
                     "fieldName": "change_type",
                     "owner": "UBA_Cloud_Storage",
@@ -65,7 +65,7 @@
                         "data_type": "string",
                         "description": "The user targeted by this action. Usually this is linked to permission changes made by another user, such as when an admin change the privileges of a user in a file.",
                         "recommended": false,
-                        "possible_values": "cronaldo"
+                        "expected_values": ["cronaldo"]
                     },
                     "fieldName": "dest_user",
                     "owner": "UBA_Cloud_Storage",
@@ -82,7 +82,7 @@
                         "data_type": "integer",
                         "description": "The unique identifier of the resource. This should be assigned by the product, such as Box, Sharepoint, or Google Drive.",
                         "recommended": true,
-                        "possible_values": "17283982137"
+                        "expected_values": ["17283982137"]
                     },
                     "fieldName": "file_hash",
                     "owner": "UBA_Cloud_Storage",
@@ -99,7 +99,7 @@
                         "data_type": "integer",
                         "description": "The size in bytes of the resource associated to this event.",
                         "recommended": false,
-                        "possible_values": "10280"
+                        "expected_values": ["10280"]
                     },
                     "fieldName": "file_size",
                     "owner": "UBA_Cloud_Storage",
@@ -128,7 +128,7 @@
                         "data_type": "string",
                         "description": "The name of the file.",
                         "recommended": true,
-                        "possible_values": "this_picture.png"
+                        "expected_values": ["this_picture.png"]
                     },
                     "fieldName": "object",
                     "owner": "UBA_Cloud_Storage",
@@ -145,7 +145,7 @@
                         "data_type": "string",
                         "description": "The absolute or relative location of the resource.",
                         "recommended": true,
-                        "possible_values": "/bpatinho/photos"
+                        "expected_values": ["/bpatinho/photos"]
                     },
                     "fieldName": "object_path",
                     "owner": "UBA_Cloud_Storage",
@@ -162,7 +162,7 @@
                         "data_type": "string",
                         "description": "The type of the file.",
                         "recommended": true,
-                        "possible_values": "File, Folder, Document, Image, etc."
+                        "expected_values": ["File", "Folder", "Document", "Image", "etc."]
                     },
                     "fieldName": "object_type",
                     "owner": "UBA_Cloud_Storage",
@@ -179,7 +179,7 @@
                         "data_type": "string",
                         "description": "The type of the parent resource.",
                         "recommended": false,
-                        "possible_values": "Folder, Link, etc."
+                        "expected_values": ["Folder", "Link", "etc."]
                     },
                     "fieldName": "parent_category",
                     "owner": "UBA_Cloud_Storage",
@@ -196,7 +196,7 @@
                         "data_type": "integer",
                         "description": "The unique identifier of the parent resource. This should be assigned by the product, such as Box, Sharepoint, or Google Drive.",
                         "recommended": true,
-                        "possible_values": "9864239674"
+                        "expected_values": ["9864239674"]
                     },
                     "fieldName": "parent_hash",
                     "owner": "UBA_Cloud_Storage",
@@ -237,7 +237,7 @@
                         "data_type": "string",
                         "description": "The user creating this event.",
                         "recommended": true,
-                        "possible_values": "user1"
+                        "expected_values": ["user1"]
                     },
                     "fieldName": "src_user",
                     "owner": "UBA_Cloud_Storage",
@@ -252,9 +252,8 @@
                 {
                     "comment": {
                         "data_type": "string",
-                        "description": "Splunk UBA categories rely on the tags from CIM-compliant events to correctly parse data from the Splunk platform. Review this table to determine which category in Splunk UBA corresponds to the CIM data model that the events in the Splunk platform are mapped to. Click the name of the Splunk UBA category to review the field mappings between Splunk UBA and the CIM data models.",
-                        "recommended": true,
-                        "possible_values": "cloud"
+                        "description": "Splunk UBA categories rely on the tags from CIM-compliant events to correctly parse data from the Splunk platform when using Splunk Direct in Splunk UBA.",                        "recommended": true,
+                        "expected_values": ["cloud"]
                     },
                     "fieldName": "tag",
                     "owner": "UBA_Cloud_Storage Storage",
@@ -270,7 +269,7 @@
             "calculations": [],
             "constraints": [
                 {
-                    "search": "`uba_cim_cloud_indexes` cloud",
+                    "search": "`uba_cim_cloud_indexes`",
                     "owner": "UBA_Cloud_Storage"
                 }
             ],

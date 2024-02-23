@@ -31,7 +31,10 @@
                         "data_type": "string",
                         "description": "The action taken by the server or proxy. If this value is not present, it can be derived from the status field.",
                         "recommended": true,
-                        "possible_values": "allowed, blocked"
+                        "expected_values": [
+                            "allowed",
+                            "blocked"
+                        ]
                     },
                     "fieldName": "action",
                     "owner": "UBA_Web_Proxy",
@@ -48,7 +51,9 @@
                         "data_type": "integer",
                         "description": "The total number of bytes transferred (bytes_in + bytes_out).",
                         "recommended": false,
-                        "possible_values": "1168"
+                        "expected_values": [
+                            "1168"
+                        ]
                     },
                     "fieldName": "bytes",
                     "owner": "UBA_Web_Proxy",
@@ -65,7 +70,9 @@
                         "data_type": "integer",
                         "description": "The number of inbound bytes transferred.",
                         "recommended": true,
-                        "possible_values": "1028"
+                        "expected_values": [
+                            "1028"
+                        ]
                     },
                     "fieldName": "bytes_in",
                     "owner": "UBA_Web_Proxy",
@@ -82,7 +89,9 @@
                         "data_type": "integer",
                         "description": "The number of outbound bytes transferred.",
                         "recommended": true,
-                        "possible_values": "140"
+                        "expected_values": [
+                            "140"
+                        ]
                     },
                     "fieldName": "bytes_out",
                     "owner": "UBA_Web_Proxy",
@@ -99,7 +108,9 @@
                         "data_type": "string",
                         "description": "The category of traffic provided by the proxy server.",
                         "recommended": false,
-                        "possible_values": "entertainment"
+                        "expected_values": [
+                            "entertainment"
+                        ]
                     },
                     "fieldName": "category",
                     "owner": "UBA_Web_Proxy",
@@ -116,7 +127,9 @@
                         "data_type": "string",
                         "description": "The IP address of the remote host.",
                         "recommended": false,
-                        "possible_values": "2.2.2.2"
+                        "expected_values": [
+                            "2.2.2.2"
+                        ]
                     },
                     "fieldName": "dest_ip",
                     "owner": "UBA_Web_Proxy",
@@ -133,7 +146,9 @@
                         "data_type": "integer",
                         "description": "The time in milliseconds taken by the proxy event.",
                         "recommended": false,
-                        "possible_values": "241"
+                        "expected_values": [
+                            "241"
+                        ]
                     },
                     "fieldName": "duration",
                     "owner": "UBA_Web_Proxy",
@@ -162,7 +177,9 @@
                         "data_type": "string",
                         "description": "The content-type of the requested HTTP resource.",
                         "recommended": true,
-                        "possible_values": "image/gif"
+                        "expected_values": [
+                            "image/gif"
+                        ]
                     },
                     "fieldName": "http_content_type",
                     "owner": "UBA_Web_Proxy",
@@ -179,7 +196,9 @@
                         "data_type": "string",
                         "description": "The HTTP method used in the request.",
                         "recommended": true,
-                        "possible_values": "GET"
+                        "expected_values": [
+                            "GET"
+                        ]
                     },
                     "fieldName": "http_method",
                     "owner": "UBA_Web_Proxy",
@@ -196,7 +215,9 @@
                         "data_type": "string",
                         "description": "The HTTP referrer used in the request.",
                         "recommended": false,
-                        "possible_values": "referrer.acme.com"
+                        "expected_values": [
+                            "referrer.acme.com"
+                        ]
                     },
                     "fieldName": "http_referrer",
                     "owner": "UBA_Web_Proxy",
@@ -213,7 +234,9 @@
                         "data_type": "string",
                         "description": "The user agent used in the request.",
                         "recommended": true,
-                        "possible_values": "Mozilla/5.0 (compatible; MSIE 9.0; Windows NT 6.1; Trident/5.0)"
+                        "expected_values": [
+                            "Mozilla/5.0 (compatible; MSIE 9.0; Windows NT 6.1; Trident/5.0)"
+                        ]
                     },
                     "fieldName": "http_user_agent",
                     "owner": "UBA_Web_Proxy",
@@ -230,7 +253,9 @@
                         "data_type": "integer",
                         "description": "The amount of time it took to receive a response, if applicable, in milliseconds.",
                         "recommended": false,
-                        "possible_values": "200"
+                        "expected_values": [
+                            "200"
+                        ]
                     },
                     "fieldName": "response_time",
                     "owner": "UBA_Web_Proxy",
@@ -271,7 +296,9 @@
                         "data_type": "string",
                         "description": "The source of the network traffic, such as the client requesting the connection.",
                         "recommended": true,
-                        "possible_values": "10.10.10.12"
+                        "expected_values": [
+                            "10.10.10.12"
+                        ]
                     },
                     "fieldName": "src_ip",
                     "owner": "UBA_Web_Proxy",
@@ -288,7 +315,9 @@
                         "data_type": "integer",
                         "description": "The HTTP response code indicating the status of the proxy request.",
                         "recommended": true,
-                        "possible_values": "200"
+                        "expected_values": [
+                            "200"
+                        ]
                     },
                     "fieldName": "status",
                     "owner": "UBA_Web_Proxy",
@@ -303,9 +332,12 @@
                 {
                     "comment": {
                         "data_type": "string",
-                        "description": "Splunk UBA categories rely on the tags from CIM-compliant events to correctly parse data from the Splunk platform. Review this table to determine which category in Splunk UBA corresponds to the CIM data model that the events in the Splunk platform are mapped to. Click the name of the Splunk UBA category to review the field mappings between Splunk UBA and the CIM data models.",
+                        "description": "Splunk UBA categories rely on the tags from CIM-compliant events to correctly parse data from the Splunk platform when using Splunk Direct in Splunk UBA.",
                         "recommended": true,
-                        "possible_values": "web,proxy"
+                        "expected_values": [
+                            "web",
+                            "proxy"
+                        ]
                     },
                     "fieldName": "tag",
                     "owner": "UBA_Web_Proxy",
@@ -322,7 +354,9 @@
                         "data_type": "string",
                         "description": "The URL accessed in the request.",
                         "recommended": true,
-                        "possible_values": "http://subdomain.acme.com/index.html"
+                        "expected_values": [
+                            "http://subdomain.acme.com/index.html"
+                        ]
                     },
                     "fieldName": "url",
                     "owner": "UBA_Web_Proxy",
@@ -339,7 +373,9 @@
                         "data_type": "string",
                         "description": "The user that requested the HTTP resource.",
                         "recommended": false,
-                        "possible_values": "cronaldo"
+                        "expected_values": [
+                            "cronaldo"
+                        ]
                     },
                     "fieldName": "user",
                     "owner": "UBA_Web_Proxy",
@@ -355,7 +391,7 @@
             "calculations": [],
             "constraints": [
                 {
-                    "search": "`uba_cim_webproxy_indexes` web proxy",
+                    "search": "`uba_cim_webproxy_indexes`",
                     "owner": "UBA_Web_Proxy"
                 }
             ],
