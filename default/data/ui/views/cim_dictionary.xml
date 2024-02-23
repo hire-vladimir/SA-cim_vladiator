@@ -1,6 +1,6 @@
 <form version="1.1">
   <label>CIM Dictionary</label>
-  <fieldset submitButton="false" autoRun="true">
+  <fieldset submitButton="true" autoRun="true">
     <input type="dropdown" token="product_type" searchWhenChanged="true">
       <label>Product type:</label>
       <choice value="*">Any</choice>
@@ -12,10 +12,15 @@
     <input type="dropdown" token="dm" searchWhenChanged="true">
       <label>Datamodel:</label>
       <search>
-        <query>| datamodel | spath modelName | table modelName  | eval product_type=if(like(modelName, "UBA_%"), "uba", "core") | search product_type=$product_type|s$ | sort modelName</query>
+        <query>| datamodel | spath modelName | table modelName | eval product_type=if(like(modelName, "UBA_%"), "uba", "core") | search product_type=$product_type|s$ | sort modelName</query>
       </search>
       <fieldForLabel>modelName</fieldForLabel>
       <fieldForValue>modelName</fieldForValue>
+      <choice value="">Any</choice>
+    </input>
+    <input type="text" token="field">
+      <label>Field name:</label>
+      <default>.*</default>
     </input>
   </fieldset>
   <row>
@@ -24,6 +29,15 @@
         <title>Field count</title>
         <search base="cim_base">
           <query>| stats count</query>
+        </search>
+        <option name="drilldown">none</option>
+      </single>
+    </panel>
+    <panel>
+      <single>
+        <title>Datamodel count</title>
+        <search base="cim_base">
+          <query>| stats dc(datamodel)</query>
         </search>
         <option name="drilldown">none</option>
       </single>
@@ -41,7 +55,7 @@
       <table>
         <title>Datamodel definition information</title>
         <search>
-          <query>| datamodel $dm|s$ | spath | table modelName, displayName, description</query>
+          <query>| datamodel $dm|s$ | spath | eval product_type=if(like(modelName, "UBA_%"), "uba", "core") | table modelName, product_type, displayName, description | search product_type=$product_type|s$</query>
           <earliest>-24h@h</earliest>
           <latest>now</latest>
         </search>
@@ -61,16 +75,26 @@
               | spath path=objects{}.calculations{}.outputFields{} output=u
               | eval w=mvappend(v,u)
               | fields modelName w
+              | fields - _raw
               | mvexpand w
               
               | eval data_type=json_extract(w,"type")
               | eval description=json_extract(w,"comment.description")
               | eval field=json_extract(w,"fieldName")
               | eval object=json_extract(w,"owner")
-              | eval expected_values=json_array_to_mv(json_extract(w,"comment.expected_values"))
               
-              | rename modelName AS datamodel
-              | table datamodel field data_type description object expected_values
+              | eval recommended=json_extract(w,"comment.recommended"), recommended=if(match(recommended, "(?i)true|1"), "✅", "")
+              
+              | eval expected_values=json_array_to_mv(json_extract(w,"comment.expected_values"))
+              | eval possible_values=split(json_extract(w,"comment.possible_values"), ","), possible_values=mvmap(possible_values, trim(possible_values))
+              | eval combined_expected_values=mvdedup(mvappend(expected_values, possible_values))
+              
+              
+              | rename modelName AS datamodel combined_expected_values AS expected_values
+              | table datamodel field recommended data_type description object expected_values
+              | eval product_type=if(like(datamodel, "UBA_%"), "uba", "core") 
+              | where match(field, $field|s$) | search product_type=$product_type|s$
+              | fields - product_type
             </query>
           <earliest>0</earliest>
           <latest></latest>
@@ -81,6 +105,10 @@
         <option name="rowNumbers">true</option>
         <option name="wrap">true</option>
         <format type="color" field="data_type">
+          <colorPalette type="sharedList"></colorPalette>
+          <scale type="sharedCategory"></scale>
+        </format>
+        <format type="color" field="datamodel">
           <colorPalette type="sharedList"></colorPalette>
           <scale type="sharedCategory"></scale>
         </format>
