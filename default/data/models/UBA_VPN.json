@@ -89,7 +89,7 @@
                         "description": "The IP address of the destination device.",
                         "recommended": false,
                         "expected_values": [
-                            "192.168.1.2"
+                            "10.x.x.x"
                         ]
                     },
                     "fieldName": "dest_ip",
@@ -163,7 +163,7 @@
                         "description": "The IP address of the originator of the request.",
                         "recommended": true,
                         "expected_values": [
-                            "11.12.13.14"
+                            "10.x.x.x"
                         ]
                     },
                     "fieldName": "src_ip",

@@ -147,7 +147,7 @@
                         "description": "The IP address of the destination.",
                         "recommended": true,
                         "expected_values": [
-                            "2.2.2.2"
+                            "10.x.x.x"
                         ]
                     },
                     "fieldName": "dest_ip",
@@ -185,7 +185,7 @@
                         "description": "The NATed IPv4 or IPv6 address to which a packet is sent.",
                         "recommended": false,
                         "expected_values": [
-                            "192.168.1.12"
+                            "10.x.x.x"
                         ]
                     },
                     "fieldName": "dest_translated_ip",
@@ -356,7 +356,7 @@
                         "description": "The source of the network traffic, such as the client requesting the connection.",
                         "recommended": true,
                         "expected_values": [
-                            "10.10.10.12"
+                            "1.x.x.x"
                         ]
                     },
                     "fieldName": "src_ip",
@@ -394,7 +394,7 @@
                         "description": "The NATed IPv4 or IPv6 address from which a packet is sent.",
                         "recommended": false,
                         "expected_values": [
-                            "192.168.1.11"
+                            "10.x.x.x"
                         ]
                     },
                     "fieldName": "src_translated_ip",

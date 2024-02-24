@@ -110,7 +110,7 @@
                         "description": "The IP address of the system that was affected by the malware event.",
                         "recommended": true,
                         "expected_values": [
-                            "2.2.2.2"
+                            "10.x.x.x"
                         ]
                     },
                     "fieldName": "dest_ip",

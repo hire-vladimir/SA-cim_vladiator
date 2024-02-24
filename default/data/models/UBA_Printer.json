@@ -314,7 +314,7 @@
                         "data_type": "string",
                         "description": "The IP address of the device that submitted the printer job.",
                         "expected_values": [
-                            "10.11.12.13"
+                            "10.x.x.x"
                         ],
                         "recommended": false
                     },

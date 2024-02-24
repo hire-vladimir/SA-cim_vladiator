@@ -32,7 +32,7 @@
                         "description": "The resolved address for the query.",
                         "recommended": true,
                         "expected_values": [
-                            "12.13.14.15"
+                            "10.x.x.x"
                         ]
                     },
                     "fieldName": "answer",
@@ -51,7 +51,7 @@
                         "description": "The destination IP address of the network resolution event.",
                         "recommended": false,
                         "expected_values": [
-                            "192.168.1.14"
+                            "10.x.x.x"
                         ]
                     },
                     "fieldName": "dest_ip",
@@ -215,7 +215,7 @@
                         "description": "The source IP address of the network resolution event.",
                         "recommended": true,
                         "expected_values": [
-                            "192.168.1.11"
+                            "10.x.x.x"
                         ]
                     },
                     "fieldName": "src_ip",

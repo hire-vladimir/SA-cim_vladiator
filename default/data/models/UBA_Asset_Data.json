@@ -280,7 +280,7 @@
                     "comment": {
                         "data_type": "string",
                         "description": "The IP address of the device. The field may contain multiple values. See\u00a0Configure asset ingestion for multi-valued fields.",
-                        "expected_values": ["2.1.1.1"],
+                        "expected_values": ["10.x.x.x"],
                         "recommended": false
                     },
                     "fieldName": "ip",

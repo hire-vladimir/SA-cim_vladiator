@@ -169,7 +169,7 @@
                         "description": "The system that sent the message. You can alias this from more specific fields, such as\u00a0src_host,\u00a0src_ip, or\u00a0src_name.",
                         "recommended": false,
                         "expected_values": [
-                            "11.12.13.14"
+                            "10.x.x.x"
                         ]
                     },
                     "fieldName": "src",

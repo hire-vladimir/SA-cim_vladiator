@@ -65,7 +65,7 @@
                         "data_type": "string",
                         "description": "The target involved in the authentication. You can alias this from more specific fields including\u00a0dest_ip\u00a0and\u00a0dest_host.",
                         "recommended": true,
-                        "expected_values": ["192.168.10.11", "winhost1"]
+                        "expected_values": ["10.x.x.x", "winhost1"]
                     },
                     "fieldName": "dest",
                     "owner": "UBA_Authentication",
@@ -135,7 +135,7 @@
                         "data_type": "string",
                         "description": "The source involved in the authentication. In the case of endpoint protection authentication the src is the client. You can alias this from more specific fields including\u00a0src_ip\u00a0and\u00a0src_host.",
                         "recommended": true,
-                        "expected_values": ["192.168.10.12", "winhost2"]
+                        "expected_values": ["10.x.x.x", "winhost2"]
                     },
                     "fieldName": "src",
                     "owner": "UBA_Authentication",

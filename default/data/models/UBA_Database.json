@@ -132,7 +132,7 @@
                         "description": "The IP address of the destination.",
                         "recommended": false,
                         "expected_values": [
-                            "2.2.2.2"
+                            "10.x.x.x"
                         ]
                     },
                     "fieldName": "dest_ip",
@@ -341,7 +341,7 @@
                         "description": "The IP address of the source server of the database event.",
                         "recommended": false,
                         "expected_values": [
-                            "10.10.10.12"
+                            "10.x.x.x"
                         ]
                     },
                     "fieldName": "src_ip",

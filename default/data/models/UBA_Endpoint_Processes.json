@@ -110,7 +110,7 @@
                         "description": "IP address of the endpoint where the activity happened.",
                         "recommended": false,
                         "expected_values": [
-                            "1.1.1.1"
+                            "10.x.x.x"
                         ]
                     },
                     "fieldName": "dest_ip",
@@ -167,7 +167,7 @@
                         "description": "IP address of the endpoint where the activity happened.",
                         "recommended": false,
                         "expected_values": [
-                            "1.1.1.1"
+                            "10.x.x.x"
                         ]
                     },
                     "fieldName": "endpoint_ip",
@@ -630,7 +630,7 @@
                         "description": "The IP address of the \"remote\" system connected to the listening port (if applicable).",
                         "recommended": false,
                         "expected_values": [
-                            "2.2.2.2"
+                            "10.x.x.x"
                         ]
                     },
                     "fieldName": "src_ip",

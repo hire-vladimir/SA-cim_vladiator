@@ -51,7 +51,7 @@
                         "description": "The assigned IP address.",
                         "recommended": true,
                         "expected_values": [
-                            "192.168.1.12"
+                            "10.x.x.x"
                         ]
                     },
                     "fieldName": "dest_ip",
