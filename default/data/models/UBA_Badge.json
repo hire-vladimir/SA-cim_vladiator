@@ -111,7 +111,7 @@
                         "data_type": "string",
                         "description": "The location of the building.",
                         "expected_values": ["123 Main Street"],
-                        "recommended": false
+                        "recommended": true
                     },
                     "fieldName": "site_name",
                     "owner": "UBA_Badge",
@@ -169,7 +169,7 @@
                         "data_type": "string",
                         "description": "The user involved in this badge access event.",
                         "expected_values": ["cronaldo"],
-                        "recommended": false
+                        "recommended": true
                     },
                     "fieldName": "user",
                     "owner": "UBA_Badge",
