@@ -152,15 +152,15 @@
                         "expected_values": ["TRUE","FALSE"],
                         "recommended": true
                     },
-                    "fieldName": "denyListDeviceIr",
+                    "fieldName": "denylistdeviceir",
                     "owner": "UBA_Asset_Data",
                     "type": "boolean",
-                    "fieldSearch": "denyListDeviceIr=*",
+                    "fieldSearch": "denylistdeviceir=*",
                     "required": false,
                     "multivalue": false,
                     "hidden": false,
                     "editable": true,
-                    "displayName": "denyListDeviceIr"
+                    "displayName": "denylistdeviceir"
                 },
                 {
                     "comment": {
@@ -169,15 +169,15 @@
                         "expected_values": ["TRUE","FALSE"],
                         "recommended": true
                     },
-                    "fieldName": "denyListUserIr",
+                    "fieldName": "denylistuserir",
                     "owner": "UBA_Asset_Data",
                     "type": "boolean",
-                    "fieldSearch": "denyListUserIr=*",
+                    "fieldSearch": "denylistuserir=*",
                     "required": false,
                     "multivalue": false,
                     "hidden": false,
                     "editable": true,
-                    "displayName": "denyListUserIr"
+                    "displayName": "denylistuserir"
                 },
                 {
                     "comment": {
