@@ -21,7 +21,7 @@
                         "expected_values": [
                             "Michelle"
                         ],
-                        "recommended": false
+                        "recommended": true
                     },
                     "fieldName": "middlename",
                     "owner": "UBA_HR_Data",
@@ -74,7 +74,7 @@
                         ],
                         "recommended": false
                     },
-                    "fieldName": "accountexpires",
+                    "fieldName": "accntexpires",
                     "owner": "UBA_HR_Data",
                     "type": "string",
                     "fieldSearch": "accountexpires=*",
@@ -626,7 +626,7 @@
                         "expected_values": [
                             "Organizational unit (department) or business unit of the user."
                         ],
-                        "recommended": false
+                        "recommended": true
                     },
                     "fieldName": "ou",
                     "owner": "UBA_HR_Data",
