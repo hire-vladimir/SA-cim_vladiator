@@ -55,15 +55,15 @@
                         ],
                         "recommended": true
                     },
-                    "fieldName": "alarmCategories",
+                    "fieldName": "alarmcategories",
                     "owner": "UBA_IDS_IPS",
                     "type": "string",
-                    "fieldSearch": "alarmCategories=*",
+                    "fieldSearch": "alarmcategories=*",
                     "required": false,
                     "multivalue": false,
                     "hidden": false,
                     "editable": true,
-                    "displayName": "alarmCategories"
+                    "displayName": "alarmcategories"
                 },
                 {
                     "comment": {
