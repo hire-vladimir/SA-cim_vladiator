@@ -23,15 +23,15 @@
                         ],
                         "recommended": false
                     },
-                    "fieldName": "MiddleName",
+                    "fieldName": "middlename",
                     "owner": "UBA_HR_Data",
                     "type": "string",
-                    "fieldSearch": "MiddleName=*",
+                    "fieldSearch": "middlename=*",
                     "required": false,
                     "multivalue": false,
                     "hidden": false,
                     "editable": true,
-                    "displayName": "MiddleName"
+                    "displayName": "middlename"
                 },
                 {
                     "comment": {
@@ -43,15 +43,15 @@
                         ],
                         "recommended": false
                     },
-                    "fieldName": "UAC",
+                    "fieldName": "uac",
                     "owner": "UBA_HR_Data",
                     "type": "string",
-                    "fieldSearch": "UAC=*",
+                    "fieldSearch": "uac=*",
                     "required": false,
                     "multivalue": false,
                     "hidden": false,
                     "editable": true,
-                    "displayName": "UAC"
+                    "displayName": "uac"
                 },
                 {
                     "fieldName": "_time",
@@ -74,15 +74,15 @@
                         ],
                         "recommended": false
                     },
-                    "fieldName": "accountExpires",
+                    "fieldName": "accountexpires",
                     "owner": "UBA_HR_Data",
                     "type": "string",
-                    "fieldSearch": "accountExpires=*",
+                    "fieldSearch": "accountexpires=*",
                     "required": false,
                     "multivalue": false,
                     "hidden": false,
                     "editable": true,
-                    "displayName": "accountExpires"
+                    "displayName": "accountexpires"
                 },
                 {
                     "comment": {
@@ -154,15 +154,15 @@
                         ],
                         "recommended": false
                     },
-                    "fieldName": "departingUser",
+                    "fieldName": "departinguser",
                     "owner": "UBA_HR_Data",
                     "type": "string",
-                    "fieldSearch": "departingUser=*",
+                    "fieldSearch": "departinguser=*",
                     "required": false,
                     "multivalue": false,
                     "hidden": false,
                     "editable": true,
-                    "displayName": "departingUser"
+                    "displayName": "departinguser"
                 },
                 {
                     "comment": {
@@ -192,15 +192,15 @@
                         ],
                         "recommended": false
                     },
-                    "fieldName": "displayName",
+                    "fieldName": "displayname",
                     "owner": "UBA_HR_Data",
                     "type": "string",
-                    "fieldSearch": "displayName=*",
+                    "fieldSearch": "displayname=*",
                     "required": false,
                     "multivalue": false,
                     "hidden": false,
                     "editable": true,
-                    "displayName": "displayName"
+                    "displayName": "displayname"
                 },
                 {
                     "comment": {
@@ -211,15 +211,15 @@
                         ],
                         "recommended": false
                     },
-                    "fieldName": "domainLoginId",
+                    "fieldName": "domainloginid",
                     "owner": "UBA_HR_Data",
                     "type": "string",
-                    "fieldSearch": "domainLoginId=*",
+                    "fieldSearch": "domainloginid=*",
                     "required": false,
                     "multivalue": false,
                     "hidden": false,
                     "editable": true,
-                    "displayName": "domainLoginId"
+                    "displayName": "domainloginid"
                 },
                 {
                     "comment": {
@@ -249,15 +249,15 @@
                         ],
                         "recommended": false
                     },
-                    "fieldName": "employeeType",
+                    "fieldName": "employeetype",
                     "owner": "UBA_HR_Data",
                     "type": "string",
-                    "fieldSearch": "employeeType=*",
+                    "fieldSearch": "employeetype=*",
                     "required": false,
                     "multivalue": false,
                     "hidden": false,
                     "editable": true,
-                    "displayName": "employeeType"
+                    "displayName": "employeetype"
                 },
                 {
                     "comment": {
@@ -266,7 +266,7 @@
                         "expected_values": [
                             "Shruti"
                         ],
-                        "recommended": false
+                        "recommended": true
                     },
                     "fieldName": "firstname",
                     "owner": "UBA_HR_Data",
@@ -287,15 +287,15 @@
                         ],
                         "recommended": true
                     },
-                    "fieldName": "givenName",
+                    "fieldName": "givenname",
                     "owner": "UBA_HR_Data",
                     "type": "string",
-                    "fieldSearch": "givenName=*",
+                    "fieldSearch": "givenname=*",
                     "required": false,
                     "multivalue": false,
                     "hidden": false,
                     "editable": true,
-                    "displayName": "givenName"
+                    "displayName": "givenname"
                 },
                 {
                     "comment": {
@@ -327,15 +327,15 @@
                         ],
                         "recommended": false
                     },
-                    "fieldName": "highRiskUser",
+                    "fieldName": "highriskuser",
                     "owner": "UBA_HR_Data",
                     "type": "boolean",
-                    "fieldSearch": "highRiskUser=*",
+                    "fieldSearch": "highriskuser=*",
                     "required": false,
                     "multivalue": false,
                     "hidden": false,
                     "editable": true,
-                    "displayName": "highRiskUser"
+                    "displayName": "highriskuser"
                 },
                 {
                     "comment": {
@@ -346,15 +346,15 @@
                         ],
                         "recommended": false
                     },
-                    "fieldName": "hireDate",
+                    "fieldName": "hiredate",
                     "owner": "UBA_HR_Data",
                     "type": "string",
-                    "fieldSearch": "hireDate=*",
+                    "fieldSearch": "hiredate=*",
                     "required": false,
                     "multivalue": false,
                     "hidden": false,
                     "editable": true,
-                    "displayName": "hireDate"
+                    "displayName": "hiredate"
                 },
                 {
                     "fieldName": "host",
@@ -454,15 +454,15 @@
                         ],
                         "recommended": false
                     },
-                    "fieldName": "lastLogonTimestamp",
+                    "fieldName": "lastlogontimestamp",
                     "owner": "UBA_HR_Data",
                     "type": "string",
-                    "fieldSearch": "lastLogonTimestamp=*",
+                    "fieldSearch": "lastlogontimestamp=*",
                     "required": false,
                     "multivalue": false,
                     "hidden": false,
                     "editable": true,
-                    "displayName": "lastLogonTimestamp"
+                    "displayName": "lastlogontimestamp"
                 },
                 {
                     "comment": {
@@ -492,7 +492,7 @@
                         ],
                         "recommended": false
                     },
-                    "fieldName": "loginId",
+                    "fieldName": "loginid",
                     "owner": "UBA_HR_Data",
                     "type": "string",
                     "fieldSearch": "loginId=*",
@@ -569,15 +569,15 @@
                         ],
                         "recommended": false
                     },
-                    "fieldName": "memberOf",
+                    "fieldName": "memberof",
                     "owner": "UBA_HR_Data",
                     "type": "string",
-                    "fieldSearch": "memberOf=*",
+                    "fieldSearch": "memberof=*",
                     "required": false,
                     "multivalue": false,
                     "hidden": false,
                     "editable": true,
-                    "displayName": "memberOf"
+                    "displayName": "memberof"
                 },
                 {
                     "comment": {
@@ -589,15 +589,15 @@
                         ],
                         "recommended": false
                     },
-                    "fieldName": "onPIP",
+                    "fieldName": "onpip",
                     "owner": "UBA_HR_Data",
                     "type": "boolean",
-                    "fieldSearch": "onPIP=*",
+                    "fieldSearch": "onpip=*",
                     "required": false,
                     "multivalue": false,
                     "hidden": false,
                     "editable": true,
-                    "displayName": "onPIP"
+                    "displayName": "onpip"
                 },
                 {
                     "comment": {
@@ -609,15 +609,15 @@
                         ],
                         "recommended": false
                     },
-                    "fieldName": "onPerformanceImprovementPlan",
+                    "fieldName": "onperformanceimprovementplan",
                     "owner": "UBA_HR_Data",
                     "type": "boolean",
-                    "fieldSearch": "onPerformanceImprovementPlan=*",
+                    "fieldSearch": "onperformanceimprovementplan=*",
                     "required": false,
                     "multivalue": false,
                     "hidden": false,
                     "editable": true,
-                    "displayName": "onPerformanceImprovementPlan"
+                    "displayName": "onperformanceimprovementplan"
                 },
                 {
                     "comment": {
@@ -666,15 +666,15 @@
                         ],
                         "recommended": false
                     },
-                    "fieldName": "postalCode",
+                    "fieldName": "postalcode",
                     "owner": "UBA_HR_Data",
                     "type": "string",
-                    "fieldSearch": "postalCode=*",
+                    "fieldSearch": "postalcode=*",
                     "required": false,
                     "multivalue": false,
                     "hidden": false,
                     "editable": true,
-                    "displayName": "postalCode"
+                    "displayName": "postalcode"
                 },
                 {
                     "comment": {
@@ -685,15 +685,15 @@
                         ],
                         "recommended": false
                     },
-                    "fieldName": "preferredName",
+                    "fieldName": "preferredname",
                     "owner": "UBA_HR_Data",
                     "type": "string",
-                    "fieldSearch": "preferredName=*",
+                    "fieldSearch": "preferredname=*",
                     "required": false,
                     "multivalue": false,
                     "hidden": false,
                     "editable": true,
-                    "displayName": "preferredName"
+                    "displayName": "preferredname"
                 },
                 {
                     "comment": {
@@ -704,15 +704,15 @@
                         ],
                         "recommended": true
                     },
-                    "fieldName": "sAMAccountName",
+                    "fieldName": "samaccountname",
                     "owner": "UBA_HR_Data",
                     "type": "string",
-                    "fieldSearch": "sAMAccountName=*",
+                    "fieldSearch": "samaccountname=*",
                     "required": false,
                     "multivalue": false,
                     "hidden": false,
                     "editable": true,
-                    "displayName": "sAMAccountName"
+                    "displayName": "samaccountname"
                 },
                 {
                     "comment": {
@@ -842,15 +842,15 @@
                         ],
                         "recommended": false
                     },
-                    "fieldName": "streetAddress",
+                    "fieldName": "streetaddress",
                     "owner": "UBA_HR_Data",
                     "type": "string",
-                    "fieldSearch": "streetAddress=*",
+                    "fieldSearch": "streetaddress=*",
                     "required": false,
                     "multivalue": false,
                     "hidden": false,
                     "editable": true,
-                    "displayName": "streetAddress"
+                    "displayName": "streetaddress"
                 },
                 {
                     "comment": {
@@ -861,15 +861,15 @@
                         ],
                         "recommended": false
                     },
-                    "fieldName": "telephoneNumber",
+                    "fieldName": "telephonenumber",
                     "owner": "UBA_HR_Data",
                     "type": "string",
-                    "fieldSearch": "telephoneNumber=*",
+                    "fieldSearch": "telephonenumber=*",
                     "required": false,
                     "multivalue": false,
                     "hidden": false,
                     "editable": true,
-                    "displayName": "telephoneNumber"
+                    "displayName": "telephonenumber"
                 },
                 {
                     "comment": {
@@ -881,15 +881,15 @@
                         ],
                         "recommended": false
                     },
-                    "fieldName": "terminatedUser",
+                    "fieldName": "terminateduser",
                     "owner": "UBA_HR_Data",
                     "type": "boolean",
-                    "fieldSearch": "terminatedUser=*",
+                    "fieldSearch": "terminateduser=*",
                     "required": false,
                     "multivalue": false,
                     "hidden": false,
                     "editable": true,
-                    "displayName": "terminatedUser"
+                    "displayName": "terminateduser"
                 },
                 {
                     "comment": {
@@ -901,15 +901,15 @@
                         ],
                         "recommended": false
                     },
-                    "fieldName": "terminationDate",
+                    "fieldName": "terminationdate",
                     "owner": "UBA_HR_Data",
                     "type": "string",
-                    "fieldSearch": "terminationDate=*",
+                    "fieldSearch": "terminationdate=*",
                     "required": false,
                     "multivalue": false,
                     "hidden": false,
                     "editable": true,
-                    "displayName": "terminationDate"
+                    "displayName": "terminationdate"
                 },
                 {
                     "comment": {
@@ -961,15 +961,15 @@
                         ],
                         "recommended": false
                     },
-                    "fieldName": "userAccountControl",
+                    "fieldName": "useraccountcontrol",
                     "owner": "UBA_HR_Data",
                     "type": "string",
-                    "fieldSearch": "userAccountControl=*",
+                    "fieldSearch": "useraccountcontrol=*",
                     "required": false,
                     "multivalue": false,
                     "hidden": false,
                     "editable": true,
-                    "displayName": "userAccountControl"
+                    "displayName": "useraccountcontrol"
                 },
                 {
                     "comment": {
@@ -980,15 +980,15 @@
                         ],
                         "recommended": false
                     },
-                    "fieldName": "userPrincipalName",
+                    "fieldName": "userprincipalname",
                     "owner": "UBA_HR_Data",
                     "type": "string",
-                    "fieldSearch": "userPrincipalName=*",
+                    "fieldSearch": "userprincipalname=*",
                     "required": false,
                     "multivalue": false,
                     "hidden": false,
                     "editable": true,
-                    "displayName": "userPrincipalName"
+                    "displayName": "userprincipalname"
                 },
                 {
                     "comment": {
@@ -999,15 +999,15 @@
                         ],
                         "recommended": false
                     },
-                    "fieldName": "userType",
+                    "fieldName": "usertype",
                     "owner": "UBA_HR_Data",
                     "type": "string",
-                    "fieldSearch": "userType=*",
+                    "fieldSearch": "usertype=*",
                     "required": false,
                     "multivalue": false,
                     "hidden": false,
                     "editable": true,
-                    "displayName": "userType"
+                    "displayName": "usertype"
                 },
                 {
                     "comment": {
