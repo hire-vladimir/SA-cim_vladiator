@@ -56,15 +56,15 @@
                             "Exfiltration"
                         ]
                     },
-                    "fieldName": "alarmCategories",
+                    "fieldName": "alarmcategories",
                     "owner": "UBA_External_Alarm",
                     "type": "string",
-                    "fieldSearch": "alarmCategories=*",
+                    "fieldSearch": "alarmcategories=*",
                     "required": true,
                     "multivalue": false,
                     "hidden": false,
                     "editable": true,
-                    "displayName": "alarmCategories"
+                    "displayName": "alarmcategories"
                 },
                 {
                     "comment": {
