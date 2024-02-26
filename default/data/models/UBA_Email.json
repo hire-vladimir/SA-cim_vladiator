@@ -29,6 +29,44 @@
                 {
                     "comment": {
                         "data_type": "string",
+                        "description": "The email direction, based on the sender. If the sender is an internal employee, then the email is considered outbound. If the sender is not an internal employee, then the email is considered inbound.",
+                        "recommended": true,
+                        "expected_values": [
+                           "inbound", "outbound"
+                        ]
+                    },
+                    "fieldName": "direction",
+                    "owner": "UBA_Email",
+                    "type": "string",
+                    "fieldSearch": "direction=*",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "direction"
+                },
+                {
+                    "comment": {
+                        "data_type": "string",
+                        "description": "The type of the event.",
+                        "recommended": true,
+                        "expected_values": [
+                           "stream_email(email)"
+                        ]
+                    },
+                    "fieldName": "eventtype",
+                    "owner": "UBA_Email",
+                    "type": "string",
+                    "fieldSearch": "eventtype=*",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "eventtype"
+                },
+                {
+                    "comment": {
+                        "data_type": "string",
                         "description": "The action taken by the reporting device.",
                         "recommended": false,
                         "expected_values": [
