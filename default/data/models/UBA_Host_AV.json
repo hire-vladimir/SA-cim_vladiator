@@ -55,15 +55,15 @@
                             "Exfiltration"
                         ]
                     },
-                    "fieldName": "alarmCategories",
+                    "fieldName": "alarmcategories",
                     "owner": "UBA_Host_AV",
                     "type": "string",
-                    "fieldSearch": "alarmCategories=*",
+                    "fieldSearch": "alarmcategories=*",
                     "required": false,
                     "multivalue": false,
                     "hidden": false,
                     "editable": true,
-                    "displayName": "alarmCategories"
+                    "displayName": "alarmcategories"
                 },
                 {
                     "comment": {
