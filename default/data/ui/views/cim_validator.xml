@@ -31,6 +31,7 @@
     | lookup cim_validator_recommended_fields field OUTPUT is_recommended 
     | eval ir=if(is_recommended=="true" OR recommended="true", "star", null())
     | table ir, field, total_events, distinct_value_count, percent_coverage, field_values, is_cim_valid
+    | sort field
     </query>
     <earliest>$timerange.earliest$</earliest>
     <latest>$timerange.latest$</latest>
