@@ -55,7 +55,7 @@
       <table>
         <title>Datamodel definition information</title>
         <search>
-          <query>| datamodel $dm|s$ | spath | eval product_type=if(like(modelName, "UBA_%"), "uba", "core") | table modelName, product_type, displayName, description | search product_type=$product_type|s$</query>
+          <query>| datamodel $dm|s$ | spath | eval product_type=if(like(modelName, "UBA_%"), "uba", "core") | table modelName, product_type, displayName, description | search product_type=$product_type|s$ | sort modelName</query>
           <earliest>-24h@h</earliest>
           <latest>now</latest>
         </search>
@@ -74,8 +74,7 @@
               | spath path=objects{}.fields{} output=v
               | spath path=objects{}.calculations{}.outputFields{} output=u
               | eval w=mvappend(v,u)
-              | fields modelName w
-              | fields - _raw
+              | fields - _raw | fields modelName w
               | mvexpand w
               
               | eval data_type=json_extract(w,"type")
@@ -83,7 +82,8 @@
               | eval field=json_extract(w,"fieldName")
               | eval object=json_extract(w,"owner")
               
-              | eval recommended=json_extract(w,"comment.recommended"), recommended=if(match(recommended, "(?i)true|1"), "✅", "")
+              | lookup cim_validator_recommended_fields field OUTPUT is_recommended 
+              | eval recommended=json_extract(w,"comment.recommended"), recommended=if(is_recommended=="true" OR match(recommended, "(?i)true|1"), "✅", "")
               
               | eval expected_values=json_array_to_mv(json_extract(w,"comment.expected_values"))
               | eval possible_values=split(json_extract(w,"comment.possible_values"), ","), possible_values=mvmap(possible_values, trim(possible_values))
@@ -95,6 +95,7 @@
               | eval product_type=if(like(datamodel, "UBA_%"), "uba", "core") 
               | where match(field, $field|s$) | search product_type=$product_type|s$
               | fields - product_type
+              | sort field
             </query>
           <earliest>0</earliest>
           <latest></latest>
