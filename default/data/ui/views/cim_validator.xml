@@ -168,7 +168,7 @@
           <li>Use the <i>Search type</i> picker to set the type of the search used to retrieve the data
           <ul>
             <li><b>_raw</b> search will be a search that does not start with a pipe, for example <code>index=network sourcetype=firewall tag=network</code></li>
-            <li><b>generating</b> search will be any generating command that starts with a pope, for example <code>| datamodel Network_Traffic All_Traffic</code> or with <code>| from</code>, <code>| inputlookup</code> etc.</li>
+            <li><b>generating</b> search will be any generating command that starts with a pipe, for example <code>| datamodel Network_Traffic All_Traffic</code> or with <code>| from</code>, <code>| inputlookup</code> etc.</li>
           </ul>
           Searches with the <b>_raw</b> are particularly helpful, as they allow to "test" data before it makes it into the accelerated datamodel; removing the need to need for constant rebuild during development/test cycle.</li>
         </ul>
