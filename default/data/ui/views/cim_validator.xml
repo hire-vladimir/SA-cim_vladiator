@@ -8,9 +8,13 @@
     | fields - _raw | fields modelName w
     | mvexpand w 
     | eval field=json_extract(w,"fieldName")
-    | eval recommended=json_extract(w,"comment.recommended"), recommended=if(match(recommended, "(?i)true|1"), "true", "false")
+    
+    | lookup cim_validator_recommended_fields field OUTPUT is_recommended 
+    | eval recommended=json_extract(w,"comment.recommended"), recommended=if(is_recommended=="true" OR match(recommended, "(?i)true|1"), "true", "false")
+    
     | rename modelName AS datamodel
-    | table datamodel, field, recommended
+    | stats values(recommended) AS recommended by datamodel, field
+    | eval recommended=if(match(recommended, "true"), "true", "false")
     | where NOT match(field, "_time|^host$|sourcetype|source|[A-Z]+|_bunit|_category|_priority|_requires_av|_should_update") OR match(field, "object_category")
     
     | join type=outer field 
