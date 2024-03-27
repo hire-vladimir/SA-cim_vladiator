@@ -1,0 +1,295 @@
+{
+    "modelName": "UBA_Email",
+    "displayName": "UBA Email",
+    "description": "Splunk UBA Email Data Model for CIM Validator App",
+    "objectSummary": {
+        "Event-Based": 1,
+        "Transaction-Based": 0,
+        "Search-Based": 0
+    },
+    "objects": [
+        {
+            "objectName": "UBA_Email",
+            "displayName": "UBA Email",
+            "parentName": "BaseEvent",
+            "comment": "",
+            "fields": [
+                {
+                    "fieldName": "_time",
+                    "owner": "BaseEvent",
+                    "type": "timestamp",
+                    "fieldSearch": "",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "_time",
+                    "comment": ""
+                },
+                {
+                    "comment": {
+                        "data_type": "string",
+                        "description": "The email direction, based on the sender. If the sender is an internal employee, then the email is considered outbound. If the sender is not an internal employee, then the email is considered inbound.",
+                        "recommended": true,
+                        "expected_values": [
+                           "inbound", "outbound"
+                        ]
+                    },
+                    "fieldName": "direction",
+                    "owner": "UBA_Email",
+                    "type": "string",
+                    "fieldSearch": "direction=*",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "direction"
+                },
+                {
+                    "comment": {
+                        "data_type": "string",
+                        "description": "The type of the event.",
+                        "recommended": true,
+                        "expected_values": [
+                           "stream_email(email)"
+                        ]
+                    },
+                    "fieldName": "eventtype",
+                    "owner": "UBA_Email",
+                    "type": "string",
+                    "fieldSearch": "eventtype=*",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "eventtype"
+                },
+                {
+                    "comment": {
+                        "data_type": "string",
+                        "description": "The action taken by the reporting device.",
+                        "recommended": false,
+                        "expected_values": [
+                            "delivered",
+                            "blocked",
+                            "quarantined",
+                            "deleted",
+                            "unknown"
+                        ]
+                    },
+                    "fieldName": "action",
+                    "owner": "UBA_Email",
+                    "type": "string",
+                    "fieldSearch": "action=*",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "action"
+                },
+                {
+                    "comment": {
+                        "data_type": "string",
+                        "description": "The names of the files attached to the message, if any.",
+                        "recommended": false,
+                        "expected_values": [
+                            "example.txt"
+                        ]
+                    },
+                    "fieldName": "file_name",
+                    "owner": "UBA_Email",
+                    "type": "string",
+                    "fieldSearch": "file_name=*",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "file_name"
+                },
+                {
+                    "comment": {
+                        "data_type": "integer",
+                        "description": "The size of the file attached to the message, if any. If the message has multiple attachments, the sum value of all attachments as a single integer.",
+                        "recommended": false,
+                        "expected_values": [
+                            "10280"
+                        ]
+                    },
+                    "fieldName": "file_size",
+                    "owner": "UBA_Email",
+                    "type": "number",
+                    "fieldSearch": "file_size=*",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "file_size"
+                },
+                {
+                    "fieldName": "host",
+                    "owner": "BaseEvent",
+                    "type": "string",
+                    "fieldSearch": "",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "host",
+                    "comment": ""
+                },
+                {
+                    "comment": {
+                        "data_type": "string",
+                        "description": "A field listing individual recipient email addresses.",
+                        "recommended": true,
+                        "expected_values": [
+                            "abc@example.com",
+                            "bcd@example.com"
+                        ]
+                    },
+                    "fieldName": "recipient",
+                    "owner": "UBA_Email",
+                    "type": "string",
+                    "fieldSearch": "recipient=*",
+                    "required": true,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "recipient"
+                },
+                {
+                    "comment": {
+                        "data_type": "string",
+                        "description": "A field listing individual sender email addresses. The scope is internal users or users in the HR Data.",
+                        "recommended": true,
+                        "expected_values": [
+                            "abc@example.com",
+                            "bcd@example.com"
+                        ]
+                    },
+                    "fieldName": "sender",
+                    "owner": "UBA_Email",
+                    "type": "string",
+                    "fieldSearch": "sender=*",
+                    "required": true,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "sender"
+                },
+                {
+                    "fieldName": "source",
+                    "owner": "BaseEvent",
+                    "type": "string",
+                    "fieldSearch": "",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "source",
+                    "comment": ""
+                },
+                {
+                    "fieldName": "sourcetype",
+                    "owner": "BaseEvent",
+                    "type": "string",
+                    "fieldSearch": "",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "sourcetype",
+                    "comment": ""
+                },
+                {
+                    "comment": {
+                        "data_type": "string",
+                        "description": "The system that sent the message. You can alias this from more specific fields, such as\u00a0src_host,\u00a0src_ip, or\u00a0src_name.",
+                        "recommended": false,
+                        "expected_values": [
+                            "10.x.x.x"
+                        ]
+                    },
+                    "fieldName": "src",
+                    "owner": "UBA_Email",
+                    "type": "string",
+                    "fieldSearch": "src=*",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "src"
+                },
+                {
+                    "comment": {
+                        "data_type": "string",
+                        "description": "The email address of the message sender.",
+                        "recommended": false,
+                        "expected_values": [
+                            "acme@example.com"
+                        ]
+                    },
+                    "fieldName": "src_user",
+                    "owner": "UBA_Email",
+                    "type": "string",
+                    "fieldSearch": "src_user=*",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "src_user"
+                },
+                {
+                    "comment": {
+                        "data_type": "string",
+                        "description": "The subject of the email message.",
+                        "recommended": true,
+                        "expected_values": [
+                            "Important Message",
+                            "Meeting Agenda Update"
+                        ]
+                    },
+                    "fieldName": "subject",
+                    "owner": "UBA_Email",
+                    "type": "string",
+                    "fieldSearch": "subject=*",
+                    "required": true,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "subject"
+                },
+                {
+                    "comment": {
+                        "data_type": "string",
+                        "description": "Splunk UBA categories rely on the tags from CIM-compliant events to correctly parse data from the Splunk platform when using Splunk Direct in Splunk UBA.",
+                        "recommended": true,
+                        "expected_values": [
+                            "email"
+                        ]
+                    },
+                    "fieldName": "tag",
+                    "owner": "UBA_Email",
+                    "type": "string",
+                    "fieldSearch": "*",
+                    "required": true,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "tag"
+                }
+            ],
+            "calculations": [],
+            "constraints": [
+                {
+                    "search": "`uba_cim_email_indexes`",
+                    "owner": "UBA_Email"
+                }
+            ],
+            "lineage": "UBA_Email"
+        }
+    ],
+    "objectNameList": [
+        "UBA_Email"
+    ]
+}

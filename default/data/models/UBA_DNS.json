@@ -1,0 +1,304 @@
+{
+    "modelName": "UBA_DNS",
+    "displayName": "UBA DNS",
+    "description": "Splunk UBA DNS Data Model for CIM Validator App",
+    "objectSummary": {
+        "Event-Based": 1,
+        "Transaction-Based": 0,
+        "Search-Based": 0
+    },
+    "objects": [
+        {
+            "objectName": "UBA_DNS",
+            "displayName": "UBA DNS",
+            "parentName": "BaseEvent",
+            "comment": "",
+            "fields": [
+                {
+                    "fieldName": "_time",
+                    "owner": "BaseEvent",
+                    "type": "timestamp",
+                    "fieldSearch": "",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "_time",
+                    "comment": ""
+                },
+                {
+                    "comment": {
+                        "data_type": "string",
+                        "description": "The resolved address for the query.",
+                        "recommended": true,
+                        "expected_values": [
+                            "10.x.x.x"
+                        ]
+                    },
+                    "fieldName": "answer",
+                    "owner": "UBA_DNS",
+                    "type": "string",
+                    "fieldSearch": "answer=*",
+                    "required": true,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "answer"
+                },
+                {
+                    "comment": {
+                        "data_type": "string",
+                        "description": "The destination IP address of the network resolution event.",
+                        "recommended": false,
+                        "expected_values": [
+                            "10.x.x.x"
+                        ]
+                    },
+                    "fieldName": "dest_ip",
+                    "owner": "UBA_DNS",
+                    "type": "string",
+                    "fieldSearch": "dest_ip=*",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "dest_ip"
+                },
+                {
+                    "comment": {
+                        "data_type": "integer",
+                        "description": "The amount of time in seconds taken by the network resolution event.",
+                        "recommended": false,
+                        "expected_values": [
+                            "1"
+                        ]
+                    },
+                    "fieldName": "duration",
+                    "owner": "UBA_DNS",
+                    "type": "number",
+                    "fieldSearch": "duration=*",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "duration"
+                },
+                {
+                    "fieldName": "host",
+                    "owner": "BaseEvent",
+                    "type": "string",
+                    "fieldSearch": "",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "host",
+                    "comment": ""
+                },
+                {
+                    "comment": {
+                        "data_type": "string",
+                        "description": "The type of DNS message.",
+                        "recommended": true,
+                        "expected_values": [
+                            "Query",
+                            "Response"
+                        ]
+                    },
+                    "fieldName": "message_type",
+                    "owner": "UBA_DNS",
+                    "type": "string",
+                    "fieldSearch": "message_type=*",
+                    "required": true,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "message_type"
+                },
+                {
+                    "comment": {
+                        "data_type": "string",
+                        "description": "The domain that needs to be resolved.",
+                        "recommended": true,
+                        "expected_values": [
+                            "www.google.com"
+                        ]
+                    },
+                    "fieldName": "query",
+                    "owner": "UBA_DNS",
+                    "type": "string",
+                    "fieldSearch": "query=*",
+                    "required": true,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "query"
+                },
+                {
+                    "comment": {
+                        "data_type": "string",
+                        "description": "The field may contain DNS OpCodes or Resource Record Type codes.",
+                        "recommended": true,
+                        "expected_values": [
+                            "Query",
+                            "IQuery",
+                            "Status",
+                            "Notify",
+                            "Update",
+                            "unknown",
+                            "A",
+                            "MX",
+                            "NS",
+                            "PTR"
+                        ]
+                    },
+                    "fieldName": "query_type",
+                    "owner": "UBA_DNS",
+                    "type": "string",
+                    "fieldSearch": "query_type=*",
+                    "required": true,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "query_type"
+                },
+                {
+                    "comment": {
+                        "data_type": "string",
+                        "description": "The DNS resource record type.",
+                        "recommended": false,
+                        "expected_values": [
+                            "A",
+                            "DNAME",
+                            "MX",
+                            "NS",
+                            "PTR"
+                        ]
+                    },
+                    "fieldName": "record_type",
+                    "owner": "UBA_DNS",
+                    "type": "string",
+                    "fieldSearch": "record_type=*",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "record_type"
+                },
+                {
+                    "fieldName": "source",
+                    "owner": "BaseEvent",
+                    "type": "string",
+                    "fieldSearch": "",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "source",
+                    "comment": ""
+                },
+                {
+                    "fieldName": "sourcetype",
+                    "owner": "BaseEvent",
+                    "type": "string",
+                    "fieldSearch": "",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "sourcetype",
+                    "comment": ""
+                },
+                {
+                    "comment": {
+                        "data_type": "string",
+                        "description": "The source IP address of the network resolution event.",
+                        "recommended": true,
+                        "expected_values": [
+                            "10.x.x.x"
+                        ]
+                    },
+                    "fieldName": "src_ip",
+                    "owner": "UBA_DNS",
+                    "type": "string",
+                    "fieldSearch": "src_ip=*",
+                    "required": true,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "src_ip"
+                },
+                {
+                    "comment": {
+                        "data_type": "integer",
+                        "description": "The source port of the network resolution event.",
+                        "recommended": false,
+                        "expected_values": [
+                            "3022"
+                        ]
+                    },
+                    "fieldName": "src_port",
+                    "owner": "UBA_DNS",
+                    "type": "number",
+                    "fieldSearch": "src_port=*",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "src_port"
+                },
+                {
+                    "comment": {
+                        "data_type": "string",
+                        "description": "Splunk UBA categories rely on the tags from CIM-compliant events to correctly parse data from the Splunk platform when using Splunk Direct in Splunk UBA.",
+                        "recommended": true,
+                        "expected_values": [
+                            "network",
+                            "resolution",
+                            "dns"
+                        ]
+                    },
+                    "fieldName": "tag",
+                    "owner": "UBA_DNS",
+                    "type": "string",
+                    "fieldSearch": "*",
+                    "required": true,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "tag"
+                },
+                {
+                    "comment": {
+                        "data_type": "integer",
+                        "description": "The time-to-live of the network resolution event.",
+                        "recommended": false,
+                        "expected_values": [
+                            "2000"
+                        ]
+                    },
+                    "fieldName": "ttl",
+                    "owner": "UBA_DNS",
+                    "type": "number",
+                    "fieldSearch": "ttl=*",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "ttl"
+                }
+            ],
+            "calculations": [],
+            "constraints": [
+                {
+                    "search": "`uba_cim_dns_indexes`",
+                    "owner": "UBA_DNS"
+                }
+            ],
+            "lineage": "UBA_DNS"
+        }
+    ],
+    "objectNameList": [
+        "UBA_DNS"
+    ]
+}

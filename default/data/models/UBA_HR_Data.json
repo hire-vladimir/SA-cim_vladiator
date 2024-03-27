@@ -1,0 +1,1045 @@
+{
+    "modelName": "UBA_HR_Data",
+    "displayName": "UBA HR Data",
+    "description": "Splunk UBA HR Data Model for CIM Validator App",
+    "objectSummary": {
+        "Event-Based": 1,
+        "Transaction-Based": 0,
+        "Search-Based": 0
+    },
+    "objects": [
+        {
+            "objectName": "UBA_HR_Data",
+            "displayName": "UBA_HR_Data",
+            "parentName": "BaseEvent",
+            "comment": "",
+            "fields": [
+                {
+                    "comment": {
+                        "data_type": "string",
+                        "description": "The user's middle name. This value is used to compute the display name field if the display name field is empty.",
+                        "expected_values": [
+                            "Michelle"
+                        ],
+                        "recommended": true
+                    },
+                    "fieldName": "middlename",
+                    "owner": "UBA_HR_Data",
+                    "type": "string",
+                    "fieldSearch": "middlename=*",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "middlename"
+                },
+                {
+                    "comment": {
+                        "data_type": "string",
+                        "description": "User account control code from AD. Use UAC when the value in your HR data is an ENUM value such as NORMAL_ACCOUNT. If a UAC value is not available, Splunk UBA calculates the UAC using the value of the userAccountControl, such as 512 for a NORMAL_ACCOUNT.",
+                        "expected_values": [
+                            "66050",
+                            "ACCOUNT_DISABLED"
+                        ],
+                        "recommended": false
+                    },
+                    "fieldName": "uac",
+                    "owner": "UBA_HR_Data",
+                    "type": "string",
+                    "fieldSearch": "uac=*",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "uac"
+                },
+                {
+                    "fieldName": "_time",
+                    "owner": "BaseEvent",
+                    "type": "timestamp",
+                    "fieldSearch": "",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "_time",
+                    "comment": ""
+                },
+                {
+                    "comment": {
+                        "data_type": "string",
+                        "description": "Valid formats:\nWindows FileTime\nyyyy-MM-dd'T'HH:mm:ss\n %Y-%m-%dT%H:%M:%S.%QZ\nMM/dd/yyyy\nyyyyMMddHHmmss.S'Z'\nyyyyMMdd",
+                        "expected_values": [
+                            "7/9/19"
+                        ],
+                        "recommended": false
+                    },
+                    "fieldName": "accountexpires",
+                    "owner": "UBA_HR_Data",
+                    "type": "string",
+                    "fieldSearch": "accountexpires=*",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "accountexpires"
+                },
+                {
+                    "comment": {
+                        "data_type": "string",
+                        "description": "City (location) of the user.",
+                        "expected_values": [
+                            "San Francisco",
+                            "London"
+                        ],
+                        "recommended": false
+                    },
+                    "fieldName": "city",
+                    "owner": "UBA_HR_Data",
+                    "type": "string",
+                    "fieldSearch": "city=*",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "city"
+                },
+                {
+                    "comment": {
+                        "data_type": "string",
+                        "description": "Country of the user.",
+                        "expected_values": [
+                            "USA",
+                            "Scotland"
+                        ],
+                        "recommended": false
+                    },
+                    "fieldName": "co",
+                    "owner": "UBA_HR_Data",
+                    "type": "string",
+                    "fieldSearch": "co=*",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "co"
+                },
+                {
+                    "comment": {
+                        "data_type": "string",
+                        "description": "Country of the user.",
+                        "expected_values": [
+                            "USA",
+                            "Scotland"
+                        ],
+                        "recommended": false
+                    },
+                    "fieldName": "country",
+                    "owner": "UBA_HR_Data",
+                    "type": "string",
+                    "fieldSearch": "country=*",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "country"
+                },
+                {
+                    "comment": {
+                        "data_type": "string",
+                        "description": "Whether or not the user has decided to leave the company.",
+                        "expected_values": [
+                            "true",
+                            "false"
+                        ],
+                        "recommended": false
+                    },
+                    "fieldName": "departinguser",
+                    "owner": "UBA_HR_Data",
+                    "type": "string",
+                    "fieldSearch": "departinguser=*",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "departinguser"
+                },
+                {
+                    "comment": {
+                        "data_type": "string",
+                        "description": "Organizational unit (department) or business unit of the user.",
+                        "expected_values": [
+                            "Organizational unit (department) or business unit of the user."
+                        ],
+                        "recommended": true
+                    },
+                    "fieldName": "department",
+                    "owner": "UBA_HR_Data",
+                    "type": "string",
+                    "fieldSearch": "department=*",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "department"
+                },
+                {
+                    "comment": {
+                        "data_type": "string",
+                        "description": "The user's full name or a service account name. If this field is empty, the display name is created by using the values in the first name, middle name, and last name fields.",
+                        "expected_values": [
+                            "Shruti Michelle Buttercup"
+                        ],
+                        "recommended": false
+                    },
+                    "fieldName": "displayname",
+                    "owner": "UBA_HR_Data",
+                    "type": "string",
+                    "fieldSearch": "displayname=*",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "displayname"
+                },
+                {
+                    "comment": {
+                        "data_type": "string",
+                        "description": "The user's domain + login ID. Supported formats:\nadDomain\\loginId\nadDomain\\\\loginId\nadDomain/loginId\nloginId\\adDomain\nloginId@dnsDomain\nadDomain\\loginId@dnsDomain",
+                        "expected_values": [
+                            "domain1/smbuttercup"
+                        ],
+                        "recommended": false
+                    },
+                    "fieldName": "domainloginid",
+                    "owner": "UBA_HR_Data",
+                    "type": "string",
+                    "fieldSearch": "domainloginid=*",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "domainloginid"
+                },
+                {
+                    "comment": {
+                        "data_type": "string",
+                        "description": "User's email address. In some cases, you may find this stored in the userPrincipalName field.",
+                        "expected_values": [
+                            "smbuttercup@example.com"
+                        ],
+                        "recommended": false
+                    },
+                    "fieldName": "email",
+                    "owner": "UBA_HR_Data",
+                    "type": "string",
+                    "fieldSearch": "email=*",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "email"
+                },
+                {
+                    "comment": {
+                        "data_type": "string",
+                        "description": "The type of employee.",
+                        "expected_values": [
+                            "Contractor"
+                        ],
+                        "recommended": false
+                    },
+                    "fieldName": "employeetype",
+                    "owner": "UBA_HR_Data",
+                    "type": "string",
+                    "fieldSearch": "employeetype=*",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "employeetype"
+                },
+                {
+                    "comment": {
+                        "data_type": "string",
+                        "description": "The user's first name. This value is used to compute the display name field if the display name field is empty.",
+                        "expected_values": [
+                            "Shruti"
+                        ],
+                        "recommended": true
+                    },
+                    "fieldName": "firstname",
+                    "owner": "UBA_HR_Data",
+                    "type": "string",
+                    "fieldSearch": "firstname=*",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "firstname"
+                },
+                {
+                    "comment": {
+                        "data_type": "string",
+                        "description": "The user's first name. This value is used to compute the display name field if the display name field is empty.",
+                        "expected_values": [
+                            "Shruti"
+                        ],
+                        "recommended": true
+                    },
+                    "fieldName": "givenname",
+                    "owner": "UBA_HR_Data",
+                    "type": "string",
+                    "fieldSearch": "givenname=*",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "givenname"
+                },
+                {
+                    "comment": {
+                        "data_type": "string",
+                        "description": "List of AD groups that the user is a member of. If there are no groups, leave the value blank.",
+                        "expected_values": [
+                            "ACME-Support",
+                            "ACME-Finance"
+                        ],
+                        "recommended": false
+                    },
+                    "fieldName": "groups",
+                    "owner": "UBA_HR_Data",
+                    "type": "string",
+                    "fieldSearch": "groups=*",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "groups"
+                },
+                {
+                    "comment": {
+                        "data_type": "boolean",
+                        "description": "Whether or not the user is identified as a high risk user, such as an executive.",
+                        "expected_values": [
+                            "true",
+                            "false"
+                        ],
+                        "recommended": false
+                    },
+                    "fieldName": "highriskuser",
+                    "owner": "UBA_HR_Data",
+                    "type": "boolean",
+                    "fieldSearch": "highriskuser=*",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "highriskuser"
+                },
+                {
+                    "comment": {
+                        "data_type": "string",
+                        "description": "Date the user was hired. Valid formats:\nMM/dd/yyyy\nyyyyMMddHHmmss.S'Z'\nyyyMMdd",
+                        "expected_values": [
+                            "7/9/19"
+                        ],
+                        "recommended": false
+                    },
+                    "fieldName": "hiredate",
+                    "owner": "UBA_HR_Data",
+                    "type": "string",
+                    "fieldSearch": "hiredate=*",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "hiredate"
+                },
+                {
+                    "fieldName": "host",
+                    "owner": "BaseEvent",
+                    "type": "string",
+                    "fieldSearch": "",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "host",
+                    "comment": ""
+                },
+                {
+                    "comment": {
+                        "data_type": "string",
+                        "description": "Code of the user status.",
+                        "expected_values": [
+                            "3"
+                        ],
+                        "recommended": false
+                    },
+                    "fieldName": "hrstatuscode",
+                    "owner": "UBA_HR_Data",
+                    "type": "string",
+                    "fieldSearch": "hrstatuscode=*",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "hrstatuscode"
+                },
+                {
+                    "comment": {
+                        "data_type": "string",
+                        "description": "The user's middle name. This value is used to compute the display name field if the display name field is empty.",
+                        "expected_values": [
+                            "Michelle"
+                        ],
+                        "recommended": true
+                    },
+                    "fieldName": "initials",
+                    "owner": "UBA_HR_Data",
+                    "type": "string",
+                    "fieldSearch": "initials=*",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "initials"
+                },
+                {
+                    "comment": {
+                        "data_type": "string",
+                        "description": "City (location) of the user.",
+                        "expected_values": [
+                            "San Francisco",
+                            "London"
+                        ],
+                        "recommended": false
+                    },
+                    "fieldName": "l",
+                    "owner": "UBA_HR_Data",
+                    "type": "string",
+                    "fieldSearch": "l=*",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "l"
+                },
+                {
+                    "comment": {
+                        "data_type": "string",
+                        "description": "Last time the user logged on. Valid formats:\nWindows FileTime\nyyyy-MM-dd'T'HH:mm:ss\n %Y-%m-%dT%H:%M:%S.%QZ\nMM/dd/yyyy\nyyyyMMddHHmmss.S'Z'\nyyyMMdd",
+                        "expected_values": [
+                            "7/9/19"
+                        ],
+                        "recommended": false
+                    },
+                    "fieldName": "lastLogon",
+                    "owner": "UBA_HR_Data",
+                    "type": "string",
+                    "fieldSearch": "lastLogon=*",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "lastLogon"
+                },
+                {
+                    "comment": {
+                        "data_type": "string",
+                        "description": "Valid formats:\nWindows FileTime\nyyyy-MM-dd'T'HH:mm:ss\n %Y-%m-%dT%H:%M:%S.%QZ\nMM/dd/yyyy\nyyyyMMddHHmmss.S'Z'\nyyyMMdd",
+                        "expected_values": [
+                            "7/9/19"
+                        ],
+                        "recommended": false
+                    },
+                    "fieldName": "lastlogontimestamp",
+                    "owner": "UBA_HR_Data",
+                    "type": "string",
+                    "fieldSearch": "lastlogontimestamp=*",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "lastlogontimestamp"
+                },
+                {
+                    "comment": {
+                        "data_type": "string",
+                        "description": "The user's last name. This value is used to compute the display name field if the display name field is empty.",
+                        "expected_values": [
+                            "Buttercup"
+                        ],
+                        "recommended": false
+                    },
+                    "fieldName": "lastname",
+                    "owner": "UBA_HR_Data",
+                    "type": "string",
+                    "fieldSearch": "lastname=*",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "lastname"
+                },
+                {
+                    "comment": {
+                        "data_type": "string",
+                        "description": "Login ID or username of an account associated with the user.",
+                        "expected_values": [
+                            "smbuttercup"
+                        ],
+                        "recommended": false
+                    },
+                    "fieldName": "loginid",
+                    "owner": "UBA_HR_Data",
+                    "type": "string",
+                    "fieldSearch": "loginId=*",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "loginId"
+                },
+                {
+                    "comment": {
+                        "data_type": "string",
+                        "description": "User's email address. In some cases, you may find this stored in the userPrincipalName field.",
+                        "expected_values": [
+                            "smbuttercup@example.com"
+                        ],
+                        "recommended": true
+                    },
+                    "fieldName": "mail",
+                    "owner": "UBA_HR_Data",
+                    "type": "string",
+                    "fieldSearch": "mail=*",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "mail"
+                },
+                {
+                    "comment": {
+                        "data_type": "string",
+                        "description": "Name or ID of the user's manager.",
+                        "expected_values": [
+                            "Charlotte Arachnia"
+                        ],
+                        "recommended": false
+                    },
+                    "fieldName": "manager",
+                    "owner": "UBA_HR_Data",
+                    "type": "string",
+                    "fieldSearch": "manager=*",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "manager"
+                },
+                {
+                    "comment": {
+                        "data_type": "string",
+                        "description": "Name or ID of the user's manager.",
+                        "expected_values": [
+                            "Charlotte Arachnia"
+                        ],
+                        "recommended": false
+                    },
+                    "fieldName": "manageremployeeId",
+                    "owner": "UBA_HR_Data",
+                    "type": "string",
+                    "fieldSearch": "manageremployeeId=*",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "manageremployeeId"
+                },
+                {
+                    "comment": {
+                        "data_type": "string",
+                        "description": "List of AD groups that the user is a member of. If there are no groups, leave the value blank.",
+                        "expected_values": [
+                            "ACME-Support",
+                            "ACME-Finance"
+                        ],
+                        "recommended": false
+                    },
+                    "fieldName": "memberof",
+                    "owner": "UBA_HR_Data",
+                    "type": "string",
+                    "fieldSearch": "memberof=*",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "memberof"
+                },
+                {
+                    "comment": {
+                        "data_type": "boolean",
+                        "description": "Whether or not the user is on a performance improvement plan.",
+                        "expected_values": [
+                            "true",
+                            "false"
+                        ],
+                        "recommended": false
+                    },
+                    "fieldName": "onpip",
+                    "owner": "UBA_HR_Data",
+                    "type": "boolean",
+                    "fieldSearch": "onpip=*",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "onpip"
+                },
+                {
+                    "comment": {
+                        "data_type": "boolean",
+                        "description": "Whether or not the user is on a performance improvement plan.",
+                        "expected_values": [
+                            "true",
+                            "false"
+                        ],
+                        "recommended": false
+                    },
+                    "fieldName": "onperformanceimprovementplan",
+                    "owner": "UBA_HR_Data",
+                    "type": "boolean",
+                    "fieldSearch": "onperformanceimprovementplan=*",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "onperformanceimprovementplan"
+                },
+                {
+                    "comment": {
+                        "data_type": "string",
+                        "description": "Organizational unit (department) or business unit of the user.",
+                        "expected_values": [
+                            "Organizational unit (department) or business unit of the user."
+                        ],
+                        "recommended": true
+                    },
+                    "fieldName": "ou",
+                    "owner": "UBA_HR_Data",
+                    "type": "string",
+                    "fieldSearch": "ou=*",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "ou"
+                },
+                {
+                    "comment": {
+                        "data_type": "string",
+                        "description": "Phone number of the user.",
+                        "expected_values": [
+                            "123-456-7890"
+                        ],
+                        "recommended": false
+                    },
+                    "fieldName": "phone",
+                    "owner": "UBA_HR_Data",
+                    "type": "string",
+                    "fieldSearch": "phone=*",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "phone"
+                },
+                {
+                    "comment": {
+                        "data_type": "string",
+                        "description": "Zip code of the user.",
+                        "expected_values": [
+                            "94107"
+                        ],
+                        "recommended": false
+                    },
+                    "fieldName": "postalcode",
+                    "owner": "UBA_HR_Data",
+                    "type": "string",
+                    "fieldSearch": "postalcode=*",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "postalcode"
+                },
+                {
+                    "comment": {
+                        "data_type": "string",
+                        "description": "The user's first name. This value is used to compute the display name field if the display name field is empty.",
+                        "expected_values": [
+                            "Shruti"
+                        ],
+                        "recommended": false
+                    },
+                    "fieldName": "preferredname",
+                    "owner": "UBA_HR_Data",
+                    "type": "string",
+                    "fieldSearch": "preferredname=*",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "preferredname"
+                },
+                {
+                    "comment": {
+                        "data_type": "string",
+                        "description": "Login ID or username of an account associated with the user.",
+                        "expected_values": [
+                            "smbuttercup"
+                        ],
+                        "recommended": true
+                    },
+                    "fieldName": "samaccountname",
+                    "owner": "UBA_HR_Data",
+                    "type": "string",
+                    "fieldSearch": "samaccountname=*",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "samaccountname"
+                },
+                {
+                    "comment": {
+                        "data_type": "string",
+                        "description": "The user's last name. This value is used to compute the display name field if the display name field is empty.",
+                        "expected_values": [
+                            "Buttercup"
+                        ],
+                        "recommended": true
+                    },
+                    "fieldName": "sn",
+                    "owner": "UBA_HR_Data",
+                    "type": "string",
+                    "fieldSearch": "sn=*",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "sn"
+                },
+                {
+                    "fieldName": "source",
+                    "owner": "BaseEvent",
+                    "type": "string",
+                    "fieldSearch": "",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "source",
+                    "comment": ""
+                },
+                {
+                    "fieldName": "sourcetype",
+                    "owner": "BaseEvent",
+                    "type": "string",
+                    "fieldSearch": "",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "sourcetype",
+                    "comment": ""
+                },
+                {
+                    "comment": {
+                        "data_type": "string",
+                        "description": "State where the user resides.",
+                        "expected_values": [
+                            "CA"
+                        ],
+                        "recommended": false
+                    },
+                    "fieldName": "st",
+                    "owner": "UBA_HR_Data",
+                    "type": "string",
+                    "fieldSearch": "st=*",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "st"
+                },
+                {
+                    "comment": {
+                        "data_type": "string",
+                        "description": "State where the user resides.",
+                        "expected_values": [
+                            "CA"
+                        ],
+                        "recommended": false
+                    },
+                    "fieldName": "state",
+                    "owner": "UBA_HR_Data",
+                    "type": "string",
+                    "fieldSearch": "state=*",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "state"
+                },
+                {
+                    "comment": {
+                        "data_type": "string",
+                        "description": "Active or inactive status of the user from the HR system.",
+                        "expected_values": [
+                            "Active/InActive"
+                        ],
+                        "recommended": false
+                    },
+                    "fieldName": "status",
+                    "owner": "UBA_HR_Data",
+                    "type": "string",
+                    "fieldSearch": "status=*",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "status"
+                },
+                {
+                    "comment": {
+                        "data_type": "string",
+                        "description": "Street where the user resides.",
+                        "expected_values": [
+                            "Main"
+                        ],
+                        "recommended": false
+                    },
+                    "fieldName": "street",
+                    "owner": "UBA_HR_Data",
+                    "type": "string",
+                    "fieldSearch": "street=*",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "street"
+                },
+                {
+                    "comment": {
+                        "data_type": "string",
+                        "description": "Street where the user resides.",
+                        "expected_values": [
+                            "Main"
+                        ],
+                        "recommended": false
+                    },
+                    "fieldName": "streetaddress",
+                    "owner": "UBA_HR_Data",
+                    "type": "string",
+                    "fieldSearch": "streetaddress=*",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "streetaddress"
+                },
+                {
+                    "comment": {
+                        "data_type": "string",
+                        "description": "Phone number of the user.",
+                        "expected_values": [
+                            "123-456-7890"
+                        ],
+                        "recommended": false
+                    },
+                    "fieldName": "telephonenumber",
+                    "owner": "UBA_HR_Data",
+                    "type": "string",
+                    "fieldSearch": "telephonenumber=*",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "telephonenumber"
+                },
+                {
+                    "comment": {
+                        "data_type": "boolean",
+                        "description": "Whether or not the user has been terminated.",
+                        "expected_values": [
+                            "true",
+                            "false"
+                        ],
+                        "recommended": false
+                    },
+                    "fieldName": "terminateduser",
+                    "owner": "UBA_HR_Data",
+                    "type": "boolean",
+                    "fieldSearch": "terminateduser=*",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "terminateduser"
+                },
+                {
+                    "comment": {
+                        "data_type": "string",
+                        "description": "Whether or not the user has been terminated.",
+                        "expected_values": [
+                            "true",
+                            "false"
+                        ],
+                        "recommended": false
+                    },
+                    "fieldName": "terminationdate",
+                    "owner": "UBA_HR_Data",
+                    "type": "string",
+                    "fieldSearch": "terminationdate=*",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "terminationdate"
+                },
+                {
+                    "comment": {
+                        "data_type": "string",
+                        "description": "The user's title.",
+                        "expected_values": [
+                            "Senior manager",
+                            "Junior developer"
+                        ],
+                        "recommended": false
+                    },
+                    "fieldName": "title",
+                    "owner": "UBA_HR_Data",
+                    "type": "string",
+                    "fieldSearch": "title=*",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "title"
+                },
+                {
+                    "comment": {
+                        "data_type": "boolean",
+                        "description": "Whether or not the user is traveling.",
+                        "expected_values": [
+                            "true",
+                            "false"
+                        ],
+                        "recommended": false
+                    },
+                    "fieldName": "traveling",
+                    "owner": "UBA_HR_Data",
+                    "type": "boolean",
+                    "fieldSearch": "traveling=*",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "traveling"
+                },
+                {
+                    "comment": {
+                        "data_type": "string",
+                        "description": "User account control code from AD. Use UAC when the value in your HR data is an ENUM value such as NORMAL_ACCOUNT. If a UAC value is not available, Splunk UBA calculates the UAC using the value of the userAccountControl, such as 512 for a NORMAL_ACCOUNT.",
+                        "expected_values": [
+                            "66050",
+                            "ACCOUNT_DISABLED"
+                        ],
+                        "recommended": false
+                    },
+                    "fieldName": "useraccountcontrol",
+                    "owner": "UBA_HR_Data",
+                    "type": "string",
+                    "fieldSearch": "useraccountcontrol=*",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "useraccountcontrol"
+                },
+                {
+                    "comment": {
+                        "data_type": "string",
+                        "description": "User's email address. In some cases, you may find this stored in the userPrincipalName field.",
+                        "expected_values": [
+                            "smbuttercup@example.com"
+                        ],
+                        "recommended": false
+                    },
+                    "fieldName": "userprincipalname",
+                    "owner": "UBA_HR_Data",
+                    "type": "string",
+                    "fieldSearch": "userprincipalname=*",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "userprincipalname"
+                },
+                {
+                    "comment": {
+                        "data_type": "string",
+                        "description": "The type of employee.",
+                        "expected_values": [
+                            "Contractor"
+                        ],
+                        "recommended": false
+                    },
+                    "fieldName": "usertype",
+                    "owner": "UBA_HR_Data",
+                    "type": "string",
+                    "fieldSearch": "usertype=*",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "usertype"
+                },
+                {
+                    "comment": {
+                        "data_type": "string",
+                        "description": "Zip code of the user.",
+                        "expected_values": [
+                            "94107"
+                        ],
+                        "recommended": false
+                    },
+                    "fieldName": "zip",
+                    "owner": "UBA_HR_Data",
+                    "type": "string",
+                    "fieldSearch": "zip=*",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "zip"
+                }
+            ],
+            "calculations": [],
+            "constraints": [
+                {
+                    "search": "`uba_cim_hr_data`",
+                    "owner": "UBA_HR_Data"
+                }
+            ],
+            "lineage": "UBA_HR_Data"
+        }
+    ],
+    "objectNameList": [
+        "UBA_HR_Data"
+    ]
+}

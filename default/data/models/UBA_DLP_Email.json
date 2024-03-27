@@ -1,0 +1,665 @@
+{
+    "modelName": "UBA_DLP_Email",
+    "displayName": "UBA DLP Email",
+    "description": "Splunk UBA DLP Email Data Model for CIM Validator App",
+    "objectSummary": {
+        "Event-Based": 1,
+        "Transaction-Based": 0,
+        "Search-Based": 0
+    },
+    "objects": [
+        {
+            "objectName": "UBA_DLP_Email",
+            "displayName": "UBA DLP Email",
+            "parentName": "BaseEvent",
+            "comment": "",
+            "fields": [
+                {
+                    "fieldName": "_time",
+                    "owner": "BaseEvent",
+                    "type": "timestamp",
+                    "fieldSearch": "",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "_time",
+                    "comment": ""
+                },
+                {
+                    "comment": {
+                        "data_type": "string",
+                        "description": "The action taken by the DLP device.",
+                        "expected_values": [
+                            "allowed",
+                            "blocked"
+                        ],
+                        "recommended": true
+                    },
+                    "fieldName": "action",
+                    "owner": "UBA_DLP_Email",
+                    "type": "string",
+                    "fieldSearch": "action=*",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "action"
+                },
+                {
+                    "comment": {
+                        "data_type": "string",
+                        "description": "The application involved in the event.",
+                        "expected_values": [
+                            "Symantec DLP"
+                        ],
+                        "recommended": false
+                    },
+                    "fieldName": "app",
+                    "owner": "UBA_DLP_Email",
+                    "type": "string",
+                    "fieldSearch": "app=*",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "app"
+                },
+                {
+                    "comment": {
+                        "data_type": "string",
+                        "description": "The category of the DLP event.",
+                        "expected_values": [
+                            "malware",
+                            "keylogger",
+                            "ad-supported program"
+                        ],
+                        "recommended": true
+                    },
+                    "fieldName": "category",
+                    "owner": "UBA_DLP_Email",
+                    "type": "string",
+                    "fieldSearch": "category=*",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "category"
+                },
+                {
+                    "comment": {
+                        "data_type": "string",
+                        "description": "The name of the destination file involved.",
+                        "expected_values": [
+                            "creditcards.xls"
+                        ],
+                        "recommended": false
+                    },
+                    "fieldName": "dest_file",
+                    "owner": "UBA_DLP_Email",
+                    "type": "string",
+                    "fieldSearch": "dest_file=*",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "dest_file"
+                },
+                {
+                    "comment": {
+                        "data_type": "string",
+                        "description": "The host name of the destination.",
+                        "expected_values": [
+                            "winhost2"
+                        ],
+                        "recommended": false
+                    },
+                    "fieldName": "dest_host",
+                    "owner": "UBA_DLP_Email",
+                    "type": "string",
+                    "fieldSearch": "dest_host=*",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "dest_host"
+                },
+                {
+                    "comment": {
+                        "data_type": "string",
+                        "description": "The IP address of the destination.",
+                        "expected_values": [
+                            "10.x.x.x"
+                        ],
+                        "recommended": false
+                    },
+                    "fieldName": "dest_ip",
+                    "owner": "UBA_DLP_Email",
+                    "type": "string",
+                    "fieldSearch": "dest_ip=*",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "dest_ip"
+                },
+                {
+                    "comment": {
+                        "data_type": "string",
+                        "description": "The path of the destination file involved.",
+                        "expected_values": [
+                            "c:\\documents"
+                        ],
+                        "recommended": false
+                    },
+                    "fieldName": "dest_path",
+                    "owner": "UBA_DLP_Email",
+                    "type": "string",
+                    "fieldSearch": "dest_path=*",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "dest_path"
+                },
+                {
+                    "comment": {
+                        "data_type": "string",
+                        "description": "The destination user involved in the activity reported by DLP.",
+                        "expected_values": [
+                            "cronaldo"
+                        ],
+                        "recommended": false
+                    },
+                    "fieldName": "dest_user",
+                    "owner": "UBA_DLP_Email",
+                    "type": "string",
+                    "fieldSearch": "dest_user=*",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "dest_user"
+                },
+                {
+                    "comment": {
+                        "data_type": "integer",
+                        "description": "The ID of the USB device.",
+                        "expected_values": [
+                            "987654"
+                        ],
+                        "recommended": false
+                    },
+                    "fieldName": "device_id",
+                    "owner": "UBA_DLP_Email",
+                    "type": "number",
+                    "fieldSearch": "device_id=*",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "device_id"
+                },
+                {
+                    "comment": {
+                        "data_type": "string",
+                        "description": "The DLP incident status.",
+                        "expected_values": [
+                            "Working"
+                        ],
+                        "recommended": false
+                    },
+                    "fieldName": "dlp_status",
+                    "owner": "UBA_DLP_Email",
+                    "type": "string",
+                    "fieldSearch": "dlp_status=*",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "dlp_status"
+                },
+                {
+                    "comment": {
+                        "data_type": "integer",
+                        "description": "The event type ID.",
+                        "expected_values": [
+                            "13"
+                        ],
+                        "recommended": false
+                    },
+                    "fieldName": "event_type_id",
+                    "owner": "UBA_DLP_Email",
+                    "type": "number",
+                    "fieldSearch": "event_type_id=*",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "event_type_id"
+                },
+                {
+                    "comment": {
+                        "data_type": "integer",
+                        "description": "The size in bytes of the file transferred",
+                        "expected_values": [
+                            "10000"
+                        ],
+                        "recommended": false
+                    },
+                    "fieldName": "file_size",
+                    "owner": "UBA_DLP_Email",
+                    "type": "number",
+                    "fieldSearch": "file_size=*",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "file_size"
+                },
+                {
+                    "fieldName": "host",
+                    "owner": "BaseEvent",
+                    "type": "string",
+                    "fieldSearch": "",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "host",
+                    "comment": ""
+                },
+                {
+                    "comment": {
+                        "data_type": "integer",
+                        "description": "The number of unique matches of the DLP signature.",
+                        "expected_values": [
+                            "1",
+                            "10",
+                            "1040"
+                        ],
+                        "recommended": false
+                    },
+                    "fieldName": "match_count",
+                    "owner": "UBA_DLP_Email",
+                    "type": "number",
+                    "fieldSearch": "match_count=*",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "match_count"
+                },
+                {
+                    "comment": {
+                        "data_type": "string",
+                        "description": "The policy that triggered the DLP alarm.",
+                        "expected_values": [
+                            "Social Security Number"
+                        ],
+                        "recommended": false
+                    },
+                    "fieldName": "policy",
+                    "owner": "UBA_DLP_Email",
+                    "type": "string",
+                    "fieldSearch": "policy=*",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "policy"
+                },
+                {
+                    "comment": {
+                        "data_type": "string",
+                        "description": "The DLP incident prevention status.",
+                        "expected_values": [
+                            "9",
+                            "Blocked"
+                        ],
+                        "recommended": false
+                    },
+                    "fieldName": "prevention_status",
+                    "owner": "UBA_DLP_Email",
+                    "type": "string",
+                    "fieldSearch": "prevention_status=*",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "prevention_status"
+                },
+                {
+                    "comment": {
+                        "data_type": "string",
+                        "description": "The individual email addresses of the message recipients.",
+                        "expected_values": [
+                            "a@b.com",
+                            "c@b.com"
+                        ],
+                        "recommended": false
+                    },
+                    "fieldName": "recipient",
+                    "owner": "UBA_DLP_Email",
+                    "type": "string",
+                    "fieldSearch": "recipient=*",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "recipient"
+                },
+                {
+                    "comment": {
+                        "data_type": "string",
+                        "description": "Is it a sensitive or restricted file?",
+                        "expected_values": [
+                            "no",
+                            "yes"
+                        ],
+                        "recommended": false
+                    },
+                    "fieldName": "restricted",
+                    "owner": "UBA_DLP_Email",
+                    "type": "string",
+                    "fieldSearch": "restricted=*",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "restricted"
+                },
+                {
+                    "comment": {
+                        "data_type": "string",
+                        "description": "The email address of the message sender.",
+                        "expected_values": [
+                            "d@b.com"
+                        ],
+                        "recommended": false
+                    },
+                    "fieldName": "sender",
+                    "owner": "UBA_DLP_Email",
+                    "type": "string",
+                    "fieldSearch": "sender=*",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "sender"
+                },
+                {
+                    "comment": {
+                        "data_type": "integer",
+                        "description": "The serial number of USB device.",
+                        "expected_values": [
+                            "1234567890"
+                        ],
+                        "recommended": false
+                    },
+                    "fieldName": "serial_number",
+                    "owner": "UBA_DLP_Email",
+                    "type": "number",
+                    "fieldSearch": "serial_number=*",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "serial_number"
+                },
+                {
+                    "comment": {
+                        "data_type": "string",
+                        "description": "The severity of the network protection event.",
+                        "expected_values": [
+                            "informational",
+                            "unknown",
+                            "low",
+                            "medium",
+                            "high",
+                            "critical"
+                        ],
+                        "recommended": true
+                    },
+                    "fieldName": "severity",
+                    "owner": "UBA_DLP_Email",
+                    "type": "string",
+                    "fieldSearch": "severity=*",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "severity"
+                },
+                {
+                    "comment": {
+                        "data_type": "string",
+                        "description": "The type of the event.",
+                        "expected_values": [
+                            "HTTP Incident"
+                        ],
+                        "recommended": true
+                    },
+                    "fieldName": "signature",
+                    "owner": "UBA_DLP_Email",
+                    "type": "string",
+                    "fieldSearch": "signature=*",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "signature"
+                },
+                {
+                    "fieldName": "source",
+                    "owner": "BaseEvent",
+                    "type": "string",
+                    "fieldSearch": "",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "source",
+                    "comment": ""
+                },
+                {
+                    "fieldName": "sourcetype",
+                    "owner": "BaseEvent",
+                    "type": "string",
+                    "fieldSearch": "",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "sourcetype",
+                    "comment": ""
+                },
+                {
+                    "comment": {
+                        "data_type": "string",
+                        "description": "The name of the source file involved.",
+                        "expected_values": [
+                            "creditcards.xls"
+                        ],
+                        "recommended": false
+                    },
+                    "fieldName": "src_file",
+                    "owner": "UBA_DLP_Email",
+                    "type": "string",
+                    "fieldSearch": "src_file=*",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "src_file"
+                },
+                {
+                    "comment": {
+                        "data_type": "string",
+                        "description": "The host name of the source.",
+                        "expected_values": [
+                            "winhost1"
+                        ],
+                        "recommended": false
+                    },
+                    "fieldName": "src_host",
+                    "owner": "UBA_DLP_Email",
+                    "type": "string",
+                    "fieldSearch": "src_host=*",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "src_host"
+                },
+                {
+                    "comment": {
+                        "data_type": "string",
+                        "description": "The source of the network traffic (the client requesting the connection).",
+                        "expected_values": [
+                            "10.x.x.x"
+                        ],
+                        "recommended": false
+                    },
+                    "fieldName": "src_ip",
+                    "owner": "UBA_DLP_Email",
+                    "type": "string",
+                    "fieldSearch": "src_ip=*",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "src_ip"
+                },
+                {
+                    "comment": {
+                        "data_type": "string",
+                        "description": "The path of the source file involved.",
+                        "expected_values": [
+                            "c:\\documents"
+                        ],
+                        "recommended": false
+                    },
+                    "fieldName": "src_path",
+                    "owner": "UBA_DLP_Email",
+                    "type": "string",
+                    "fieldSearch": "src_path=*",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "src_path"
+                },
+                {
+                    "comment": {
+                        "data_type": "string",
+                        "description": "The source user involved in the activity reported by DLP.",
+                        "expected_values": [
+                            "cronaldo"
+                        ],
+                        "recommended": false
+                    },
+                    "fieldName": "src_user",
+                    "owner": "UBA_DLP_Email",
+                    "type": "string",
+                    "fieldSearch": "src_user=*",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "src_user"
+                },
+                {
+                    "comment": {
+                        "data_type": "string",
+                        "description": "The subject of the email message.",
+                        "expected_values": [
+                            "Important Message",
+                            "Open Now!"
+                        ],
+                        "recommended": false
+                    },
+                    "fieldName": "subject",
+                    "owner": "UBA_DLP_Email",
+                    "type": "string",
+                    "fieldSearch": "subject=*",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "subject"
+                },
+                {
+                    "comment": {
+                        "data_type": "string",
+                        "description": "Splunk UBA categories rely on the tags from CIM-compliant events to correctly parse data from the Splunk platform when using Splunk Direct in Splunk UBA.",
+                        "expected_values": [
+                            "dlp",
+                            "incident",
+                            "email"
+                        ],
+                        "recommended": true
+                    },
+                    "fieldName": "tag",
+                    "owner": "UBA_DLP_Email",
+                    "type": "string",
+                    "fieldSearch": "tag=*",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "tag"
+                },
+                {
+                    "comment": {
+                        "data_type": "string",
+                        "description": "The department of the user involved in the activity reported by DLP.",
+                        "expected_values": [
+                            "Finance"
+                        ],
+                        "recommended": false
+                    },
+                    "fieldName": "user_department",
+                    "owner": "UBA_DLP_Email",
+                    "type": "string",
+                    "fieldSearch": "user_department=*",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "user_department"
+                },
+                {
+                    "comment": {
+                        "data_type": "string",
+                        "description": "The USB vendor.",
+                        "expected_values": [
+                            "FUJITSU"
+                        ],
+                        "recommended": false
+                    },
+                    "fieldName": "vendor",
+                    "owner": "UBA_DLP_Email",
+                    "type": "string",
+                    "fieldSearch": "vendor=*",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "vendor"
+                }
+            ],
+            "calculations": [],
+            "constraints": [
+                {
+                    "search": "`uba_cim_dlp_email_indexes`",
+                    "owner": "UBA_DLP_Email"
+                }
+            ],
+            "lineage": "UBA_DLP_Email"
+        }
+    ],
+    "objectNameList": [
+        "UBA_DLP_Email"
+    ]
+}

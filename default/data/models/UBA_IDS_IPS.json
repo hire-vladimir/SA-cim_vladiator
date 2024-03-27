@@ -1,0 +1,450 @@
+{
+    "modelName": "UBA_IDS_IPS",
+    "displayName": "UBA_IDS_IPS",
+    "description": "Splunk UBA Intrusion Detection System Data Model for CIM Validator App",
+    "objectSummary": {
+        "Event-Based": 1,
+        "Transaction-Based": 0,
+        "Search-Based": 0
+    },
+    "objects": [
+        {
+            "objectName": "UBA_IDS_IPS",
+            "displayName": "UBA_IDS_IPS",
+            "parentName": "BaseEvent",
+            "comment": "",
+            "fields": [
+                {
+                    "fieldName": "_time",
+                    "owner": "BaseEvent",
+                    "type": "timestamp",
+                    "fieldSearch": "",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "_time",
+                    "comment": ""
+                },
+                {
+                    "comment": {
+                        "data_type": "string",
+                        "description": "The action taken by the IDS.",
+                        "expected_values": [
+                            "allowed",
+                            "blocked"
+                        ],
+                        "recommended": true
+                    },
+                    "fieldName": "action",
+                    "owner": "UBA_IDS_IPS",
+                    "type": "string",
+                    "fieldSearch": "action=*",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "action"
+                },
+                {
+                    "comment": {
+                        "data_type": "string",
+                        "description": "The categories that this external alarm belongs to. Multiple categories can be separated by comma. The values must be one or more of the categories in\u00a0Filter the anomaly table.",
+                        "expected_values": [
+                            "Exfiltration"
+                        ],
+                        "recommended": true
+                    },
+                    "fieldName": "alarmcategories",
+                    "owner": "UBA_IDS_IPS",
+                    "type": "string",
+                    "fieldSearch": "alarmcategories=*",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "alarmcategories"
+                },
+                {
+                    "comment": {
+                        "data_type": "number",
+                        "description": "The total number of bytes transferred (bytes_in + bytes_out).",
+                        "expected_values": [
+                            "1168"
+                        ],
+                        "recommended": false
+                    },
+                    "fieldName": "bytes",
+                    "owner": "UBA_IDS_IPS",
+                    "type": "number",
+                    "fieldSearch": "bytes=*",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "bytes"
+                },
+                {
+                    "comment": {
+                        "data_type": "number",
+                        "description": "The number of inbound bytes transferred.",
+                        "expected_values": [
+                            "1028"
+                        ],
+                        "recommended": false
+                    },
+                    "fieldName": "bytes_in",
+                    "owner": "UBA_IDS_IPS",
+                    "type": "number",
+                    "fieldSearch": "bytes_in=*",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "bytes_in"
+                },
+                {
+                    "comment": {
+                        "data_type": "number",
+                        "description": "The number of outbound bytes transferred.",
+                        "expected_values": [
+                            "140"
+                        ],
+                        "recommended": false
+                    },
+                    "fieldName": "bytes_out",
+                    "owner": "UBA_IDS_IPS",
+                    "type": "number",
+                    "fieldSearch": "bytes_out=*",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "bytes_out"
+                },
+                {
+                    "comment": {
+                        "data_type": "string",
+                        "description": "The category of the event, if applicable.",
+                        "expected_values": [
+                            "malware",
+                            "watchlist.hit.ingress.process"
+                        ],
+                        "recommended": false
+                    },
+                    "fieldName": "category",
+                    "owner": "UBA_IDS_IPS",
+                    "type": "string",
+                    "fieldSearch": "category=*",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "category"
+                },
+                {
+                    "comment": {
+                        "data_type": "string",
+                        "description": "The host name of the destination.",
+                        "expected_values": [
+                            "winhost2"
+                        ],
+                        "recommended": false
+                    },
+                    "fieldName": "dest_host",
+                    "owner": "UBA_IDS_IPS",
+                    "type": "string",
+                    "fieldSearch": "dest_host=*",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "dest_host"
+                },
+                {
+                    "comment": {
+                        "data_type": "string",
+                        "description": "The IP address of the destination.",
+                        "expected_values": [
+                            "10.x.x.x"
+                        ],
+                        "recommended": true
+                    },
+                    "fieldName": "dest_ip",
+                    "owner": "UBA_IDS_IPS",
+                    "type": "string",
+                    "fieldSearch": "dest_ip=*",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "dest_ip"
+                },
+                {
+                    "comment": {
+                        "data_type": "number",
+                        "description": "The port number of the destination.",
+                        "expected_values": [
+                            "1234"
+                        ],
+                        "recommended": false
+                    },
+                    "fieldName": "dest_port",
+                    "owner": "UBA_IDS_IPS",
+                    "type": "number",
+                    "fieldSearch": "dest_port=*",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "dest_port"
+                },
+                {
+                    "comment": {
+                        "data_type": "number",
+                        "description": "The amount of time in seconds for the completion of the activity reported by IDS.",
+                        "expected_values": [
+                            "241"
+                        ],
+                        "recommended": false
+                    },
+                    "fieldName": "duration",
+                    "owner": "UBA_IDS_IPS",
+                    "type": "number",
+                    "fieldSearch": "duration=*",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "duration"
+                },
+                {
+                    "comment": {
+                        "data_type": "string",
+                        "description": "The type of the event.",
+                        "expected_values": [
+                            "cisco_ips_vulnerable"
+                        ],
+                        "recommended": true
+                    },
+                    "fieldName": "eventtype",
+                    "owner": "UBA_IDS_IPS",
+                    "type": "string",
+                    "fieldSearch": "eventtype=*",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "eventtype"
+                },
+                {
+                    "fieldName": "host",
+                    "owner": "BaseEvent",
+                    "type": "string",
+                    "fieldSearch": "",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "host",
+                    "comment": ""
+                },
+                {
+                    "comment": {
+                        "data_type": "string",
+                        "description": "The type of IDS that generated the event.",
+                        "expected_values": [
+                            "network",
+                            "host",
+                            "application"
+                        ],
+                        "recommended": false
+                    },
+                    "fieldName": "ids_type",
+                    "owner": "UBA_IDS_IPS",
+                    "type": "string",
+                    "fieldSearch": "ids_type=*",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "ids_type"
+                },
+                {
+                    "comment": {
+                        "data_type": "string",
+                        "description": "The severity of the network protection event.",
+                        "expected_values": [
+                            "informational",
+                            "unknown",
+                            "low",
+                            "medium",
+                            "high",
+                            "critical"
+                        ],
+                        "recommended": true
+                    },
+                    "fieldName": "severity",
+                    "owner": "UBA_IDS_IPS",
+                    "type": "string",
+                    "fieldSearch": "severity=*",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "severity"
+                },
+                {
+                    "comment": {
+                        "data_type": "string",
+                        "description": "The sub-category or signature of the event, if applicable.",
+                        "expected_values": [
+                            "process_blocking"
+                        ],
+                        "recommended": true
+                    },
+                    "fieldName": "signature",
+                    "owner": "UBA_IDS_IPS",
+                    "type": "string",
+                    "fieldSearch": "signature=*",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "signature"
+                },
+                {
+                    "fieldName": "source",
+                    "owner": "BaseEvent",
+                    "type": "string",
+                    "fieldSearch": "",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "source",
+                    "comment": ""
+                },
+                {
+                    "fieldName": "sourcetype",
+                    "owner": "BaseEvent",
+                    "type": "string",
+                    "fieldSearch": "",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "sourcetype",
+                    "comment": ""
+                },
+                {
+                    "comment": {
+                        "data_type": "string",
+                        "description": "The host name of the source.",
+                        "expected_values": [
+                            "winhost1"
+                        ],
+                        "recommended": false
+                    },
+                    "fieldName": "src_host",
+                    "owner": "UBA_IDS_IPS",
+                    "type": "string",
+                    "fieldSearch": "src_host=*",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "src_host"
+                },
+                {
+                    "comment": {
+                        "data_type": "string",
+                        "description": "The source of the network traffic (the client requesting the connection).",
+                        "expected_values": [
+                            "10.x.x.x"
+                        ],
+                        "recommended": true
+                    },
+                    "fieldName": "src_ip",
+                    "owner": "UBA_IDS_IPS",
+                    "type": "string",
+                    "fieldSearch": "src_ip=*",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "src_ip"
+                },
+                {
+                    "comment": {
+                        "data_type": "number",
+                        "description": "The port number of the source.",
+                        "expected_values": [
+                            "12345"
+                        ],
+                        "recommended": false
+                    },
+                    "fieldName": "src_port",
+                    "owner": "UBA_IDS_IPS",
+                    "type": "number",
+                    "fieldSearch": "src_port=*",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "src_port"
+                },
+                {
+                    "comment": {
+                        "data_type": "string",
+                        "description": "Splunk UBA categories rely on the tags from CIM-compliant events to correctly parse data from the Splunk platform when using Splunk Direct in Splunk UBA.",
+                        "expected_values": [
+                            "ids",
+                            "attack"
+                        ],
+                        "recommended": true
+                    },
+                    "fieldName": "tag",
+                    "owner": "UBA_IDS_IPS",
+                    "type": "string",
+                    "fieldSearch": "tag=*",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "tag"
+                },
+                {
+                    "comment": {
+                        "data_type": "string",
+                        "description": "The user involved in the activity reported by IDS.",
+                        "expected_values": [
+                            "cronaldo"
+                        ],
+                        "recommended": false
+                    },
+                    "fieldName": "user",
+                    "owner": "UBA_IDS_IPS",
+                    "type": "string",
+                    "fieldSearch": "user=*",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "user"
+                }
+            ],
+            "calculations": [],
+            "constraints": [
+                {
+                    "search": "`uba_cim_ids_indexes`",
+                    "owner": "UBA_IDS_IPS"
+                }
+            ],
+            "lineage": "UBA_IDS_IPS"
+        }
+    ],
+    "objectNameList": [
+        "UBA_IDS_IPS"
+    ]
+}

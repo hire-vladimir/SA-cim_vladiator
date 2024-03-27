@@ -1,19 +1,26 @@
 <form version="1.1">
   <label>CIM Dictionary</label>
   <fieldset submitButton="true" autoRun="true">
+    <input type="dropdown" token="product_type" searchWhenChanged="true">
+      <label>Product type:</label>
+      <choice value="*">Any</choice>
+      <choice value="core">Core, ES</choice>
+      <choice value="uba">UBA</choice>
+      <default>*</default>
+      <initialValue>*</initialValue>
+    </input>
+    <input type="dropdown" token="dm" searchWhenChanged="true">
+      <label>Datamodel:</label>
+      <search>
+        <query>| datamodel | spath modelName | table modelName | eval product_type=if(like(modelName, "UBA_%"), "uba", "core") | search product_type=$product_type|s$ | sort modelName</query>
+      </search>
+      <fieldForLabel>modelName</fieldForLabel>
+      <fieldForValue>modelName</fieldForValue>
+      <choice value="">Any</choice>
+    </input>
     <input type="text" token="field">
       <label>Field name:</label>
-      <default>*</default>
-    </input>
-    <input type="dropdown" token="dm">
-      <label>Datamodel:</label>
-      <choice value="*">Any</choice>
-      <search>
-        <query>| inputlookup cim_validation_dictionary | stats count by datamodel</query>
-      </search>
-      <fieldForLabel>datamodel</fieldForLabel>
-      <fieldForValue>datamodel</fieldForValue>
-      <default>*</default>
+      <default>.*</default>
     </input>
   </fieldset>
   <row>
@@ -38,18 +45,74 @@
   </row>
   <row>
     <panel>
+      <html>
+        <div>Information is populated based on the datamodel definition metadata.</div>
+      </html>
+    </panel>
+  </row>
+  <row>
+    <panel>
+      <table>
+        <title>Datamodel definition information</title>
+        <search>
+          <query>| datamodel $dm|s$ | spath | eval product_type=if(like(modelName, "UBA_%"), "uba", "core") | table modelName, product_type, displayName, description | search product_type=$product_type|s$ | sort modelName</query>
+          <earliest>-24h@h</earliest>
+          <latest>now</latest>
+        </search>
+        <option name="drilldown">row</option>
+        <option name="refresh.display">progressbar</option>
+      </table>
+    </panel>
+  </row>
+  <row>
+    <panel>
       <table>
         <title>Dictionary</title>
         <search id="cim_base">
-          <query>| inputlookup cim_validation_dictionary | search datamodel="$dm$" field="$field$" | fields - cim_version</query>
+          <query>| datamodel $dm$
+              | spath
+              | spath path=objects{}.fields{} output=v
+              | spath path=objects{}.calculations{}.outputFields{} output=u
+              | eval w=mvappend(v,u)
+              | fields - _raw | fields modelName w
+              | mvexpand w
+              
+              | eval data_type=json_extract(w,"type")
+              | eval description=json_extract(w,"comment.description")
+              | eval field=json_extract(w,"fieldName")
+              | eval object=json_extract(w,"owner")
+              
+              | lookup cim_validator_recommended_fields field OUTPUT is_recommended 
+              | eval recommended=json_extract(w,"comment.recommended"), recommended=if(is_recommended=="true" OR match(recommended, "(?i)true|1"), "✅", "")
+              
+              | eval expected_values=json_array_to_mv(json_extract(w,"comment.expected_values"))
+              | eval possible_values=split(json_extract(w,"comment.possible_values"), ","), possible_values=mvmap(possible_values, trim(possible_values))
+              | eval combined_expected_values=mvdedup(mvappend(expected_values, possible_values))
+              
+              
+              | rename modelName AS datamodel combined_expected_values AS expected_values
+              | table datamodel field recommended data_type description object expected_values
+              | eval product_type=if(like(datamodel, "UBA_%"), "uba", "core") 
+              | where match(field, $field|s$) | search product_type=$product_type|s$
+              | fields - product_type
+              | sort field
+            </query>
           <earliest>0</earliest>
           <latest></latest>
         </search>
-        <option name="wrap">true</option>
-        <option name="rowNumbers">true</option>
-        <option name="drilldown">cell</option>
+        <option name="count">50</option>
         <option name="dataOverlayMode">none</option>
-        <option name="count">25</option>
+        <option name="drilldown">cell</option>
+        <option name="rowNumbers">true</option>
+        <option name="wrap">true</option>
+        <format type="color" field="data_type">
+          <colorPalette type="sharedList"></colorPalette>
+          <scale type="sharedCategory"></scale>
+        </format>
+        <format type="color" field="datamodel">
+          <colorPalette type="sharedList"></colorPalette>
+          <scale type="sharedCategory"></scale>
+        </format>
       </table>
     </panel>
   </row>

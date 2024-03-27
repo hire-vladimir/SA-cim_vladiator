@@ -1,0 +1,404 @@
+{
+    "modelName": "UBA_Web_Proxy",
+    "displayName": "UBA Web Proxy",
+    "description": "Splunk UBA Web Proxy Data Model for CIM Validator App.",
+    "objectSummary": {
+        "Event-Based": 1,
+        "Transaction-Based": 0,
+        "Search-Based": 0
+    },
+    "objects": [
+        {
+            "objectName": "UBA_Web_Proxy",
+            "displayName": "UBA Web Proxy",
+            "parentName": "BaseEvent",
+            "comment": "",
+            "fields": [
+                {
+                    "fieldName": "_time",
+                    "owner": "BaseEvent",
+                    "type": "timestamp",
+                    "fieldSearch": "",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "_time",
+                    "comment": ""
+                },
+                {
+                    "comment": {
+                        "data_type": "string",
+                        "description": "The action taken by the server or proxy. If this value is not present, it can be derived from the status field.",
+                        "recommended": true,
+                        "expected_values": [
+                            "allowed",
+                            "blocked"
+                        ]
+                    },
+                    "fieldName": "action",
+                    "owner": "UBA_Web_Proxy",
+                    "type": "string",
+                    "fieldSearch": "action=*",
+                    "required": true,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "action"
+                },
+                {
+                    "comment": {
+                        "data_type": "integer",
+                        "description": "The total number of bytes transferred (bytes_in + bytes_out).",
+                        "recommended": false,
+                        "expected_values": [
+                            "1168"
+                        ]
+                    },
+                    "fieldName": "bytes",
+                    "owner": "UBA_Web_Proxy",
+                    "type": "number",
+                    "fieldSearch": "bytes=*",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "bytes"
+                },
+                {
+                    "comment": {
+                        "data_type": "integer",
+                        "description": "The number of inbound bytes transferred.",
+                        "recommended": true,
+                        "expected_values": [
+                            "1028"
+                        ]
+                    },
+                    "fieldName": "bytes_in",
+                    "owner": "UBA_Web_Proxy",
+                    "type": "number",
+                    "fieldSearch": "bytes_in=*",
+                    "required": true,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "bytes_in"
+                },
+                {
+                    "comment": {
+                        "data_type": "integer",
+                        "description": "The number of outbound bytes transferred.",
+                        "recommended": true,
+                        "expected_values": [
+                            "140"
+                        ]
+                    },
+                    "fieldName": "bytes_out",
+                    "owner": "UBA_Web_Proxy",
+                    "type": "number",
+                    "fieldSearch": "bytes_out=*",
+                    "required": true,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "bytes_out"
+                },
+                {
+                    "comment": {
+                        "data_type": "string",
+                        "description": "The category of traffic provided by the proxy server.",
+                        "recommended": false,
+                        "expected_values": [
+                            "entertainment"
+                        ]
+                    },
+                    "fieldName": "category",
+                    "owner": "UBA_Web_Proxy",
+                    "type": "string",
+                    "fieldSearch": "category=*",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "category"
+                },
+                {
+                    "comment": {
+                        "data_type": "string",
+                        "description": "The IP address of the remote host.",
+                        "recommended": false,
+                        "expected_values": [
+                            "10.x.x.x"
+                        ]
+                    },
+                    "fieldName": "dest_ip",
+                    "owner": "UBA_Web_Proxy",
+                    "type": "string",
+                    "fieldSearch": "dest_ip=*",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "dest_ip"
+                },
+                {
+                    "comment": {
+                        "data_type": "integer",
+                        "description": "The time in milliseconds taken by the proxy event.",
+                        "recommended": false,
+                        "expected_values": [
+                            "241"
+                        ]
+                    },
+                    "fieldName": "duration",
+                    "owner": "UBA_Web_Proxy",
+                    "type": "number",
+                    "fieldSearch": "duration=*",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "duration"
+                },
+                {
+                    "fieldName": "host",
+                    "owner": "BaseEvent",
+                    "type": "string",
+                    "fieldSearch": "",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "host",
+                    "comment": ""
+                },
+                {
+                    "comment": {
+                        "data_type": "string",
+                        "description": "The content-type of the requested HTTP resource.",
+                        "recommended": true,
+                        "expected_values": [
+                            "image/gif"
+                        ]
+                    },
+                    "fieldName": "http_content_type",
+                    "owner": "UBA_Web_Proxy",
+                    "type": "string",
+                    "fieldSearch": "http_content_type=*",
+                    "required": true,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "http_content_type"
+                },
+                {
+                    "comment": {
+                        "data_type": "string",
+                        "description": "The HTTP method used in the request.",
+                        "recommended": true,
+                        "expected_values": [
+                            "GET"
+                        ]
+                    },
+                    "fieldName": "http_method",
+                    "owner": "UBA_Web_Proxy",
+                    "type": "string",
+                    "fieldSearch": "http_method=*",
+                    "required": true,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "http_method"
+                },
+                {
+                    "comment": {
+                        "data_type": "string",
+                        "description": "The HTTP referrer used in the request.",
+                        "recommended": false,
+                        "expected_values": [
+                            "referrer.acme.com"
+                        ]
+                    },
+                    "fieldName": "http_referrer",
+                    "owner": "UBA_Web_Proxy",
+                    "type": "string",
+                    "fieldSearch": "http_referrer=*",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "http_referrer"
+                },
+                {
+                    "comment": {
+                        "data_type": "string",
+                        "description": "The user agent used in the request.",
+                        "recommended": true,
+                        "expected_values": [
+                            "Mozilla/5.0 (compatible; MSIE 9.0; Windows NT 6.1; Trident/5.0)"
+                        ]
+                    },
+                    "fieldName": "http_user_agent",
+                    "owner": "UBA_Web_Proxy",
+                    "type": "string",
+                    "fieldSearch": "http_user_agent=*",
+                    "required": true,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "http_user_agent"
+                },
+                {
+                    "comment": {
+                        "data_type": "integer",
+                        "description": "The amount of time it took to receive a response, if applicable, in milliseconds.",
+                        "recommended": false,
+                        "expected_values": [
+                            "200"
+                        ]
+                    },
+                    "fieldName": "response_time",
+                    "owner": "UBA_Web_Proxy",
+                    "type": "number",
+                    "fieldSearch": "response_time=*",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "response_time"
+                },
+                {
+                    "fieldName": "source",
+                    "owner": "BaseEvent",
+                    "type": "string",
+                    "fieldSearch": "",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "source",
+                    "comment": ""
+                },
+                {
+                    "fieldName": "sourcetype",
+                    "owner": "BaseEvent",
+                    "type": "string",
+                    "fieldSearch": "",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "sourcetype",
+                    "comment": ""
+                },
+                {
+                    "comment": {
+                        "data_type": "string",
+                        "description": "The source of the network traffic, such as the client requesting the connection.",
+                        "recommended": true,
+                        "expected_values": [
+                            "10.x.x.x"
+                        ]
+                    },
+                    "fieldName": "src_ip",
+                    "owner": "UBA_Web_Proxy",
+                    "type": "string",
+                    "fieldSearch": "src_ip=*",
+                    "required": true,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "src_ip"
+                },
+                {
+                    "comment": {
+                        "data_type": "integer",
+                        "description": "The HTTP response code indicating the status of the proxy request.",
+                        "recommended": true,
+                        "expected_values": [
+                            "200"
+                        ]
+                    },
+                    "fieldName": "status",
+                    "owner": "UBA_Web_Proxy",
+                    "type": "number",
+                    "fieldSearch": "status=*",
+                    "required": true,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "status"
+                },
+                {
+                    "comment": {
+                        "data_type": "string",
+                        "description": "Splunk UBA categories rely on the tags from CIM-compliant events to correctly parse data from the Splunk platform when using Splunk Direct in Splunk UBA.",
+                        "recommended": true,
+                        "expected_values": [
+                            "web",
+                            "proxy"
+                        ]
+                    },
+                    "fieldName": "tag",
+                    "owner": "UBA_Web_Proxy",
+                    "type": "string",
+                    "fieldSearch": "*",
+                    "required": true,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "tag"
+                },
+                {
+                    "comment": {
+                        "data_type": "string",
+                        "description": "The URL accessed in the request.",
+                        "recommended": true,
+                        "expected_values": [
+                            "http://subdomain.acme.com/index.html"
+                        ]
+                    },
+                    "fieldName": "url",
+                    "owner": "UBA_Web_Proxy",
+                    "type": "string",
+                    "fieldSearch": "url=*",
+                    "required": true,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "url"
+                },
+                {
+                    "comment": {
+                        "data_type": "string",
+                        "description": "The user that requested the HTTP resource.",
+                        "recommended": false,
+                        "expected_values": [
+                            "cronaldo"
+                        ]
+                    },
+                    "fieldName": "user",
+                    "owner": "UBA_Web_Proxy",
+                    "type": "string",
+                    "fieldSearch": "user=*",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "user"
+                }
+            ],
+            "calculations": [],
+            "constraints": [
+                {
+                    "search": "`uba_cim_webproxy_indexes`",
+                    "owner": "UBA_Web_Proxy"
+                }
+            ],
+            "lineage": "UBA_Web_Proxy"
+        }
+    ],
+    "objectNameList": [
+        "UBA_Web_Proxy"
+    ]
+}

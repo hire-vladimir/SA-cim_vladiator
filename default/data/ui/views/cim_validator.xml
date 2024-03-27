@@ -1,7 +1,42 @@
 <form script="table_icons_rangemap_now_with_mv.js" stylesheet="table_decorations.css, resize_inputs.css" version="1.1">
-  <label>CIM Validator</label>
+  <label>CIM Vladiator</label>
   <search id="cim_base">
-    <query>| datamodel $dm$ | rex max_match=999 "fieldName\":\"(?&lt;field&gt;[^\"]+)" | stats values(field) as field | mvexpand field  | where NOT match(field, "_time|host|sourcetype|source|[A-Z]+|_bunit|_category|_priority|_requires_av|_should_update") OR match(field, "object_category")   | join type=outer field [$search_type$ $cim_search$ | head $event_limit$ | fieldsummary maxvals=15 | eventstats max(count) AS total | eval percent_coverage=round(count/total*100, 2) | table field, percent_coverage, distinct_count, total, values]  | spath input=values | rename {}.value AS sample_values {}.count AS sample_count distinct_count AS distinct_value_count total AS total_events  | fillnull value=0 percent_coverage, distinct_value_count, total_events   | mvmath field=sample_count field2=total_events | eval field_values=mvzip(mvmath_result, sample_values, " ")  | lookup cim_validation_regex field | mvrex showcount=t showunmatched=t field=sample_values validation_regex  | eval is_cim_valid=case(total_events==0, "severe!!!no extracted values found", percent_coverage &lt; 90, "elevated!!!event coverage less than 90%", mvrex_unmatched_count &gt; 0, "elevated!!!found ".mvrex_unmatched_count." unexpected values (".mvjoin(mvrex_unmatched, ", ").")", isnull(validation_regex) OR validation_regex=="", "check!!!no validation regex was found to evaluate", 1==1, "low!!!looking good!")  | lookup cim_validator_recommended_fields field OUTPUT is_recommended | eval ir=if(is_recommended=="true", "star", null()) | table ir, field, total_events, distinct_value_count, percent_coverage, field_values, is_cim_valid</query>
+    <query>| datamodel $dm$ | spath 
+    | spath path=objects{}.fields{} output=v 
+    | spath path=objects{}.calculations{}.outputFields{} output=u 
+    | eval w=mvappend(v,u) 
+    | fields - _raw | fields modelName w
+    | mvexpand w 
+    | eval field=json_extract(w,"fieldName")
+    
+    | lookup cim_validator_recommended_fields field OUTPUT is_recommended 
+    | eval recommended=json_extract(w,"comment.recommended"), recommended=if(is_recommended=="true" OR match(recommended, "(?i)true|1"), "true", "false")
+    
+    | rename modelName AS datamodel
+    | stats values(recommended) AS recommended by datamodel, field
+    | eval recommended=if(match(recommended, "true"), "true", "false")
+    | where NOT match(field, "_time|^host$|sourcetype|source|[A-Z]+|_bunit|_category|_priority|_requires_av|_should_update") OR match(field, "object_category")
+    
+    | join type=outer field 
+      [ $search_type$ $cim_search$ | head $event_limit$
+        | fieldsummary maxvals=15 
+        | eventstats max(count) AS total 
+        | eval percent_coverage=round(count/total*100, 2) 
+        | table field, percent_coverage, distinct_count, total, values] 
+        
+    | spath input=values 
+    | rename {}.value AS sample_values {}.count AS sample_count distinct_count AS distinct_value_count total AS total_events 
+    | fillnull value=0 percent_coverage, distinct_value_count, total_events 
+    | mvmath field=sample_count field2=total_events 
+    | eval field_values=mvzip(mvmath_result, sample_values, " ") 
+    | lookup cim_validation_regex datamodel field OUTPUT validation_regex 
+    | mvrex showcount=t showunmatched=t field=sample_values validation_regex 
+    | eval is_cim_valid=case(total_events==0, "severe!!!no extracted values found", percent_coverage &lt; 90, "elevated!!!event coverage less than 90%", mvrex_unmatched_count &gt; 0, "elevated!!!found ".mvrex_unmatched_count." unexpected values (".mvjoin(mvrex_unmatched, ", ").")", isnull(validation_regex) OR validation_regex=="", "check!!!no validation regex was found to evaluate", 1==1, "low!!!looking good!") 
+    | lookup cim_validator_recommended_fields field OUTPUT is_recommended 
+    | eval ir=if(is_recommended=="true" OR recommended="true", "star", null())
+    | table ir, field, total_events, distinct_value_count, percent_coverage, field_values, is_cim_valid
+    | sort field
+    </query>
     <earliest>$timerange.earliest$</earliest>
     <latest>$timerange.latest$</latest>
   </search>
@@ -9,13 +44,21 @@
     <input type="dropdown" token="search_type">
       <label>Search type:</label>
       <choice value="search">_raw</choice>
-      <choice value="">datamodel</choice>
+      <choice value="| localop">generating</choice>
       <default>search</default>
+    </input>
+    <input type="dropdown" token="product_type">
+      <label>Product type:</label>
+      <choice value="*">Any</choice>
+      <choice value="core">Core, ES</choice>
+      <choice value="uba">UBA</choice>
+      <default>*</default>
+      <initialValue>*</initialValue>
     </input>
     <input type="dropdown" token="dm" searchWhenChanged="true">
       <label>Target datamodel:</label>
       <search>
-        <query>| datamodel            | spath modelName           | table modelName           | sort  modelName</query>
+        <query>| datamodel | spath modelName | table modelName  | eval product_type=if(like(modelName, "UBA_%"), "uba", "core") | search product_type=$product_type|s$ | sort  modelName</query>
       </search>
       <fieldForLabel>modelName</fieldForLabel>
       <fieldForValue>modelName</fieldForValue>
@@ -121,9 +164,13 @@
         Please keep following things in mind:
         <ul>
           <li>Fields that are derived from asset and identity lookups are excluded, i.e. src_category, src_priority, etc.</li>
-          <li>
-            <b>field_values</b> percentage calculation behavior differs from that of Splunk. Instead of percentage calculation occurring on values that only exist, calculation in this table also takes into the account values that are “null” or do not exist.</li>
-          <li>Use <i>Search type</i> picker to tell the validator if search type. i.e. <b>_raw</b> search will be <i>index=network sourcetype=firewall</i>, <b>datamodel</b> as <i>| datamodel Network_Traffic All_Traffic</i>. Searches on _raw are particularly helpful, as they allow to "test" data before it makes it into the accelerated datamodel; removing the need to need for constant rebuild during development/test cycle.</li>
+          <li><b>field_values</b> percentage calculation behavior differs from that of Splunk. Instead of percentage calculation occurring on values that only exist, calculation in this table also takes into the account values that are “null” or do not exist.</li>
+          <li>Use the <i>Search type</i> picker to set the type of the search used to retrieve the data
+          <ul>
+            <li><b>_raw</b> search will be a search that does not start with a pipe, for example <code>index=network sourcetype=firewall tag=network</code></li>
+            <li><b>generating</b> search will be any generating command that starts with a pipe, for example <code>| datamodel Network_Traffic All_Traffic</code> or with <code>| from</code>, <code>| inputlookup</code> etc.</li>
+          </ul>
+          Searches with the <b>_raw</b> are particularly helpful, as they allow to "test" data before it makes it into the accelerated datamodel; removing the need to need for constant rebuild during development/test cycle.</li>
         </ul>
       </html>
     </panel>
@@ -137,7 +184,8 @@
         <default>1==1</default>
       </input>
       <html>
-        <div><i class="icon-star star" title="star"></i> denotes recommended fields based on use within ES and UBA products.</div>
+        <div>
+          <i class="icon-star star" title="star"/> denotes recommended fields based on use within ES and UBA products, or as defined in the CIM model definition.</div>
       </html>
       <table id="tmy_mv_table">
         <title>Data Model $dm$ (and sub models) uses these fields:</title>

@@ -1,0 +1,459 @@
+{
+    "modelName": "UBA_Printer",
+    "displayName": "UBA Printer",
+    "description": "Splunk UBA Printer Data Model for CIM Validator App",
+    "objectSummary": {
+        "Event-Based": 1,
+        "Transaction-Based": 0,
+        "Search-Based": 0
+    },
+    "objects": [
+        {
+            "objectName": "UBA_Printer",
+            "displayName": "UBA Printer",
+            "parentName": "BaseEvent",
+            "comment": "",
+            "fields": [
+                {
+                    "fieldName": "_time",
+                    "owner": "BaseEvent",
+                    "type": "timestamp",
+                    "fieldSearch": "",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "_time",
+                    "comment": ""
+                },
+                {
+                    "comment": {
+                        "data_type": "string",
+                        "description": "The data type of the file that was printed.",
+                        "expected_values": [
+                            "NT EMF 1.008"
+                        ],
+                        "recommended": true
+                    },
+                    "fieldName": "data_type",
+                    "owner": "UBA_Printer",
+                    "type": "string",
+                    "fieldSearch": "data_type=*",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "data_type"
+                },
+                {
+                    "comment": {
+                        "data_type": "string",
+                        "description": "The name of the driver.",
+                        "expected_values": [
+                            "HP LaserJet M3035 mfp PCL6"
+                        ],
+                        "recommended": false
+                    },
+                    "fieldName": "driver_process",
+                    "owner": "UBA_Printer",
+                    "type": "string",
+                    "fieldSearch": "driver_process=*",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "driver_process"
+                },
+                {
+                    "comment": {
+                        "data_type": "string",
+                        "description": "The name of the file that was printed.",
+                        "expected_values": [
+                            "LIN111757BPAM08-04Laboratory17-10-15-12104.pdf"
+                        ],
+                        "recommended": true
+                    },
+                    "fieldName": "file_name",
+                    "owner": "UBA_Printer",
+                    "type": "string",
+                    "fieldSearch": "file_name=*",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "file_name"
+                },
+                {
+                    "comment": {
+                        "data_type": "number",
+                        "description": "The size of the file being printed.",
+                        "expected_values": [
+                            "10280"
+                        ],
+                        "recommended": false
+                    },
+                    "fieldName": "file_size",
+                    "owner": "UBA_Printer",
+                    "type": "number",
+                    "fieldSearch": "file_size=*",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "file_size"
+                },
+                {
+                    "fieldName": "host",
+                    "owner": "BaseEvent",
+                    "type": "string",
+                    "fieldSearch": "",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "host",
+                    "comment": ""
+                },
+                {
+                    "comment": {
+                        "data_type": "number",
+                        "description": "The print ID of the job.",
+                        "expected_values": [
+                            "35"
+                        ],
+                        "recommended": false
+                    },
+                    "fieldName": "job_id",
+                    "owner": "UBA_Printer",
+                    "type": "number",
+                    "fieldSearch": "job_id=*",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "job_id"
+                },
+                {
+                    "comment": {
+                        "data_type": "string",
+                        "description": "The printer operation.",
+                        "expected_values": [
+                            "add"
+                        ],
+                        "recommended": false
+                    },
+                    "fieldName": "operation",
+                    "owner": "UBA_Printer",
+                    "type": "string",
+                    "fieldSearch": "operation=*",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "operation"
+                },
+                {
+                    "comment": {
+                        "data_type": "number",
+                        "description": "The page that was printed.",
+                        "expected_values": [
+                            "7"
+                        ],
+                        "recommended": false
+                    },
+                    "fieldName": "page_printed",
+                    "owner": "UBA_Printer",
+                    "type": "number",
+                    "fieldSearch": "page_printed=*",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "page_printed"
+                },
+                {
+                    "comment": {
+                        "data_type": "string",
+                        "description": "The print parameters.",
+                        "expected_values": [
+                            ""
+                        ],
+                        "recommended": false
+                    },
+                    "fieldName": "parameters",
+                    "owner": "UBA_Printer",
+                    "type": "string",
+                    "fieldSearch": "parameters=*",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "parameters"
+                },
+                {
+                    "comment": {
+                        "data_type": "string",
+                        "description": "The print processor.",
+                        "expected_values": [
+                            "hpzppwn7"
+                        ],
+                        "recommended": false
+                    },
+                    "fieldName": "print_processor",
+                    "owner": "UBA_Printer",
+                    "type": "string",
+                    "fieldSearch": "print_processor=*",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "print_processor"
+                },
+                {
+                    "comment": {
+                        "data_type": "string",
+                        "description": "The printer identifier.",
+                        "expected_values": [
+                            "acmeprinter1"
+                        ],
+                        "recommended": false
+                    },
+                    "fieldName": "printer",
+                    "owner": "UBA_Printer",
+                    "type": "string",
+                    "fieldSearch": "printer=*",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "printer"
+                },
+                {
+                    "comment": {
+                        "data_type": "number",
+                        "description": "The priority of the print job.",
+                        "expected_values": [
+                            "1"
+                        ],
+                        "recommended": false
+                    },
+                    "fieldName": "priority",
+                    "owner": "UBA_Printer",
+                    "type": "number",
+                    "fieldSearch": "priority=*",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "priority"
+                },
+                {
+                    "comment": {
+                        "data_type": "string",
+                        "description": "The type of the event.",
+                        "expected_values": [
+                            "Microsoft-Windows-PrintService:812"
+                        ],
+                        "recommended": true
+                    },
+                    "fieldName": "signature",
+                    "owner": "UBA_Printer",
+                    "type": "string",
+                    "fieldSearch": "signature=*",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "signature"
+                },
+                {
+                    "fieldName": "source",
+                    "owner": "BaseEvent",
+                    "type": "string",
+                    "fieldSearch": "",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "source",
+                    "comment": ""
+                },
+                {
+                    "fieldName": "sourcetype",
+                    "owner": "BaseEvent",
+                    "type": "string",
+                    "fieldSearch": "",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "sourcetype",
+                    "comment": ""
+                },
+                {
+                    "comment": {
+                        "data_type": "string",
+                        "description": "The host name of the device that submitted the printer job.",
+                        "expected_values": [
+                            "acmehost1"
+                        ],
+                        "recommended": false
+                    },
+                    "fieldName": "src_host",
+                    "owner": "UBA_Printer",
+                    "type": "string",
+                    "fieldSearch": "src_host=*",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "src_host"
+                },
+                {
+                    "comment": {
+                        "data_type": "string",
+                        "description": "The IP address of the device that submitted the printer job.",
+                        "expected_values": [
+                            "10.x.x.x"
+                        ],
+                        "recommended": false
+                    },
+                    "fieldName": "src_ip",
+                    "owner": "UBA_Printer",
+                    "type": "string",
+                    "fieldSearch": "src_ip=*",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "src_ip"
+                },
+                {
+                    "comment": {
+                        "data_type": "string",
+                        "description": "The status of print job.",
+                        "expected_values": [
+                            "printing"
+                        ],
+                        "recommended": false
+                    },
+                    "fieldName": "status",
+                    "owner": "UBA_Printer",
+                    "type": "string",
+                    "fieldSearch": "status=*",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "status"
+                },
+                {
+                    "comment": {
+                        "data_type": "string",
+                        "description": "The time that the print job was submitted. The format must be either\u00a0MM/dd/yyyy HH:mm:ss.SSS\u00a0or\u00a0MM/dd/yyyy.",
+                        "expected_values": [
+                            "05/22/2019 13:10:44:001"
+                        ],
+                        "recommended": false
+                    },
+                    "fieldName": "submitted_time",
+                    "owner": "UBA_Printer",
+                    "type": "string",
+                    "fieldSearch": "submitted_time=*",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "submitted_time"
+                },
+                {
+                    "comment": {
+                        "data_type": "string",
+                        "description": "Splunk UBA categories rely on the tags from CIM-compliant events to correctly parse data from the Splunk platform when using Splunk Direct in Splunk UBA.",
+                        "expected_values": [
+                            "printer"
+                        ],
+                        "recommended": true
+                    },
+                    "fieldName": "tag",
+                    "owner": "UBA_Printer",
+                    "type": "string",
+                    "fieldSearch": "tag=*",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "tag"
+                },
+                {
+                    "comment": {
+                        "data_type": "number",
+                        "description": "The total number of pages printed.",
+                        "expected_values": [
+                            "10"
+                        ],
+                        "recommended": false
+                    },
+                    "fieldName": "total_pages",
+                    "owner": "UBA_Printer",
+                    "type": "number",
+                    "fieldSearch": "total_pages=*",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "total_pages"
+                },
+                {
+                    "comment": {
+                        "data_type": "string",
+                        "description": "The type or log.",
+                        "expected_values": [
+                            "PrintJob"
+                        ],
+                        "recommended": false
+                    },
+                    "fieldName": "type",
+                    "owner": "UBA_Printer",
+                    "type": "string",
+                    "fieldSearch": "type=*",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "type"
+                },
+                {
+                    "comment": {
+                        "data_type": "string",
+                        "description": "The user involved in the activity reported.",
+                        "expected_values": [
+                            "cronaldo"
+                        ],
+                        "recommended": true
+                    },
+                    "fieldName": "user",
+                    "owner": "UBA_Printer",
+                    "type": "string",
+                    "fieldSearch": "user=*",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "user"
+                }
+            ],
+            "calculations": [],
+            "constraints": [
+                {
+                    "search": "`uba_cim_printer_indexes`",
+                    "owner": "UBA_Printer"
+                }
+            ],
+            "lineage": "UBA_Printer"
+        }
+    ],
+    "objectNameList": [
+        "UBA_Printer"
+    ]
+}
