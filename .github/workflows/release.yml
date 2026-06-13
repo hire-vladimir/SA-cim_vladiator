@@ -3,6 +3,8 @@ name: Build and release .spl
 on:
   release:
     types: [published]
+  pull_request:
+    branches: [main]
   workflow_dispatch:
     inputs:
       version:
@@ -11,58 +13,73 @@ on:
         default: "0.0.0-manual"
 
 permissions:
-  contents: write
+  contents: read
+
+env:
+  APP_BASE_NAME: SA-cim_vladiator
 
 jobs:
-  package:
+  build:
     runs-on: ubuntu-latest
+    outputs:
+      app_id: ${{ steps.version.outputs.app_id }}
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
 
       - name: Set up Python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5
         with:
           python-version: "3.11"
 
       - name: Install Splunk AppInspect
         run: pip install splunk-appinspect
 
-      - name: Derive version
+      - name: Derive version and app ID
         id: version
         run: |
           if [ "${{ github.event_name }}" = "release" ]; then
             TAG="${{ github.event.release.tag_name }}"
             VERSION="${TAG#v}"
+            APP_ID="${{ env.APP_BASE_NAME }}"
+          elif [ "${{ github.event_name }}" = "pull_request" ]; then
+            VERSION="0.0.0-pr${{ github.event.pull_request.number }}"
+            APP_ID="${{ env.APP_BASE_NAME }}_pr${{ github.event.pull_request.number }}"
           else
             VERSION="${{ inputs.version }}"
+            SAFE_BRANCH=$(printf '%s' "${{ github.ref_name }}" | tr -c 'A-Za-z0-9_' '_')
+            APP_ID="${{ env.APP_BASE_NAME }}_${SAFE_BRANCH}"
           fi
           echo "version=$VERSION" >> "$GITHUB_OUTPUT"
+          echo "app_id=$APP_ID" >> "$GITHUB_OUTPUT"
 
       - name: Stage app package
         run: |
-          mkdir -p build/SA-cim_vladiator
+          mkdir -p "build/${{ steps.version.outputs.app_id }}"
           # Copy everything except CI/repo-only files
           rsync -a \
             --exclude='.git' \
             --exclude='.github' \
+            --exclude='.gitignore' \
             --exclude='build' \
             --exclude='*.spl' \
-            ./ build/SA-cim_vladiator/
+            ./ "build/${{ steps.version.outputs.app_id }}/"
 
-      - name: Inject version and build number
+      - name: Inject version, build number, and app ID
         run: |
-          sed -i "s/%%VERSION%%/${{ steps.version.outputs.version }}/" \
-            build/SA-cim_vladiator/default/app.conf
-          sed -i "s/%%BUILD%%/${{ github.run_number }}/" \
-            build/SA-cim_vladiator/default/app.conf
-          grep -E '^(version|build)' build/SA-cim_vladiator/default/app.conf
+          APP_CONF="build/${{ steps.version.outputs.app_id }}/default/app.conf"
+          sed -i "s/%%VERSION%%/${{ steps.version.outputs.version }}/" "$APP_CONF"
+          sed -i "s/%%BUILD%%/${{ github.run_number }}/" "$APP_CONF"
+          sed -i "s/%%APPID%%/${{ steps.version.outputs.app_id }}/" "$APP_CONF"
+          grep -E '^(id|label|version|build)' "$APP_CONF"
 
       - name: Run Splunk AppInspect
         run: |
-          splunk-appinspect inspect build/SA-cim_vladiator \
+          splunk-appinspect inspect "build/${{ steps.version.outputs.app_id }}" \
             --mode precert \
-            --output-file appinspect_report.json
+            --included-tags cloud \
+            --output-file appinspect_report.json \
+            --generate-feedback
 
           # Fail the build if AppInspect reports any "failure" results
           python3 - <<'EOF'
@@ -84,26 +101,39 @@ jobs:
 
       - name: Upload AppInspect report
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
         with:
           name: appinspect-report
-          path: appinspect_report.json
+          path: |
+            appinspect_report.json
+            inspect.yml
+          if-no-files-found: warn
 
       - name: Build .spl package
         run: |
           cd build
-          tar czf SA-cim_vladiator.spl SA-cim_vladiator
-          mv SA-cim_vladiator.spl ../
+          tar czf "${{ steps.version.outputs.app_id }}.spl" "${{ steps.version.outputs.app_id }}"
+          mv "${{ steps.version.outputs.app_id }}.spl" ../
 
       - name: Upload .spl as workflow artifact
-        if: github.event_name != 'release'
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
         with:
-          name: SA-cim_vladiator.spl
-          path: SA-cim_vladiator.spl
+          name: ${{ steps.version.outputs.app_id }}.spl
+          path: ${{ steps.version.outputs.app_id }}.spl
+
+  release:
+    needs: build
+    if: github.event_name == 'release'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Download .spl artifact
+        uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4
+        with:
+          name: ${{ needs.build.outputs.app_id }}.spl
 
       - name: Attach .spl to release
-        if: github.event_name == 'release'
-        uses: softprops/action-gh-release@v2
+        uses: softprops/action-gh-release@3bb12739c298aeb8a4eeaf626c5b8d85266b0e65 # v2
         with:
-          files: SA-cim_vladiator.spl
+          files: ${{ needs.build.outputs.app_id }}.spl
