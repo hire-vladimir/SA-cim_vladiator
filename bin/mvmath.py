@@ -16,7 +16,7 @@ LOG_FILE_NAME = "mvmath.log"
 COMMAND_NAME = "mvmath"
 
 ALLOWED_OPTIONS = ['debug', 'field', 'field2', 'labelfield', 'prefix']
-MANDATORY_OPTIONS = []
+MANDATORY_OPTIONS = ['field', 'field2']
 
 
 if __name__ == '__main__':
