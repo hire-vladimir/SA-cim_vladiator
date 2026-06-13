@@ -88,3 +88,15 @@ def arg_on_and_enabled(argvals, arg, rex=None, is_bool=False):
     if (rex is None and arg in argvals) or (arg in argvals and re.match(rex, argvals[arg])):
         result = True
     return result
+
+
+def safe_pct(numerator, denominator):
+    """Return numerator/denominator formatted as a percentage string, or
+    None if the inputs aren't usable numbers (non-numeric, denominator is
+    zero, etc.). Callers should treat None as "couldn't compute" and decide
+    how to represent that for the row, rather than letting the exception
+    propagate and abort the whole command."""
+    try:
+        return "{:.2%}".format(float(numerator) / float(denominator))
+    except (ValueError, ZeroDivisionError, TypeError):
+        return None

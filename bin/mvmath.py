@@ -8,9 +8,9 @@ welcomeText = '''#
 # 10/25/15 1.0 initial write / quick hack to solve one task
 #
 '''
-import time, re, logging
+import time, logging
 import splunk.Intersplunk as si
-from cim_vladiator_common import setup_logging, die, validate_args, arg_on_and_enabled
+from cim_vladiator_common import setup_logging, die, validate_args, arg_on_and_enabled, safe_pct
 
 #######################################
 # SCRIPT CONFIG
@@ -46,14 +46,34 @@ if __name__ == '__main__':
 
         for row in results:
             if argvals['field'] in row and argvals['field2'] in row:
-                tally = float(row[argvals['field2']])
                 vdata = row[argvals['field']]
-                res = ["{:.2%}".format(float(x) / tally) for x in vdata]
-                if isinstance(vdata, str) and vdata:
-                    res = "{:.2%}".format(float(vdata) / tally)
+                tally = row[argvals['field2']]
+
+                if isinstance(vdata, list):
+                    res = []
+                    skipped = 0
+                    for x in vdata:
+                        pct = safe_pct(x, tally)
+                        if pct is None:
+                            skipped += 1
+                            res.append("")
+                        else:
+                            res.append(pct)
+                    if skipped:
+                        logger.warning(
+                            'field="%s": %d of %d value(s) could not be converted to a percentage against field2="%s"',
+                            argvals['field'], skipped, len(vdata), tally)
+                else:
+                    pct = safe_pct(vdata, tally)
+                    if pct is None:
+                        logger.warning(
+                            'field="%s" value="%s" could not be converted to a percentage against field2="%s"',
+                            argvals['field'], vdata, tally)
+                        pct = ""
+                    res = pct
 
                 row[output_column_name + "_result"] = res
-                logger.debug('---> %s = vdata="%s", tally="%s", out="%s"', row['field'], vdata, tally, res)
+                logger.debug('---> field="%s" = vdata="%s", field2="%s", out="%s"', argvals['field'], vdata, tally, res)
 
         # logger.debug('results="%s"' % results)
         logger.info('sending events to splunk count="%d"', len(results))
