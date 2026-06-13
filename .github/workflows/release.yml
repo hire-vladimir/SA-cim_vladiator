@@ -37,7 +37,7 @@ jobs:
             APP_ID="SA-cim_vladiator"
           else
             VERSION="${{ inputs.version }}"
-            SAFE_BRANCH=$(echo "${{ github.ref_name }}" | tr -c 'A-Za-z0-9_' '_')
+            SAFE_BRANCH=$(printf '%s' "${{ github.ref_name }}" | tr -c 'A-Za-z0-9_' '_')
             APP_ID="SA-cim_vladiator_${SAFE_BRANCH}"
           fi
           echo "version=$VERSION" >> "$GITHUB_OUTPUT"
