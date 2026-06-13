@@ -15,6 +15,9 @@ on:
 permissions:
   contents: write
 
+env:
+  APP_BASE_NAME: SA-cim_vladiator
+
 jobs:
   package:
     runs-on: ubuntu-latest
@@ -36,14 +39,14 @@ jobs:
           if [ "${{ github.event_name }}" = "release" ]; then
             TAG="${{ github.event.release.tag_name }}"
             VERSION="${TAG#v}"
-            APP_ID="SA-cim_vladiator"
+            APP_ID="${{ env.APP_BASE_NAME }}"
           elif [ "${{ github.event_name }}" = "pull_request" ]; then
             VERSION="0.0.0-pr${{ github.event.pull_request.number }}"
-            APP_ID="SA-cim_vladiator_pr${{ github.event.pull_request.number }}"
+            APP_ID="${{ env.APP_BASE_NAME }}_pr${{ github.event.pull_request.number }}"
           else
             VERSION="${{ inputs.version }}"
             SAFE_BRANCH=$(printf '%s' "${{ github.ref_name }}" | tr -c 'A-Za-z0-9_' '_')
-            APP_ID="SA-cim_vladiator_${SAFE_BRANCH}"
+            APP_ID="${{ env.APP_BASE_NAME }}_${SAFE_BRANCH}"
           fi
           echo "version=$VERSION" >> "$GITHUB_OUTPUT"
           echo "app_id=$APP_ID" >> "$GITHUB_OUTPUT"
