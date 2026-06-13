@@ -62,6 +62,7 @@ jobs:
         run: |
           splunk-appinspect inspect build/SA-cim_vladiator \
             --mode precert \
+            --included-tags cloud \
             --output-file appinspect_report.json
 
           # Fail the build if AppInspect reports any "failure" results
