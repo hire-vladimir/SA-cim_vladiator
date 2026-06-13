@@ -10,38 +10,39 @@ welcomeText = '''#
 '''
 import time, logging
 import splunk.Intersplunk as si
-from cim_vladiator_common import setup_logging, die, validate_args, arg_on_and_enabled, safe_pct
+from cim_vladiator_common import configure_logger, abort_command, validate_command_args, option_enabled, safe_pct
 
 #######################################
 # SCRIPT CONFIG
 #######################################
 LOG_FILE_NAME = "mvmath.log"
+COMMAND_NAME = "mvmath"
 
 ALLOWED_OPTIONS = ['debug', 'field', 'field2', 'labelfield', 'prefix']
 MANDATORY_OPTIONS = []
 
 
 if __name__ == '__main__':
-    logger = setup_logging(LOG_FILE_NAME)
-    logger.info('starting..')
+    logger = configure_logger(LOG_FILE_NAME)
+    logger.info('event="command_start" command="%s"', COMMAND_NAME)
     eStart = time.time()
     try:
         results = si.readResults(None, None, False)
         keywords, argvals = si.getKeywordsAndOptions()
 
-        err = validate_args(logger, keywords, argvals, ALLOWED_OPTIONS, MANDATORY_OPTIONS)
+        err = validate_command_args(logger, COMMAND_NAME, keywords, argvals, ALLOWED_OPTIONS, MANDATORY_OPTIONS)
         if err:
-            die(logger, "mvmath", err)
+            abort_command(logger, COMMAND_NAME, err)
 
-        if arg_on_and_enabled(argvals, "debug", is_bool=True):
+        if option_enabled(argvals, "debug", is_bool=True):
             logger.setLevel(logging.DEBUG)
-            logger.debug("detecting debug argument passed, setting command log_level=DEBUG")
+            logger.debug('event="debug_enabled" command="%s"', COMMAND_NAME)
 
         output_column_name = "mvmath"
-        if arg_on_and_enabled(argvals, "labelfield"):
+        if option_enabled(argvals, "labelfield"):
             output_column_name = argvals['labelfield']
 
-        if arg_on_and_enabled(argvals, "prefix"):
+        if option_enabled(argvals, "prefix"):
             output_column_name = argvals['prefix'] + output_column_name
 
         for row in results:
@@ -61,26 +62,27 @@ if __name__ == '__main__':
                             res.append(pct)
                     if skipped:
                         logger.warning(
-                            'field="%s": %d of %d value(s) could not be converted to a percentage against field2="%s"',
-                            argvals['field'], skipped, len(vdata), tally)
+                            'event="pct_conversion_skipped" command="%s" field="%s" field2="%s" skipped="%d" total="%d"',
+                            COMMAND_NAME, argvals['field'], argvals['field2'], skipped, len(vdata))
                 else:
                     pct = safe_pct(vdata, tally)
                     if pct is None:
                         logger.warning(
-                            'field="%s" value="%s" could not be converted to a percentage against field2="%s"',
-                            argvals['field'], vdata, tally)
+                            'event="pct_conversion_failed" command="%s" field="%s" field2="%s" value="%s" field2_value="%s"',
+                            COMMAND_NAME, argvals['field'], argvals['field2'], vdata, tally)
                         pct = ""
                     res = pct
 
                 row[output_column_name + "_result"] = res
-                logger.debug('---> field="%s" = vdata="%s", field2="%s", out="%s"', argvals['field'], vdata, tally, res)
+                logger.debug('event="pct_computed" command="%s" field="%s" value="%s" field2="%s" field2_value="%s" result="%s"',
+                              COMMAND_NAME, argvals['field'], vdata, argvals['field2'], tally, res)
 
-        # logger.debug('results="%s"' % results)
-        logger.info('sending events to splunk count="%d"', len(results))
+        # logger.debug('event="results" command="%s" results="%s"', COMMAND_NAME, results)
+        logger.info('event="command_complete" command="%s" result_count="%d"', COMMAND_NAME, len(results))
         si.outputResults(results)
     except Exception as e:
-        logger.exception('error while processing events, exception="%s"', e)
+        logger.exception('event="command_error" command="%s" error="%s"', COMMAND_NAME, e)
         si.generateErrorResults(e)
         raise
     finally:
-        logger.info('exiting, execution duration=%s seconds', time.time() - eStart)
+        logger.info('event="command_end" command="%s" duration_sec="%.3f"', COMMAND_NAME, time.time() - eStart)

@@ -16,7 +16,7 @@ import logging.handlers
 LOG_LEVEL = logging.INFO
 
 
-def setup_logging(log_file_name):
+def configure_logger(log_file_name):
     """Set up a logger that writes to $SPLUNK_HOME/var/log/splunk/<log_file_name>.
 
     Falls back to a NullHandler (no-op) if SPLUNK_HOME isn't set or the log
@@ -46,15 +46,15 @@ def setup_logging(log_file_name):
     return logger
 
 
-def die(logger, prefix, msg):
-    logger.error(msg)
+def abort_command(logger, prefix, msg):
+    logger.error('event="command_abort" command="%s" reason="%s"', prefix, msg)
     exit("%s: %s" % (prefix, msg))
 
 
-def validate_args(logger, keywords, argvals, allowed_options, mandatory_options=None, require_single_keyword=False):
+def validate_command_args(logger, command_name, keywords, argvals, allowed_options, mandatory_options=None, require_single_keyword=False):
     """Return an error message string if args are invalid, else None."""
     mandatory_options = mandatory_options or []
-    logger.info('function="validate_args" calling getKeywordsAndOptions keywords="%s" args="%s"', keywords, argvals)
+    logger.info('event="validate_args" command="%s" keywords="%s" args="%s"', command_name, keywords, argvals)
 
     if require_single_keyword and len(keywords) != 1:
         return "One argument needs be specified; see command for usage details. Arguments passed: %d" % len(keywords)
@@ -69,7 +69,7 @@ def validate_args(logger, keywords, argvals, allowed_options, mandatory_options=
     return None
 
 
-def get_count(d):
+def value_count(d):
     # this will take care of cases when no mv is involved
     if isinstance(d, list):
         ret = len(d)
@@ -80,7 +80,7 @@ def get_count(d):
     return ret
 
 
-def arg_on_and_enabled(argvals, arg, rex=None, is_bool=False):
+def option_enabled(argvals, arg, rex=None, is_bool=False):
     result = False
     if is_bool:
         rex = "^(?:t|true|1|yes)$"
