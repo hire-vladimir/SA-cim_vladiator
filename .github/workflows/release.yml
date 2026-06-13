@@ -50,11 +50,13 @@ jobs:
             --exclude='*.spl' \
             ./ build/SA-cim_vladiator/
 
-      - name: Inject version
+      - name: Inject version and build number
         run: |
           sed -i "s/%%VERSION%%/${{ steps.version.outputs.version }}/" \
             build/SA-cim_vladiator/default/app.conf
-          grep '^version' build/SA-cim_vladiator/default/app.conf
+          sed -i "s/%%BUILD%%/${{ github.run_number }}/" \
+            build/SA-cim_vladiator/default/app.conf
+          grep -E '^(version|build)' build/SA-cim_vladiator/default/app.conf
 
       - name: Run Splunk AppInspect
         run: |
