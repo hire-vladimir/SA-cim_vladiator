@@ -46,6 +46,7 @@ jobs:
           rsync -a \
             --exclude='.git' \
             --exclude='.github' \
+            --exclude='.gitignore' \
             --exclude='build' \
             --exclude='*.spl' \
             ./ build/SA-cim_vladiator/
