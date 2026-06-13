@@ -3,6 +3,8 @@ name: Build and release .spl
 on:
   release:
     types: [published]
+  pull_request:
+    branches: [main]
   workflow_dispatch:
     inputs:
       version:
@@ -35,6 +37,9 @@ jobs:
             TAG="${{ github.event.release.tag_name }}"
             VERSION="${TAG#v}"
             APP_ID="SA-cim_vladiator"
+          elif [ "${{ github.event_name }}" = "pull_request" ]; then
+            VERSION="0.0.0-pr${{ github.event.pull_request.number }}"
+            APP_ID="SA-cim_vladiator_pr${{ github.event.pull_request.number }}"
           else
             VERSION="${{ inputs.version }}"
             SAFE_BRANCH=$(printf '%s' "${{ github.ref_name }}" | tr -c 'A-Za-z0-9_' '_')
