@@ -28,20 +28,24 @@ jobs:
       - name: Install Splunk AppInspect
         run: pip install splunk-appinspect
 
-      - name: Derive version
+      - name: Derive version and app ID
         id: version
         run: |
           if [ "${{ github.event_name }}" = "release" ]; then
             TAG="${{ github.event.release.tag_name }}"
             VERSION="${TAG#v}"
+            APP_ID="SA-cim_vladiator"
           else
             VERSION="${{ inputs.version }}"
+            SAFE_BRANCH=$(echo "${{ github.ref_name }}" | tr -c 'A-Za-z0-9_' '_')
+            APP_ID="SA-cim_vladiator_${SAFE_BRANCH}"
           fi
           echo "version=$VERSION" >> "$GITHUB_OUTPUT"
+          echo "app_id=$APP_ID" >> "$GITHUB_OUTPUT"
 
       - name: Stage app package
         run: |
-          mkdir -p build/SA-cim_vladiator
+          mkdir -p "build/${{ steps.version.outputs.app_id }}"
           # Copy everything except CI/repo-only files
           rsync -a \
             --exclude='.git' \
@@ -49,19 +53,19 @@ jobs:
             --exclude='.gitignore' \
             --exclude='build' \
             --exclude='*.spl' \
-            ./ build/SA-cim_vladiator/
+            ./ "build/${{ steps.version.outputs.app_id }}/"
 
-      - name: Inject version and build number
+      - name: Inject version, build number, and app ID
         run: |
-          sed -i "s/%%VERSION%%/${{ steps.version.outputs.version }}/" \
-            build/SA-cim_vladiator/default/app.conf
-          sed -i "s/%%BUILD%%/${{ github.run_number }}/" \
-            build/SA-cim_vladiator/default/app.conf
-          grep -E '^(version|build)' build/SA-cim_vladiator/default/app.conf
+          APP_CONF="build/${{ steps.version.outputs.app_id }}/default/app.conf"
+          sed -i "s/%%VERSION%%/${{ steps.version.outputs.version }}/" "$APP_CONF"
+          sed -i "s/%%BUILD%%/${{ github.run_number }}/" "$APP_CONF"
+          sed -i "s/%%APPID%%/${{ steps.version.outputs.app_id }}/" "$APP_CONF"
+          grep -E '^(id|label|version|build)' "$APP_CONF"
 
       - name: Run Splunk AppInspect
         run: |
-          splunk-appinspect inspect build/SA-cim_vladiator \
+          splunk-appinspect inspect "build/${{ steps.version.outputs.app_id }}" \
             --mode precert \
             --included-tags cloud \
             --output-file appinspect_report.json \
@@ -98,18 +102,18 @@ jobs:
       - name: Build .spl package
         run: |
           cd build
-          tar czf SA-cim_vladiator.spl SA-cim_vladiator
-          mv SA-cim_vladiator.spl ../
+          tar czf "${{ steps.version.outputs.app_id }}.spl" "${{ steps.version.outputs.app_id }}"
+          mv "${{ steps.version.outputs.app_id }}.spl" ../
 
       - name: Upload .spl as workflow artifact
         if: github.event_name != 'release'
         uses: actions/upload-artifact@v4
         with:
-          name: SA-cim_vladiator.spl
-          path: SA-cim_vladiator.spl
+          name: ${{ steps.version.outputs.app_id }}.spl
+          path: ${{ steps.version.outputs.app_id }}.spl
 
       - name: Attach .spl to release
         if: github.event_name == 'release'
         uses: softprops/action-gh-release@v2
         with:
-          files: SA-cim_vladiator.spl
+          files: ${{ steps.version.outputs.app_id }}.spl
