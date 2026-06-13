@@ -64,7 +64,8 @@ jobs:
           splunk-appinspect inspect build/SA-cim_vladiator \
             --mode precert \
             --included-tags cloud \
-            --output-file appinspect_report.json
+            --output-file appinspect_report.json \
+            --generate-feedback
 
           # Fail the build if AppInspect reports any "failure" results
           python3 - <<'EOF'
@@ -89,7 +90,10 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: appinspect-report
-          path: appinspect_report.json
+          path: |
+            appinspect_report.json
+            inspect.yml
+          if-no-files-found: warn
 
       - name: Build .spl package
         run: |
