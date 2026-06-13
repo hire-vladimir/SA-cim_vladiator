@@ -4,9 +4,6 @@ welcomeText = '''#
 #
 # shared helpers for mvrex / mvmath custom search commands
 #
-# rev. history
-# 06/12/26 1.0 initial write - extracted from mvrex.py / mvmath.py
-#
 '''
 import os
 import re

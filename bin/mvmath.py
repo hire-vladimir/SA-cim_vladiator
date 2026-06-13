@@ -4,9 +4,6 @@ welcomeText = '''#
 #
 # allows for math operations on MV fields
 #
-# rev. history
-# 10/25/15 1.0 initial write / quick hack to solve one task
-#
 '''
 import time, logging
 import splunk.Intersplunk as si

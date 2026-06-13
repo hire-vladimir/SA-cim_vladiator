@@ -4,9 +4,6 @@ welcomeText = '''#
 #
 # allow regex matches on MV fields + passing in regex values via field/token
 #
-# rev. history
-# 10/20/15 1.0 initial write
-#
 '''
 import time, re, logging
 import splunk.Intersplunk as si
