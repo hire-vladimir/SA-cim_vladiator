@@ -1,0 +1,107 @@
+name: Build and release .spl
+
+on:
+  release:
+    types: [published]
+  workflow_dispatch:
+    inputs:
+      version:
+        description: "Version to inject into app.conf (e.g. 0.0.1-test). Only used for manual runs."
+        required: false
+        default: "0.0.0-manual"
+
+permissions:
+  contents: write
+
+jobs:
+  package:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install Splunk AppInspect
+        run: pip install splunk-appinspect
+
+      - name: Derive version
+        id: version
+        run: |
+          if [ "${{ github.event_name }}" = "release" ]; then
+            TAG="${{ github.event.release.tag_name }}"
+            VERSION="${TAG#v}"
+          else
+            VERSION="${{ inputs.version }}"
+          fi
+          echo "version=$VERSION" >> "$GITHUB_OUTPUT"
+
+      - name: Stage app package
+        run: |
+          mkdir -p build/SA-cim_vladiator
+          # Copy everything except CI/repo-only files
+          rsync -a \
+            --exclude='.git' \
+            --exclude='.github' \
+            --exclude='build' \
+            --exclude='*.spl' \
+            ./ build/SA-cim_vladiator/
+
+      - name: Inject version
+        run: |
+          sed -i "s/%%VERSION%%/${{ steps.version.outputs.version }}/" \
+            build/SA-cim_vladiator/default/app.conf
+          grep '^version' build/SA-cim_vladiator/default/app.conf
+
+      - name: Run Splunk AppInspect
+        run: |
+          splunk-appinspect inspect build/SA-cim_vladiator \
+            --mode precert \
+            --output-file appinspect_report.json
+
+          # Fail the build if AppInspect reports any "failure" results
+          python3 - <<'EOF'
+          import json, sys
+          report = json.load(open("appinspect_report.json"))
+          failures = []
+          for group in report.get("reports", []):
+              for check_group in group.get("groups", []):
+                  for check in check_group.get("checks", []):
+                      if check.get("result") == "failure":
+                          failures.append(f"{check_group.get('name')}: {check.get('name')}")
+          if failures:
+              print("AppInspect FAILURES:")
+              for f in failures:
+                  print(f" - {f}")
+              sys.exit(1)
+          print("AppInspect passed with no failures.")
+          EOF
+
+      - name: Upload AppInspect report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: appinspect-report
+          path: appinspect_report.json
+
+      - name: Build .spl package
+        run: |
+          cd build
+          tar czf SA-cim_vladiator.spl SA-cim_vladiator
+          mv SA-cim_vladiator.spl ../
+
+      - name: Upload .spl as workflow artifact
+        if: github.event_name != 'release'
+        uses: actions/upload-artifact@v4
+        with:
+          name: SA-cim_vladiator.spl
+          path: SA-cim_vladiator.spl
+
+      - name: Attach .spl to release
+        if: github.event_name == 'release'
+        uses: softprops/action-gh-release@v2
+        with:
+          files: SA-cim_vladiator.spl
