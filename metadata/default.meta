@@ -1,6 +1,3 @@
 []
 access = read : [ * ], write : [ admin, power ]
-export = none
-
-# does not need to be gloabl
-# export = system
+export = system
