@@ -4,124 +4,82 @@ welcomeText = '''#
 #
 # allows for math operations on MV fields
 #
-# rev. history
-# 10/25/15 1.0 initial write / quick hack to solve one task
-#
 '''
-import time, os, re
-import logging, logging.handlers
+import time, logging
 import splunk.Intersplunk as si
-
-# Mini 'six'-like compat layer
-import sys
-if sys.version_info[0] == 2:
-    string_types = (basestring,)
-else:
-    string_types = (str,)
-
+from cim_vladiator_common import configure_logger, abort_command, validate_command_args, option_enabled, safe_pct
 
 #######################################
 # SCRIPT CONFIG
 #######################################
-# set log level valid options are: (NOTSET will disable logging)
-# CRITICAL, ERROR, WARNING, INFO, DEBUG, NOTSET
-SPLUNK_HOME = "../../../../"
-LOG_LEVEL = logging.INFO
 LOG_FILE_NAME = "mvmath.log"
+COMMAND_NAME = "mvmath"
 
-
-def setup_logging():  # setup logging
-    global SPLUNK_HOME, LOG_LEVEL, LOG_FILE_NAME
-
-    log_format = "%(asctime)s %(levelname)-s\t%(module)s[%(process)d]:%(lineno)d - %(message)s"
-    logger = logging.getLogger('v')
-    logger.setLevel(LOG_LEVEL)
-    logger.addHandler(logging.NullHandler())
-
-    # l = logging.handlers.RotatingFileHandler(os.path.join(SPLUNK_HOME, 'var', 'log', 'splunk', LOG_FILE_NAME), mode='a', maxBytes=1000000, backupCount=2)
-    # l.setFormatter(logging.Formatter(log_format))
-    # logger.addHandler(l)
-
-    # ..and (optionally) output to console
-    # logH = logging.StreamHandler()
-    # logH.setFormatter(logging.Formatter(fmt=log_format))
-    # logger.addHandler(logH)
-
-    logger.propagate = False
-    return logger
-
-
-def die(msg):
-    logger.error(msg)
-    exit("mvmath: %s" % (msg,))
-
-
-def validate_args(keywords, argvals):
-    logger.info('function="validate_args" calling getKeywordsAndOptions keywords="%s" args="%s"', keywords, argvals)
-
-    # validate keywords
-    # if len(keywords) != 1:
-    #     die("One argument needs be specified; see command for usage details. Arguments passed: %d" % len(keywords))
-
-    # validate args
-    ALLOWED_OPTIONS = ['debug', 'field', 'field2', 'labelfield', 'prefix']
-    MANDATORY_OPTIONS = []
-
-    if len([x for x in argvals if x in MANDATORY_OPTIONS]) < len(MANDATORY_OPTIONS):
-        die("Insufficient number of mandatory arguments found. Mandatory argumets are: %s" % (MANDATORY_OPTIONS,))
-
-    illegal_args = [x for x in argvals if x not in ALLOWED_OPTIONS]
-    if len(illegal_args) != 0:
-        die("The argument(s) '%s' is invalid. Supported arguments are: %s" % (illegal_args, ALLOWED_OPTIONS))
-
-
-def arg_on_and_enabled(argvals, arg, rex=None, is_bool=False):
-    result = False
-    if is_bool:
-        rex = "^(?:t|true|1|yes)$"
-
-    if (rex is None and arg in argvals) or (arg in argvals and re.match(rex, argvals[arg])):
-        result = True
-    return result
+ALLOWED_OPTIONS = ['debug', 'field', 'field2', 'labelfield', 'prefix']
+MANDATORY_OPTIONS = ['field', 'field2']
 
 
 if __name__ == '__main__':
-    logger = setup_logging()
-    logger.info('starting..')
+    logger = configure_logger(LOG_FILE_NAME)
+    logger.info('event="command_start" command="%s"', COMMAND_NAME)
     eStart = time.time()
     try:
         results = si.readResults(None, None, False)
         keywords, argvals = si.getKeywordsAndOptions()
-        validate_args(keywords, argvals)
 
-        if arg_on_and_enabled(argvals, "debug", is_bool=True):
+        err = validate_command_args(logger, COMMAND_NAME, keywords, argvals, ALLOWED_OPTIONS, MANDATORY_OPTIONS)
+        if err:
+            abort_command(logger, COMMAND_NAME, err)
+
+        if option_enabled(argvals, "debug", is_bool=True):
             logger.setLevel(logging.DEBUG)
-            logger.debug("detecting debug argument passed, setting command log_level=DEBUG")
+            logger.debug('event="debug_enabled" command="%s"', COMMAND_NAME)
 
         output_column_name = "mvmath"
-        if arg_on_and_enabled(argvals, "labelfield"):
+        if option_enabled(argvals, "labelfield"):
             output_column_name = argvals['labelfield']
 
-        if arg_on_and_enabled(argvals, "prefix"):
+        if option_enabled(argvals, "prefix"):
             output_column_name = argvals['prefix'] + output_column_name
 
         for row in results:
             if argvals['field'] in row and argvals['field2'] in row:
-                tally = float(row[argvals['field2']])
                 vdata = row[argvals['field']]
-                res = ["{:.2%}".format(float(x) / tally) for x in vdata]
-                if isinstance(vdata, string_types) and vdata:
-                    res = "{:.2%}".format(float(vdata) / tally)
+                tally = row[argvals['field2']]
+
+                if isinstance(vdata, list):
+                    res = []
+                    skipped = 0
+                    for x in vdata:
+                        pct = safe_pct(x, tally)
+                        if pct is None:
+                            skipped += 1
+                            res.append("")
+                        else:
+                            res.append(pct)
+                    if skipped:
+                        logger.warning(
+                            'event="pct_conversion_skipped" command="%s" field="%s" field2="%s" skipped="%d" total="%d"',
+                            COMMAND_NAME, argvals['field'], argvals['field2'], skipped, len(vdata))
+                else:
+                    pct = safe_pct(vdata, tally)
+                    if pct is None:
+                        logger.warning(
+                            'event="pct_conversion_failed" command="%s" field="%s" field2="%s" value="%s" field2_value="%s"',
+                            COMMAND_NAME, argvals['field'], argvals['field2'], vdata, tally)
+                        pct = ""
+                    res = pct
 
                 row[output_column_name + "_result"] = res
-                logger.debug('---> %s = vdata="%s", tally="%s", out="%s"', row['field'], vdata, tally, res)
+                logger.debug('event="pct_computed" command="%s" field="%s" value="%s" field2="%s" field2_value="%s" result="%s"',
+                              COMMAND_NAME, argvals['field'], vdata, argvals['field2'], tally, res)
 
-        # logger.debug('results="%s"' % results)
-        logger.info('sending events to splunk count="%d"', len(results))
+        # logger.debug('event="results" command="%s" results="%s"', COMMAND_NAME, results)
+        logger.info('event="command_complete" command="%s" result_count="%d"', COMMAND_NAME, len(results))
         si.outputResults(results)
     except Exception as e:
-        logger.exception('error while processing events, exception="%s"', e)
+        logger.exception('event="command_error" command="%s" error="%s"', COMMAND_NAME, e)
         si.generateErrorResults(e)
         raise
     finally:
-        logger.info('exiting, execution duration=%s seconds', time.time() - eStart)
+        logger.info('event="command_end" command="%s" duration_sec="%.3f"', COMMAND_NAME, time.time() - eStart)
