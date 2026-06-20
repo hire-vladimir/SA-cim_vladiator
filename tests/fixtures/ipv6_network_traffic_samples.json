@@ -1,0 +1,26 @@
+[
+  {
+    "field": "src_ip",
+    "validation_mode": "ip_strict",
+    "validation_regex": "^[0-9A-Fa-f.:]+$",
+    "samples": ["fe80::7a45:58ff:fe84:37cb", "FE80::7A45:58FF:FE84:37CB", "fe80::1%eth0"]
+  },
+  {
+    "field": "dest_ip",
+    "validation_mode": "ip_strict",
+    "validation_regex": "^[0-9A-Fa-f.:]+$",
+    "samples": ["ff02::1", "ff02::fb", "192.168.1", "fe80::gabc"]
+  },
+  {
+    "field": "src",
+    "validation_mode": "ip_polymorphic",
+    "validation_regex": "^[\\w\\.:\\-%]+$",
+    "samples": ["ff02::1", "fe80::7a45:58ff:fe84:37cb", "fe80::1%eth0", "firewall01.corp.example", "10.0.0.5"]
+  },
+  {
+    "field": "dest",
+    "validation_mode": "ip_polymorphic",
+    "validation_regex": "^[\\w\\.:\\-%]+$",
+    "samples": ["10.0.0.1 trailing-junk", "ff02::1"]
+  }
+]

@@ -183,6 +183,18 @@ Say the compliance dashboard flagged the `action` field as having unexpected val
 
 This also works in reverse: set **Datamodel** to `Any` and **Field name** to `^src`, to see every data model that defines a field starting with `src` — handy when deciding where a new TA's fields should map.
 
+## Development verification
+
+Before cutting a release, run the unit test suite from the repository root:
+
+```bash
+python -m pytest tests/
+```
+
+CI runs the same command on every pull request before AppInspect.
+
+**Manual IPv6 smoke check (Network_Traffic):** On a search head with the app installed, open the CIM Compliance Dashboard, set search type to `_raw`, target datamodel to `Network_Traffic`, and run a search that includes IPv6 addresses. Confirm `src`, `dest`, `src_ip`, and `dest_ip` show `low!!!looking good!` for values such as `ff02::fb`, `ff02::1`, and `fe80::7a45:58ff:fe84:37cb`.
+
 ## Special Thanks
 
 Thank you to Lowell Alleman for python3 support, Annette Quach for UBA support.

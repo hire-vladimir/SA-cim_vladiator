@@ -32,8 +32,11 @@ jobs:
         with:
           python-version: "3.11"
 
-      - name: Install Splunk AppInspect
-        run: pip install splunk-appinspect
+      - name: Install test and inspect dependencies
+        run: pip install pytest splunk-appinspect
+
+      - name: Run unit tests
+        run: python -m pytest tests/
 
       - name: Derive version and app ID
         id: version
@@ -62,6 +65,8 @@ jobs:
             --exclude='.github' \
             --exclude='.gitignore' \
             --exclude='build' \
+            --exclude='tests' \
+            --exclude='docs/plans' \
             --exclude='*.spl' \
             ./ "build/${{ steps.version.outputs.app_id }}/"
 

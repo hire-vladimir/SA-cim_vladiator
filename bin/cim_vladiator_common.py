@@ -5,12 +5,15 @@ welcomeText = '''#
 # shared helpers for mvrex / mvmath custom search commands
 #
 '''
+import ipaddress
 import os
 import re
 import logging
 import logging.handlers
 
 LOG_LEVEL = logging.INFO
+MAX_SAMPLE_LENGTH = 512
+HOSTNAME_PATTERN = re.compile(r'^[\w\.-]+$')
 
 
 def configure_logger(log_file_name):
@@ -85,6 +88,54 @@ def option_enabled(argvals, arg, rex=None, is_bool=False):
     if (rex is None and arg in argvals) or (arg in argvals and re.match(rex, argvals[arg])):
         result = True
     return result
+
+
+def has_ip_shape(value):
+    """Return True when the value looks like IPv4/IPv6 notation rather than a hostname."""
+    if ':' in value:
+        return True
+    return bool(re.search(r'\d+\.\d', value))
+
+
+def validate_strict_ip(value):
+    """Return True when value is a parseable IPv4/IPv6 literal without zone suffix."""
+    if not isinstance(value, str):
+        return False
+    if value != value.strip():
+        return False
+    if '%' in value:
+        return False
+    try:
+        ipaddress.ip_address(value)
+        return True
+    except ValueError:
+        return False
+
+
+def validate_polymorphic_ip(value):
+    """Return True when value is a hostname or parseable IP (zone suffix allowed)."""
+    if not isinstance(value, str):
+        return False
+    if value != value.strip():
+        return False
+    if not has_ip_shape(value):
+        return bool(HOSTNAME_PATTERN.fullmatch(value))
+    return _parse_ip_with_optional_zone(value)
+
+
+def _parse_ip_with_optional_zone(value):
+    if value.count('%') > 1:
+        return False
+    if '%' in value:
+        host, zone = value.split('%', 1)
+        if not host or not zone.strip() or ' ' in host or ' ' in zone:
+            return False
+        value = host
+    try:
+        ipaddress.ip_address(value)
+        return True
+    except ValueError:
+        return False
 
 
 def safe_pct(numerator, denominator):
