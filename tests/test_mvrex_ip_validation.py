@@ -33,6 +33,18 @@ def test_non_ip_field_preserves_findall_semantics():
     assert row['mvrex_matched_count'] == 1
 
 
+def test_scalar_none_on_non_ip_field_does_not_raise():
+    row = {
+        'field': 'severity',
+        'datamodel': 'Network_Traffic',
+        'sample_values': None,
+        'validation_regex': r'^\d{1,5}$',
+    }
+    _process(row)
+    assert row['mvrex_matched_count'] == 0
+    assert row['mvrex_unmatched_count'] == 1
+
+
 def test_parseip_disabled_skips_stage2_on_ip_field():
     row = _row(['fe80::gabc', 'ff02::1'])
     _process(row, parseip='f')

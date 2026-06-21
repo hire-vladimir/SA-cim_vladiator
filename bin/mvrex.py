@@ -89,7 +89,9 @@ def process_mvrex_row(row, regex_field_key, sample_field, output_column_name, ar
                 [input_data] if _element_passes(regex, input_data, validation_mode) else []
             )
         else:
-            row[output_column_name + "_matches"] = re.findall(regex, input_data)
+            row[output_column_name + "_matches"] = re.findall(
+                regex, _normalize_sample_value(input_data)
+            )
 
         if option_enabled(argvals, "showunmatched", is_bool=True) and value_count(row[output_column_name + "_matches"]) == 0:
             row[output_column_name + "_unmatched"] = input_data
