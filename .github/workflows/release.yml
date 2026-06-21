@@ -36,6 +36,8 @@ jobs:
         run: pip install pytest splunk-appinspect
 
       - name: Run unit tests
+        env:
+          GITHUB_TOKEN: ""
         run: python -m pytest tests/
 
       - name: Derive version and app ID

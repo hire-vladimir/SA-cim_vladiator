@@ -46,9 +46,9 @@ def _normalize_sample_value(value):
 
 
 def _stage1_passes(regex, value, validation_mode):
-    if len(value) > MAX_SAMPLE_LENGTH:
-        return False
     if validation_mode in ('ip_strict', 'ip_polymorphic'):
+        if len(value) > MAX_SAMPLE_LENGTH:
+            return False
         return bool(re.fullmatch(regex, value))
     return bool(re.findall(regex, value))
 
