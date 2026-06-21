@@ -1,0 +1,47 @@
+{
+  "note": "IPv4-only samples; unmatched lists must not grow after IPv6 validation changes.",
+  "fields": [
+    {
+      "field": "src_ip",
+      "datamodel": "Network_Traffic",
+      "validation_regex": "^[0-9A-Fa-f.:]+$",
+      "samples": ["10.0.0.5", "192.168.1.10"],
+      "max_unmatched_count": 0
+    },
+    {
+      "field": "dest_ip",
+      "datamodel": "Network_Traffic",
+      "validation_regex": "^[0-9A-Fa-f.:]+$",
+      "samples": ["10.0.0.1", "172.16.0.1"],
+      "max_unmatched_count": 0
+    },
+    {
+      "field": "src",
+      "datamodel": "Network_Traffic",
+      "validation_regex": "^[\\w\\.:\\-%]+$",
+      "samples": ["10.0.0.5", "firewall01.corp.example"],
+      "max_unmatched_count": 0
+    },
+    {
+      "field": "dest",
+      "datamodel": "Network_Traffic",
+      "validation_regex": "^[\\w\\.:\\-%]+$",
+      "samples": ["10.0.0.1", "192.168.0.1"],
+      "max_unmatched_count": 0
+    },
+    {
+      "field": "dvc",
+      "datamodel": "Network_Traffic",
+      "validation_regex": "^[\\w\\.:\\-%]+$",
+      "samples": ["10.1.1.1", "router-core-01"],
+      "max_unmatched_count": 0
+    },
+    {
+      "field": "ip",
+      "datamodel": "UBA_Asset_Data",
+      "validation_regex": "^[0-9A-Fa-f.:]+$",
+      "samples": ["10.0.0.1", "192.168.0.1"],
+      "max_unmatched_count": 0
+    }
+  ]
+}

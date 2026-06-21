@@ -183,9 +183,22 @@ Say the compliance dashboard flagged the `action` field as having unexpected val
 
 This also works in reverse: set **Datamodel** to `Any` and **Field name** to `^src`, to see every data model that defines a field starting with `src` — handy when deciding where a new TA's fields should map.
 
+## Advanced Configuration
+
+**IPv4/IPv6 field validation** is enabled by default. IP-classified fields (`*_ip`, `src`, `dest`, `dvc`, and `UBA_Asset_Data.ip`) are validated in two stages: a regex shape check followed by a strict parse using Python's `ipaddress` module. This correctly accepts valid IPv6 addresses and rejects junk values like partial IPs or hostnames in strict IP fields.
+
+To revert to legacy regex-only behavior, override the macro in `local/macros.conf`:
+
+```ini
+[cim_vladiator_parse_ip_validation]
+definition = false
+```
+
+When set to `false`, only the regex pre-filter runs. Partial IP matches that satisfy the regex pattern may pass validation.
+
 ## Special Thanks
 
-Thank you to Lowell Alleman for python3 support, Annette Quach for UBA support.
+Thank you to Lowell Alleman for python3 support, Annette Quach for UBA support, and Vincent Lape for IPv6 field validation.
 
 ## Legal
 
