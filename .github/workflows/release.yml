@@ -69,6 +69,8 @@ jobs:
             --exclude='build' \
             --exclude='tests' \
             --exclude='docs/plans' \
+            --exclude='.pytest_cache' \
+            --exclude='__pycache__' \
             --exclude='*.spl' \
             ./ "build/${{ steps.version.outputs.app_id }}/"
 
