@@ -183,30 +183,22 @@ Say the compliance dashboard flagged the `action` field as having unexpected val
 
 This also works in reverse: set **Datamodel** to `Any` and **Field name** to `^src`, to see every data model that defines a field starting with `src` — handy when deciding where a new TA's fields should map.
 
-## Development verification
+## Advanced Configuration
 
-Before cutting a release, run the unit test suite from the repository root:
+**IPv4/IPv6 field validation** is enabled by default. IP-classified fields (`*_ip`, `src`, `dest`, `dvc`, and `UBA_Asset_Data.ip`) are validated in two stages: a regex shape check followed by a strict parse using Python's `ipaddress` module. This correctly accepts valid IPv6 addresses and rejects junk values like partial IPs or hostnames in strict IP fields.
 
-```bash
-python -m pytest tests/
-```
-
-CI runs the same command on every pull request before AppInspect.
-
-**Parse IP validation macro:** Two-stage IPv4/IPv6 validation is controlled by the `cim_vladiator_parse_ip_validation` macro (default `true`). To disable semantic IP parsing and use regex-only validation, override in `local/macros.conf`:
+To revert to legacy regex-only behavior, override the macro in `local/macros.conf`:
 
 ```ini
 [cim_vladiator_parse_ip_validation]
 definition = false
 ```
 
-When disabled, IP-classified fields (`*_ip`, `src`, `dest`, `dvc`, and `UBA_Asset_Data.ip`) revert to legacy `re.findall` regex matching for stage-1 and skip stage-2 `ipaddress` parsing. Junk rejection is weaker without the parse stage — partial IPs that match the lookup regex may pass. See `CONCEPTS.md` for derived IP validation mode details.
-
-**Manual IPv6 smoke check (Network_Traffic):** On a search head with the app installed, open the CIM Compliance Dashboard, set search type to `_raw`, target datamodel to `Network_Traffic`, and run a search that includes IPv6 addresses. Confirm `src`, `dest`, `src_ip`, and `dest_ip` show `low!!!looking good!` for values such as `ff02::fb`, `ff02::1`, and `fe80::7a45:58ff:fe84:37cb`.
+When set to `false`, only the regex pre-filter runs. Partial IP matches that satisfy the regex pattern may pass validation.
 
 ## Special Thanks
 
-Thank you to Lowell Alleman for python3 support, Annette Quach for UBA support.
+Thank you to Lowell Alleman for python3 support, Annette Quach for UBA support, and Vincent Lape for IPv6 field validation.
 
 ## Legal
 
