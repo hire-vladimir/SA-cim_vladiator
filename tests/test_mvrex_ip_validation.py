@@ -1,5 +1,3 @@
-import pytest
-
 from mvrex import process_mvrex_row
 
 
