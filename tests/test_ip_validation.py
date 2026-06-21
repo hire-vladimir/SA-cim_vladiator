@@ -1,6 +1,6 @@
 import pytest
 
-from cim_vladiator_common import validate_strict_ip, validate_polymorphic_ip
+from cim_vladiator_common import validate_strict_ip, validate_polymorphic_ip, derive_validation_mode
 
 
 @pytest.mark.parametrize(
@@ -48,7 +48,6 @@ def test_polymorphic_accepts_ipv6_and_zone_suffix():
     assert validate_polymorphic_ip('ff02::1') is True
     assert validate_polymorphic_ip('fe80::7a45:58ff:fe84:37cb') is True
     assert validate_polymorphic_ip('fe80::1%eth0') is True
-    assert validate_polymorphic_ip('fe80::1%eth0') is True  # dest per R5a
 
 
 @pytest.mark.parametrize(
@@ -63,7 +62,36 @@ def test_polymorphic_rejects_junk_and_partial_ip(value):
     assert validate_polymorphic_ip(value) is False
 
 
+@pytest.mark.parametrize(
+    'value',
+    [
+        'router-v2.5.1',
+    ],
+)
+def test_polymorphic_rejects_dotted_hostname_ip_shape_misclassification(value):
+    """Dotted hostnames match has_ip_shape heuristic and fail IP parse (accepted limitation)."""
+    assert validate_polymorphic_ip(value) is False
+
+
 def test_polymorphic_dvc_cases():
     assert validate_polymorphic_ip('10.1.1.1') is True
     assert validate_polymorphic_ip('router-core-01') is True
     assert validate_polymorphic_ip('10.1.1.1 junk') is False
+
+
+@pytest.mark.parametrize(
+    'field,datamodel,enabled,expected',
+    [
+        ('src_ip', 'Network_Traffic', True, 'ip_strict'),
+        ('dest_ip', 'Network_Traffic', True, 'ip_strict'),
+        ('src', 'Network_Traffic', True, 'ip_polymorphic'),
+        ('dest', 'Network_Traffic', True, 'ip_polymorphic'),
+        ('dvc', 'Network_Traffic', True, 'ip_polymorphic'),
+        ('ip', 'UBA_Asset_Data', True, 'ip_strict'),
+        ('src_ip', 'Network_Traffic', False, ''),
+        ('severity', 'Network_Traffic', True, ''),
+        ('ip', 'Network_Traffic', True, ''),
+    ],
+)
+def test_derive_validation_mode(field, datamodel, enabled, expected):
+    assert derive_validation_mode(field, datamodel, enabled) == expected

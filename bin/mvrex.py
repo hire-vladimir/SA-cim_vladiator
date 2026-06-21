@@ -15,6 +15,7 @@ from cim_vladiator_common import (
     option_enabled,
     validate_strict_ip,
     validate_polymorphic_ip,
+    derive_validation_mode,
     MAX_SAMPLE_LENGTH,
 )
 
@@ -24,7 +25,7 @@ from cim_vladiator_common import (
 LOG_FILE_NAME = "mvrex.log"
 COMMAND_NAME = "mvrex"
 
-ALLOWED_OPTIONS = ['debug', 'field', 'showunmatched', 'prefix', 'showcount', 'labelfield']
+ALLOWED_OPTIONS = ['debug', 'field', 'showunmatched', 'prefix', 'showcount', 'labelfield', 'parseip']
 MANDATORY_OPTIONS = ['field']
 
 
@@ -36,9 +37,15 @@ def _stage2_passes(value, validation_mode):
     return True
 
 
-def _stage1_passes(regex, value, validation_mode):
+def _normalize_sample_value(value):
+    if value is None:
+        return ''
     if not isinstance(value, str):
-        value = '' if value is None else str(value)
+        return str(value)
+    return value
+
+
+def _stage1_passes(regex, value, validation_mode):
     if len(value) > MAX_SAMPLE_LENGTH:
         return False
     if validation_mode in ('ip_strict', 'ip_polymorphic'):
@@ -47,6 +54,7 @@ def _stage1_passes(regex, value, validation_mode):
 
 
 def _element_passes(regex, value, validation_mode):
+    value = _normalize_sample_value(value)
     if not _stage1_passes(regex, value, validation_mode):
         return False
     if validation_mode in ('ip_strict', 'ip_polymorphic'):
@@ -59,7 +67,12 @@ def process_mvrex_row(row, regex_field_key, sample_field, output_column_name, ar
     if regex_field_key in row:
         regex = row[regex_field_key]
 
-    validation_mode = (row.get('validation_mode') or '').strip()
+    parse_enabled = option_enabled(argvals, 'parseip', is_bool=True)
+    validation_mode = derive_validation_mode(
+        row.get('field', ''),
+        row.get('datamodel', ''),
+        parse_enabled,
+    )
     input_data = row.get(sample_field, '')
 
     if isinstance(input_data, list):

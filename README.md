@@ -193,6 +193,15 @@ python -m pytest tests/
 
 CI runs the same command on every pull request before AppInspect.
 
+**Parse IP validation macro:** Two-stage IPv4/IPv6 validation is controlled by the `cim_vladiator_parse_ip_validation` macro (default `true`). To disable semantic IP parsing and use regex-only validation, override in `local/macros.conf`:
+
+```ini
+[cim_vladiator_parse_ip_validation]
+definition = false
+```
+
+When disabled, IP-classified fields (`*_ip`, `src`, `dest`, `dvc`, and `UBA_Asset_Data.ip`) revert to legacy `re.findall` regex matching for stage-1 and skip stage-2 `ipaddress` parsing. Junk rejection is weaker without the parse stage — partial IPs that match the lookup regex may pass. See `CONCEPTS.md` for derived IP validation mode details.
+
 **Manual IPv6 smoke check (Network_Traffic):** On a search head with the app installed, open the CIM Compliance Dashboard, set search type to `_raw`, target datamodel to `Network_Traffic`, and run a search that includes IPv6 addresses. Confirm `src`, `dest`, `src_ip`, and `dest_ip` show `low!!!looking good!` for values such as `ff02::fb`, `ff02::1`, and `fe80::7a45:58ff:fe84:37cb`.
 
 ## Special Thanks

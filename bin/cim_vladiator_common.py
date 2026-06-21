@@ -15,6 +15,25 @@ LOG_LEVEL = logging.INFO
 MAX_SAMPLE_LENGTH = 512
 HOSTNAME_PATTERN = re.compile(r'^[\w\.-]+$')
 
+# IP field classification for two-stage mvrex validation. Keys mirror shipped
+# cim_validator_field_regex.csv rows; customer CSV overrides are not validated here.
+IP_CLASSIFICATION_CONTRACT = {
+    'strict_suffix': '_ip',
+    'strict_datamodel_fields': {('UBA_Asset_Data', 'ip')},
+    'polymorphic_fields': frozenset({'src', 'dest', 'dvc'}),
+    'csv_ip_rows': {
+        ('*', '*_ip'): 'strict_hex',
+        ('*', 'src'): 'polymorphic_word',
+        ('*', 'dest'): 'polymorphic_word',
+        ('*', 'dvc'): 'polymorphic_word',
+        ('UBA_Asset_Data', 'ip'): 'strict_hex',
+    },
+    'regex_families': {
+        'strict_hex': r'^[0-9A-Fa-f.:]+$',
+        'polymorphic_word': r'^[\w\.:\-%]+$',
+    },
+}
+
 
 def configure_logger(log_file_name):
     """Set up a logger that writes to $SPLUNK_HOME/var/log/splunk/<log_file_name>.
@@ -91,7 +110,11 @@ def option_enabled(argvals, arg, rex=None, is_bool=False):
 
 
 def has_ip_shape(value):
-    """Return True when the value looks like IPv4/IPv6 notation rather than a hostname."""
+    """Return True when the value looks like IPv4/IPv6 notation rather than a hostname.
+
+    Dotted hostnames such as ``router-v2.5.1`` are treated as IP-shaped because of
+    the ``\\d+\\.\\d`` heuristic; polymorphic validation then rejects them at parse.
+    """
     if ':' in value:
         return True
     return bool(re.search(r'\d+\.\d', value))
@@ -121,6 +144,21 @@ def validate_polymorphic_ip(value):
     if not has_ip_shape(value):
         return bool(HOSTNAME_PATTERN.fullmatch(value))
     return _parse_ip_with_optional_zone(value)
+
+
+def derive_validation_mode(field, datamodel, enabled):
+    """Return ip_strict, ip_polymorphic, or empty when parse validation is off or field is not IP-classified."""
+    if not enabled:
+        return ''
+    if not isinstance(field, str):
+        return ''
+    datamodel = datamodel or ''
+    contract = IP_CLASSIFICATION_CONTRACT
+    if field.endswith(contract['strict_suffix']) or (datamodel, field) in contract['strict_datamodel_fields']:
+        return 'ip_strict'
+    if field in contract['polymorphic_fields']:
+        return 'ip_polymorphic'
+    return ''
 
 
 def _parse_ip_with_optional_zone(value):
