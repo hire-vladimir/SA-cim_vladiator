@@ -1,0 +1,28 @@
+{
+    "schemaVersion": "2.0.0",
+    "targetWorkloads": [
+        "_search_heads"
+    ],
+    "supportedDeployments": [
+        "_standalone",
+        "_distributed",
+        "_search_head_clustering"
+    ],
+    "platformRequirements": {
+        "splunk": {
+            "Enterprise": "10.0+",
+            "Cloud": "10.0+"
+        }
+    },
+    "info": {
+        "title": "CIM Vladiator",
+        "description": "CIM Vladiator validates Splunk Common Information Model compliance field-by-field for technology add-ons and bundled UBA data models. Install on a search head only; no data model acceleration is required. Point the CIM Compliance Dashboard at your data to find missing fields and value mismatches against CIM expectations.",
+        "id": {
+            "name": "SA-cim_vladiator",
+            "version": "%%VERSION%%"
+        },
+        "license": {
+            "text": "LICENSE"
+        }
+    }
+}

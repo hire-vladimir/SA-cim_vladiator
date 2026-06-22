@@ -1,5 +1,5 @@
 []
-access = read : [ * ], write : [ admin, power ]
+access = read : [ * ], write : [ admin, sc_admin, power ]
 export = none
 
 # does not need to be gloabl
